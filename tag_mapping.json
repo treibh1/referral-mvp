@@ -1,0 +1,40 @@
+{
+  "function_map": {
+    "engineer": "Engineering",
+    "developer": "Engineering",
+    "software": "Engineering",
+    "data": "Data",
+    "product": "Product",
+    "design": "Design",
+    "ux": "Design",
+    "ui": "Design",
+    "sales": "Sales",
+    "marketing": "Marketing",
+    "finance": "Finance",
+    "operations": "Operations",
+    "hr": "HR",
+    "talent": "HR",
+    "legal": "Legal",
+    "accountant": "Finance",
+    "customer": "Customer Success"
+  },
+  "seniority_map": {
+    "intern": "Intern",
+    "junior": "Junior",
+    "jr": "Junior",
+    "associate": "Junior",
+    "mid": "Mid",
+    "senior": "Senior",
+    "sr": "Senior",
+    "lead": "Lead",
+    "manager": "Lead",
+    "head": "Director",
+    "director": "Director",
+    "vp": "VP",
+    "president": "VP",
+    "chief": "C-level",
+    "ceo": "C-level",
+    "cto": "C-level",
+    "cfo": "C-level"
+  }
+}

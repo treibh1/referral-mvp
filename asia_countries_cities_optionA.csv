@@ -1,0 +1,246 @@
+region_type,region_name,city_name,city_ascii,rank_by_population_in_region,is_capital
+COUNTRY,Afghanistan,Kabul,Kabul,1.0,True
+COUNTRY,Afghanistan,Kandahar,Kandahar,2.0,False
+COUNTRY,Afghanistan,Herat,Herat,3.0,False
+COUNTRY,Afghanistan,Mazar-i-Sharif,Mazar-i-Sharif,4.0,False
+COUNTRY,Afghanistan,Jalalabad,Jalalabad,5.0,False
+COUNTRY,Armenia,Yerevan,Yerevan,1.0,True
+COUNTRY,Armenia,Gyumri,Gyumri,2.0,False
+COUNTRY,Armenia,Vanadzor,Vanadzor,3.0,False
+COUNTRY,Armenia,Vagharshapat,Vagharshapat,4.0,False
+COUNTRY,Armenia,Hrazdan,Hrazdan,5.0,False
+COUNTRY,Azerbaijan,Baku,Baku,1.0,True
+COUNTRY,Azerbaijan,Ganja,Ganja,2.0,False
+COUNTRY,Azerbaijan,Sumqayit,Sumqayit,3.0,False
+COUNTRY,Azerbaijan,Lankaran,Lankaran,4.0,False
+COUNTRY,Azerbaijan,Mingachevir,Mingachevir,5.0,False
+COUNTRY,Bahrain,Manama,Manama,1.0,True
+COUNTRY,Bahrain,Riffa,Riffa,2.0,False
+COUNTRY,Bahrain,Muharraq,Muharraq,3.0,False
+COUNTRY,Bahrain,Hamad Town,Hamad Town,4.0,False
+COUNTRY,Bahrain,Isa Town,Isa Town,5.0,False
+COUNTRY,Bangladesh,Dhaka,Dhaka,1.0,True
+COUNTRY,Bangladesh,Chittagong,Chittagong,2.0,False
+COUNTRY,Bangladesh,Khulna,Khulna,3.0,False
+COUNTRY,Bangladesh,Rajshahi,Rajshahi,4.0,False
+COUNTRY,Bangladesh,Sylhet,Sylhet,5.0,False
+COUNTRY,Bhutan,Thimphu,Thimphu,1.0,True
+COUNTRY,Bhutan,Phuentsholing,Phuentsholing,2.0,False
+COUNTRY,Bhutan,Gelephu,Gelephu,3.0,False
+COUNTRY,Bhutan,Samtse,Samtse,4.0,False
+COUNTRY,Bhutan,Paro,Paro,5.0,False
+COUNTRY,Brunei,Bandar Seri Begawan,Bandar Seri Begawan,1.0,True
+COUNTRY,Brunei,Kuala Belait,Kuala Belait,2.0,False
+COUNTRY,Brunei,Seria,Seria,3.0,False
+COUNTRY,Brunei,Tutong,Tutong,4.0,False
+COUNTRY,Brunei,Bangar,Bangar,5.0,False
+COUNTRY,Cambodia,Phnom Penh,Phnom Penh,1.0,True
+COUNTRY,Cambodia,Siem Reap,Siem Reap,2.0,False
+COUNTRY,Cambodia,Battambang,Battambang,3.0,False
+COUNTRY,Cambodia,Sihanoukville,Sihanoukville,4.0,False
+COUNTRY,Cambodia,Poipet,Poipet,5.0,False
+COUNTRY,China,Shanghai,Shanghai,1.0,False
+COUNTRY,China,Beijing,Beijing,2.0,True
+COUNTRY,China,Chongqing,Chongqing,3.0,False
+COUNTRY,China,Tianjin,Tianjin,4.0,False
+COUNTRY,China,Guangzhou,Guangzhou,5.0,False
+COUNTRY,Cyprus,Nicosia,Nicosia,1.0,True
+COUNTRY,Cyprus,Limassol,Limassol,2.0,False
+COUNTRY,Cyprus,Larnaca,Larnaca,3.0,False
+COUNTRY,Cyprus,Paphos,Paphos,4.0,False
+COUNTRY,Cyprus,Famagusta,Famagusta,5.0,False
+COUNTRY,Georgia,Tbilisi,Tbilisi,1.0,True
+COUNTRY,Georgia,Batumi,Batumi,2.0,False
+COUNTRY,Georgia,Kutaisi,Kutaisi,3.0,False
+COUNTRY,Georgia,Rustavi,Rustavi,4.0,False
+COUNTRY,Georgia,Zugdidi,Zugdidi,5.0,False
+COUNTRY,India,Mumbai,Mumbai,1.0,False
+COUNTRY,India,Delhi,Delhi,2.0,False
+COUNTRY,India,Bengaluru,Bengaluru,3.0,False
+COUNTRY,India,Hyderabad,Hyderabad,4.0,False
+COUNTRY,India,Ahmedabad,Ahmedabad,5.0,False
+COUNTRY,India,New Delhi,New Delhi,,True
+COUNTRY,Indonesia,Jakarta,Jakarta,1.0,True
+COUNTRY,Indonesia,Surabaya,Surabaya,2.0,False
+COUNTRY,Indonesia,Bandung,Bandung,3.0,False
+COUNTRY,Indonesia,Medan,Medan,4.0,False
+COUNTRY,Indonesia,Bekasi,Bekasi,5.0,False
+COUNTRY,Iran,Tehran,Tehran,1.0,True
+COUNTRY,Iran,Mashhad,Mashhad,2.0,False
+COUNTRY,Iran,Isfahan,Isfahan,3.0,False
+COUNTRY,Iran,Karaj,Karaj,4.0,False
+COUNTRY,Iran,Shiraz,Shiraz,5.0,False
+COUNTRY,Iraq,Baghdad,Baghdad,1.0,True
+COUNTRY,Iraq,Basra,Basra,2.0,False
+COUNTRY,Iraq,Mosul,Mosul,3.0,False
+COUNTRY,Iraq,Erbil,Erbil,4.0,False
+COUNTRY,Iraq,Sulaymaniyah,Sulaymaniyah,5.0,False
+COUNTRY,Israel,Jerusalem,Jerusalem,1.0,True
+COUNTRY,Israel,Tel Aviv,Tel Aviv,2.0,False
+COUNTRY,Israel,Haifa,Haifa,3.0,False
+COUNTRY,Israel,Rishon LeZion,Rishon LeZion,4.0,False
+COUNTRY,Israel,Petah Tikva,Petah Tikva,5.0,False
+COUNTRY,Japan,Tokyo,Tokyo,1.0,True
+COUNTRY,Japan,Yokohama,Yokohama,2.0,False
+COUNTRY,Japan,Osaka,Osaka,3.0,False
+COUNTRY,Japan,Nagoya,Nagoya,4.0,False
+COUNTRY,Japan,Sapporo,Sapporo,5.0,False
+COUNTRY,Jordan,Amman,Amman,1.0,True
+COUNTRY,Jordan,Zarqa,Zarqa,2.0,False
+COUNTRY,Jordan,Irbid,Irbid,3.0,False
+COUNTRY,Jordan,Russeifa,Russeifa,4.0,False
+COUNTRY,Jordan,Aqaba,Aqaba,5.0,False
+COUNTRY,Kazakhstan,Almaty,Almaty,1.0,False
+COUNTRY,Kazakhstan,Astana,Astana,2.0,True
+COUNTRY,Kazakhstan,Shymkent,Shymkent,3.0,False
+COUNTRY,Kazakhstan,Karaganda,Karaganda,4.0,False
+COUNTRY,Kazakhstan,Aktobe,Aktobe,5.0,False
+COUNTRY,Kuwait,Kuwait City,Kuwait City,1.0,True
+COUNTRY,Kuwait,Al Ahmadi,Al Ahmadi,2.0,False
+COUNTRY,Kuwait,Hawalli,Hawalli,3.0,False
+COUNTRY,Kuwait,Farwaniya,Farwaniya,4.0,False
+COUNTRY,Kuwait,Jahra,Jahra,5.0,False
+COUNTRY,Kyrgyzstan,Bishkek,Bishkek,1.0,True
+COUNTRY,Kyrgyzstan,Osh,Osh,2.0,False
+COUNTRY,Kyrgyzstan,Jalal-Abad,Jalal-Abad,3.0,False
+COUNTRY,Kyrgyzstan,Karakol,Karakol,4.0,False
+COUNTRY,Kyrgyzstan,Tokmok,Tokmok,5.0,False
+COUNTRY,Laos,Vientiane,Vientiane,1.0,True
+COUNTRY,Laos,Savannakhet,Savannakhet,2.0,False
+COUNTRY,Laos,Pakse,Pakse,3.0,False
+COUNTRY,Laos,Luang Prabang,Luang Prabang,4.0,False
+COUNTRY,Laos,Thakhek,Thakhek,5.0,False
+COUNTRY,Lebanon,Beirut,Beirut,1.0,True
+COUNTRY,Lebanon,Tripoli,Tripoli,2.0,False
+COUNTRY,Lebanon,Sidon,Sidon,3.0,False
+COUNTRY,Lebanon,Tyre,Tyre,4.0,False
+COUNTRY,Lebanon,Zahle,Zahle,5.0,False
+COUNTRY,Malaysia,Kuala Lumpur,Kuala Lumpur,1.0,True
+COUNTRY,Malaysia,George Town,George Town,2.0,False
+COUNTRY,Malaysia,Johor Bahru,Johor Bahru,3.0,False
+COUNTRY,Malaysia,Ipoh,Ipoh,4.0,False
+COUNTRY,Malaysia,Shah Alam,Shah Alam,5.0,False
+COUNTRY,Maldives,Malé,Male,1.0,True
+COUNTRY,Maldives,Addu City,Addu City,2.0,False
+COUNTRY,Maldives,Fuvahmulah,Fuvahmulah,3.0,False
+COUNTRY,Maldives,Hithadhoo,Hithadhoo,4.0,False
+COUNTRY,Maldives,Kulhudhuffushi,Kulhudhuffushi,5.0,False
+COUNTRY,Mongolia,Ulaanbaatar,Ulaanbaatar,1.0,True
+COUNTRY,Mongolia,Erdenet,Erdenet,2.0,False
+COUNTRY,Mongolia,Darkhan,Darkhan,3.0,False
+COUNTRY,Mongolia,Choibalsan,Choibalsan,4.0,False
+COUNTRY,Mongolia,Mörön,Moron,5.0,False
+COUNTRY,Myanmar,Yangon,Yangon,1.0,False
+COUNTRY,Myanmar,Mandalay,Mandalay,2.0,False
+COUNTRY,Myanmar,Naypyidaw,Naypyidaw,3.0,True
+COUNTRY,Myanmar,Bago,Bago,4.0,False
+COUNTRY,Myanmar,Mawlamyine,Mawlamyine,5.0,False
+COUNTRY,Nepal,Kathmandu,Kathmandu,1.0,True
+COUNTRY,Nepal,Pokhara,Pokhara,2.0,False
+COUNTRY,Nepal,Lalitpur,Lalitpur,3.0,False
+COUNTRY,Nepal,Biratnagar,Biratnagar,4.0,False
+COUNTRY,Nepal,Birgunj,Birgunj,5.0,False
+COUNTRY,North Korea,Pyongyang,Pyongyang,1.0,True
+COUNTRY,North Korea,Hamhung,Hamhung,2.0,False
+COUNTRY,North Korea,Chongjin,Chongjin,3.0,False
+COUNTRY,North Korea,Nampo,Nampo,4.0,False
+COUNTRY,North Korea,Wonsan,Wonsan,5.0,False
+COUNTRY,Oman,Muscat,Muscat,1.0,True
+COUNTRY,Oman,Seeb,Seeb,2.0,False
+COUNTRY,Oman,Sohar,Sohar,3.0,False
+COUNTRY,Oman,Salalah,Salalah,4.0,False
+COUNTRY,Oman,Bawshar,Bawshar,5.0,False
+COUNTRY,Pakistan,Karachi,Karachi,1.0,False
+COUNTRY,Pakistan,Lahore,Lahore,2.0,False
+COUNTRY,Pakistan,Faisalabad,Faisalabad,3.0,False
+COUNTRY,Pakistan,Rawalpindi,Rawalpindi,4.0,False
+COUNTRY,Pakistan,Gujranwala,Gujranwala,5.0,False
+COUNTRY,Pakistan,Islamabad,Islamabad,,True
+COUNTRY,Palestine,Gaza,Gaza,1.0,False
+COUNTRY,Palestine,Hebron,Hebron,2.0,False
+COUNTRY,Palestine,Nablus,Nablus,3.0,False
+COUNTRY,Palestine,Rafah,Rafah,4.0,False
+COUNTRY,Palestine,Khan Yunis,Khan Yunis,5.0,False
+COUNTRY,Palestine,Ramallah,Ramallah,,True
+COUNTRY,Philippines,Quezon City,Quezon City,1.0,False
+COUNTRY,Philippines,Manila,Manila,2.0,True
+COUNTRY,Philippines,Davao City,Davao City,3.0,False
+COUNTRY,Philippines,Caloocan,Caloocan,4.0,False
+COUNTRY,Philippines,Cebu City,Cebu City,5.0,False
+COUNTRY,Qatar,Doha,Doha,1.0,True
+COUNTRY,Qatar,Al Rayyan,Al Rayyan,2.0,False
+COUNTRY,Qatar,Umm Salal,Umm Salal,3.0,False
+COUNTRY,Qatar,Al Wakrah,Al Wakrah,4.0,False
+COUNTRY,Qatar,Al Khor,Al Khor,5.0,False
+COUNTRY,Saudi Arabia,Riyadh,Riyadh,1.0,True
+COUNTRY,Saudi Arabia,Jeddah,Jeddah,2.0,False
+COUNTRY,Saudi Arabia,Mecca,Mecca,3.0,False
+COUNTRY,Saudi Arabia,Medina,Medina,4.0,False
+COUNTRY,Saudi Arabia,Dammam,Dammam,5.0,False
+COUNTRY,Singapore,Singapore,Singapore,1.0,True
+COUNTRY,South Korea,Seoul,Seoul,1.0,True
+COUNTRY,South Korea,Busan,Busan,2.0,False
+COUNTRY,South Korea,Incheon,Incheon,3.0,False
+COUNTRY,South Korea,Daegu,Daegu,4.0,False
+COUNTRY,South Korea,Daejeon,Daejeon,5.0,False
+COUNTRY,Sri Lanka,Colombo,Colombo,1.0,False
+COUNTRY,Sri Lanka,Negombo,Negombo,2.0,False
+COUNTRY,Sri Lanka,Kandy,Kandy,3.0,False
+COUNTRY,Sri Lanka,Galle,Galle,4.0,False
+COUNTRY,Sri Lanka,Jaffna,Jaffna,5.0,False
+COUNTRY,Sri Lanka,Sri Jayawardenepura Kotte,Sri Jayawardenepura Kotte,,True
+COUNTRY,Syria,Damascus,Damascus,1.0,True
+COUNTRY,Syria,Aleppo,Aleppo,2.0,False
+COUNTRY,Syria,Homs,Homs,3.0,False
+COUNTRY,Syria,Hama,Hama,4.0,False
+COUNTRY,Syria,Latakia,Latakia,5.0,False
+COUNTRY,Taiwan,New Taipei,New Taipei,1.0,False
+COUNTRY,Taiwan,Kaohsiung,Kaohsiung,2.0,False
+COUNTRY,Taiwan,Taichung,Taichung,3.0,False
+COUNTRY,Taiwan,Taipei,Taipei,4.0,True
+COUNTRY,Taiwan,Tainan,Tainan,5.0,False
+COUNTRY,Tajikistan,Dushanbe,Dushanbe,1.0,True
+COUNTRY,Tajikistan,Khujand,Khujand,2.0,False
+COUNTRY,Tajikistan,Kulob,Kulob,3.0,False
+COUNTRY,Tajikistan,Qurghonteppa,Qurghonteppa,4.0,False
+COUNTRY,Tajikistan,Istaravshan,Istaravshan,5.0,False
+COUNTRY,Thailand,Bangkok,Bangkok,1.0,True
+COUNTRY,Thailand,Nonthaburi,Nonthaburi,2.0,False
+COUNTRY,Thailand,Nakhon Ratchasima,Nakhon Ratchasima,3.0,False
+COUNTRY,Thailand,Chiang Mai,Chiang Mai,4.0,False
+COUNTRY,Thailand,Hat Yai,Hat Yai,5.0,False
+COUNTRY,Timor-Leste,Dili,Dili,1.0,True
+COUNTRY,Timor-Leste,Baucau,Baucau,2.0,False
+COUNTRY,Timor-Leste,Maliana,Maliana,3.0,False
+COUNTRY,Timor-Leste,Suai,Suai,4.0,False
+COUNTRY,Timor-Leste,Lospalos,Lospalos,5.0,False
+COUNTRY,Turkey,Istanbul,Istanbul,1.0,False
+COUNTRY,Turkey,Ankara,Ankara,2.0,True
+COUNTRY,Turkey,Izmir,Izmir,3.0,False
+COUNTRY,Turkey,Bursa,Bursa,4.0,False
+COUNTRY,Turkey,Antalya,Antalya,5.0,False
+COUNTRY,Turkmenistan,Ashgabat,Ashgabat,1.0,True
+COUNTRY,Turkmenistan,Türkmenabat,Turkmenabat,2.0,False
+COUNTRY,Turkmenistan,Daşoguz,Dasoguz,3.0,False
+COUNTRY,Turkmenistan,Mary,Mary,4.0,False
+COUNTRY,Turkmenistan,Balkanabat,Balkanabat,5.0,False
+COUNTRY,United Arab Emirates,Dubai,Dubai,1.0,False
+COUNTRY,United Arab Emirates,Abu Dhabi,Abu Dhabi,2.0,True
+COUNTRY,United Arab Emirates,Sharjah,Sharjah,3.0,False
+COUNTRY,United Arab Emirates,Al Ain,Al Ain,4.0,False
+COUNTRY,United Arab Emirates,Ajman,Ajman,5.0,False
+COUNTRY,Uzbekistan,Tashkent,Tashkent,1.0,True
+COUNTRY,Uzbekistan,Namangan,Namangan,2.0,False
+COUNTRY,Uzbekistan,Samarkand,Samarkand,3.0,False
+COUNTRY,Uzbekistan,Andijan,Andijan,4.0,False
+COUNTRY,Uzbekistan,Bukhara,Bukhara,5.0,False
+COUNTRY,Vietnam,Ho Chi Minh City,Ho Chi Minh City,1.0,False
+COUNTRY,Vietnam,Hanoi,Hanoi,2.0,True
+COUNTRY,Vietnam,Haiphong,Haiphong,3.0,False
+COUNTRY,Vietnam,Da Nang,Da Nang,4.0,False
+COUNTRY,Vietnam,Can Tho,Can Tho,5.0,False
+COUNTRY,Yemen,Sana'a,Sana'a,1.0,True
+COUNTRY,Yemen,Aden,Aden,2.0,False
+COUNTRY,Yemen,Taiz,Taiz,3.0,False
+COUNTRY,Yemen,Hudaydah,Hudaydah,4.0,False
+COUNTRY,Yemen,Ibb,Ibb,5.0,False

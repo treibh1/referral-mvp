@@ -1,0 +1,428 @@
+{
+  "metadata": {
+    "batch_name": "batch_001_of_045_rows_151-200",
+    "start_idx": 150,
+    "end_idx": 200,
+    "timestamp": "2025-08-16T11:58:27.278413",
+    "successful": 14,
+    "failed": 36,
+    "skipped": 0,
+    "success_rate": "28.0%"
+  },
+  "results": [
+    {
+      "row_number": 151,
+      "full_name": "Emma Cohen",
+      "company": "Department for Business and Trade",
+      "location_found": true,
+      "location_raw": "Hove",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 152,
+      "full_name": "Eva Rodriguez-Resse",
+      "company": "WPP",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 153,
+      "full_name": "Camilla Laurén",
+      "company": "StickerApp",
+      "location_found": true,
+      "location_raw": "Greater Malmö Metropolitan Area",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 154,
+      "full_name": "Lina Balciunaite 🇱🇹💙💛",
+      "company": "Self-employed",
+      "location_found": true,
+      "location_raw": "Munich",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 155,
+      "full_name": "Aleksandra Melnikova",
+      "company": "Cosmic Velocity",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 156,
+      "full_name": "Andreea Carla Buzea",
+      "company": "buz design",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 157,
+      "full_name": "Neil Barnfather MBE",
+      "company": "GoodMaps",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 158,
+      "full_name": "Claudia Ribeiro",
+      "company": "Deloitte Digital",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 159,
+      "full_name": "Fiona MacNeill",
+      "company": "Macknowlogist Ltd",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 160,
+      "full_name": "Leah Anidi-Ryz",
+      "company": "Entain",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 161,
+      "full_name": "Cormac Chisholm",
+      "company": "DevAlly",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 162,
+      "full_name": "Tyler Tai",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 163,
+      "full_name": "Michael Thomas Barker-Nikandrova",
+      "company": "Freelance",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 164,
+      "full_name": "Hannah Pilbeam",
+      "company": "Self-employed",
+      "location_found": true,
+      "location_raw": "Whitfield",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 165,
+      "full_name": "Sumit Oswal",
+      "company": "NCS Group",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 166,
+      "full_name": "Mark Behncke",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Madison",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 167,
+      "full_name": "Taylor Arndt",
+      "company": "Techopolis Online Solutions, LLC",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 168,
+      "full_name": "Sophie Lecky",
+      "company": "Sussex Community NHS Foundation Trust",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 169,
+      "full_name": "Gavin Sumner",
+      "company": "Scalewise",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 170,
+      "full_name": "♿️ Charlie Morton",
+      "company": "Enablement Consultancy",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 171,
+      "full_name": "Manju Bhargavi Chaganti",
+      "company": "OneTrust",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 172,
+      "full_name": "Andy Winsey-Thomas",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 173,
+      "full_name": "Sean Randall",
+      "company": "BT Group",
+      "location_found": true,
+      "location_raw": "Worcestershire",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 174,
+      "full_name": "Jennifer Riggins",
+      "company": "Freelance writer and journalist",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 175,
+      "full_name": "Tom Hamblin",
+      "company": "SSW",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 176,
+      "full_name": "Eleanor Owens",
+      "company": "Vially - formerly IA Labs",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 177,
+      "full_name": "Maya Sellon",
+      "company": "Shell",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 178,
+      "full_name": "Megan Lawrence, PhD",
+      "company": "Nike",
+      "location_found": true,
+      "location_raw": "Redmond",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 179,
+      "full_name": "Natasha Marsay",
+      "company": "Network Rail",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 180,
+      "full_name": "Gina Calcaterra Bhawalkar",
+      "company": "Forrester",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 181,
+      "full_name": "Rachel Olabode",
+      "company": "NHS England",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 182,
+      "full_name": "Aida Ribot, PhD",
+      "company": "Nacar Design",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 183,
+      "full_name": "Elina Ventere",
+      "company": "Nexer Digital",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 184,
+      "full_name": "Matej Pavelec",
+      "company": "Paper Plus Media Ltd",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 185,
+      "full_name": "Kamran Mallick",
+      "company": "Disability Rights UK",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 186,
+      "full_name": "Rosina Kostiani",
+      "company": "bp",
+      "location_found": true,
+      "location_raw": "Walton",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 187,
+      "full_name": "Clive Loseby",
+      "company": "Access by Design",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 188,
+      "full_name": "Craig Abbott",
+      "company": "TetraLogical",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 189,
+      "full_name": "Paul Bepey",
+      "company": "Freelance",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 190,
+      "full_name": "Geri Reid",
+      "company": "Just Eat Takeaway.com",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 191,
+      "full_name": "Zeenat Niazi",
+      "company": "Pearson",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 192,
+      "full_name": "Christopher Patnoe",
+      "company": "Google",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 193,
+      "full_name": "Estelle Jackson",
+      "company": "eBay",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 194,
+      "full_name": "Katie Humphries",
+      "company": "Accessibility Made Easy",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 195,
+      "full_name": "Annette Cmela",
+      "company": "Hidden Disabilities Sunflower Lanyard Scheme",
+      "location_found": true,
+      "location_raw": "Butleigh",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 196,
+      "full_name": "Nicola Kiely",
+      "company": "Vodafone",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 197,
+      "full_name": "Lawrence Moore",
+      "company": "T-Mobile",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 198,
+      "full_name": "Hossein Ramezani",
+      "company": "The Dune Group",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 199,
+      "full_name": "Phil Strain",
+      "company": "Miro",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 200,
+      "full_name": "Katherine Moonan",
+      "company": "Bentley Systems",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    }
+  ]
+}

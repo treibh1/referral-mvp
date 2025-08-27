@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Enrichment - Referral Matching System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .progress-bar {
+            background: rgba(255,255,255,0.2);
+            height: 8px;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #4CAF50;
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .nav-links {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 10px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .contact-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .contact-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-name {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .contact-company {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .enrichment-score {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .enrichment-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .tag-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            min-height: 45px;
+        }
+
+        .tag {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tag-remove {
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .tag-input input {
+            border: none;
+            outline: none;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .skip-btn {
+            background: #ff9800;
+            color: white;
+        }
+
+        .skip-btn:hover {
+            background: #f57c00;
+        }
+
+        .completion-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .celebration {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .superstar-badge {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .location-chip {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin-top: 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Contact Enrichment</h1>
+            <p>Help us find the superstars in your network!</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div id="progressText">0% Complete</div>
+        </div>
+
+        <div class="content">
+            <div class="nav-links">
+                <a href="/dashboard">Dashboard</a>
+                <a href="/import">Import Contacts</a>
+                <a href="/">Job Matching</a>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalContacts">0</div>
+                    <div class="stat-label">Total Contacts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="enrichedContacts">0</div>
+                    <div class="stat-label">Enriched</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="superstars">0</div>
+                    <div class="stat-label">Superstars Found</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="completionRate">0%</div>
+                    <div class="stat-label">Completion Rate</div>
+                </div>
+            </div>
+
+            <div id="loadingSection" class="loading">
+                <div class="spinner"></div>
+                <h3>Loading your contacts...</h3>
+                <p>We're preparing your network for enrichment</p>
+            </div>
+
+            <div id="enrichmentSection" class="hidden">
+                <div id="contactCards"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="completion-modal" id="completionModal">
+        <div class="modal-content">
+            <div class="celebration">🎉</div>
+            <h2>Enrichment Complete!</h2>
+            <p>You've successfully enriched <span id="finalEnrichedCount">0</span> contacts</p>
+            <p>Found <span id="finalSuperstarCount">0</span> superstars in your network!</p>
+            <div style="margin-top: 30px;">
+                <a href="/dashboard" class="btn btn-primary">Go to Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let contacts = [];
+        let currentContactIndex = 0;
+        let enrichedCount = 0;
+        let superstarCount = 0;
+
+        // Load contacts on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadContacts();
+        });
+
+        function loadContacts() {
+            fetch('/api/get-contacts-for-enrichment')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        contacts = data.contacts;
+                        updateStats();
+                        showEnrichmentSection();
+                        displayCurrentContact();
+                    } else {
+                        alert('Error loading contacts: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error loading contacts');
+                });
+        }
+
+        function updateStats() {
+            document.getElementById('totalContacts').textContent = contacts.length;
+            document.getElementById('enrichedContacts').textContent = enrichedCount;
+            document.getElementById('superstars').textContent = superstarCount;
+            document.getElementById('completionRate').textContent = Math.round((enrichedCount / contacts.length) * 100) + '%';
+            
+            const progressPercent = (enrichedCount / contacts.length) * 100;
+            document.getElementById('progressFill').style.width = progressPercent + '%';
+            document.getElementById('progressText').textContent = Math.round(progressPercent) + '% Complete';
+        }
+
+        function showEnrichmentSection() {
+            document.getElementById('loadingSection').classList.add('hidden');
+            document.getElementById('enrichmentSection').classList.remove('hidden');
+        }
+
+        function displayCurrentContact() {
+            if (currentContactIndex >= contacts.length) {
+                showCompletionModal();
+                return;
+            }
+
+            const contact = contacts[currentContactIndex];
+            const contactCards = document.getElementById('contactCards');
+            
+            contactCards.innerHTML = `
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div>
+                            <div class="contact-name">
+                                ${contact['First Name']} ${contact['Last Name']}
+                                ${contact.is_superstar ? '<span class="superstar-badge">⭐ Superstar</span>' : ''}
+                            </div>
+                            <div class="contact-company">${contact['Company'] || 'Unknown Company'}</div>
+                            <div>${contact['Position'] || 'Unknown Position'}</div>
+                            ${contact.location ? `<div class="location-chip">📍 ${contact.location}</div>` : ''}
+                        </div>
+                        <div class="enrichment-score">
+                            ${contact.enrichment_score || 0}/100
+                        </div>
+                    </div>
+                    
+                    <form id="enrichmentForm" onsubmit="saveEnrichment(event)">
+                        <div class="enrichment-form">
+                            <div class="form-group">
+                                <label for="location">📍 Location</label>
+                                <input type="text" id="location" name="location" 
+                                       placeholder="e.g., San Francisco, CA" 
+                                       value="${contact.location || ''}">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="seniority">👑 Seniority Level</label>
+                                <select id="seniority" name="seniority">
+                                    <option value="">Select seniority...</option>
+                                    <option value="junior" ${contact.seniority === 'junior' ? 'selected' : ''}>Junior</option>
+                                    <option value="mid" ${contact.seniority === 'mid' ? 'selected' : ''}>Mid-level</option>
+                                    <option value="senior" ${contact.seniority === 'senior' ? 'selected' : ''}>Senior</option>
+                                    <option value="lead" ${contact.seniority === 'lead' ? 'selected' : ''}>Lead</option>
+                                    <option value="manager" ${contact.seniority === 'manager' ? 'selected' : ''}>Manager</option>
+                                    <option value="director" ${contact.seniority === 'director' ? 'selected' : ''}>Director</option>
+                                    <option value="vp" ${contact.seniority === 'vp' ? 'selected' : ''}>VP</option>
+                                    <option value="c-level" ${contact.seniority === 'c-level' ? 'selected' : ''}>C-Level</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="skills">💻 Key Skills</label>
+                                <div class="tag-input" id="skillsContainer">
+                                    ${(contact.skills || []).map(skill => 
+                                        `<span class="tag">${skill}<span class="tag-remove" onclick="removeTag(this)">×</span></span>`
+                                    ).join('')}
+                                    <input type="text" id="skillsInput" placeholder="Add skill..." onkeydown="addTag(event, 'skills')">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="platforms">🛠️ Platforms/Tools</label>
+                                <div class="tag-input" id="platformsContainer">
+                                    ${(contact.platforms || []).map(platform => 
+                                        `<span class="tag">${platform}<span class="tag-remove" onclick="removeTag(this)">×</span></span>`
+                                    ).join('')}
+                                    <input type="text" id="platformsInput" placeholder="Add platform..." onkeydown="addTag(event, 'platforms')">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="is_superstar">⭐ Superstar Potential</label>
+                                <select id="is_superstar" name="is_superstar">
+                                    <option value="false" ${!contact.is_superstar ? 'selected' : ''}>Regular Contact</option>
+                                    <option value="true" ${contact.is_superstar ? 'selected' : ''}>⭐ Superstar</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="notes">📝 Notes</label>
+                                <textarea id="notes" name="notes" rows="3" 
+                                          placeholder="Any additional notes about this contact...">${contact.notes || ''}</textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button type="button" class="btn btn-secondary" onclick="skipContact()">Skip</button>
+                            <button type="submit" class="btn btn-success">Save & Continue</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+        }
+
+        function addTag(event, type) {
+            if (event.key === 'Enter' || event.key === ',') {
+                event.preventDefault();
+                const input = event.target;
+                const value = input.value.trim();
+                
+                if (value) {
+                    const container = document.getElementById(type + 'Container');
+                    const tag = document.createElement('span');
+                    tag.className = 'tag';
+                    tag.innerHTML = `${value}<span class="tag-remove" onclick="removeTag(this)">×</span>`;
+                    container.insertBefore(tag, input);
+                    input.value = '';
+                }
+            }
+        }
+
+        function removeTag(element) {
+            element.parentElement.remove();
+        }
+
+        function getTags(containerId) {
+            const container = document.getElementById(containerId);
+            const tags = container.querySelectorAll('.tag');
+            return Array.from(tags).map(tag => tag.textContent.replace('×', '').trim());
+        }
+
+        function saveEnrichment(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const enrichmentData = {
+                contact_id: contacts[currentContactIndex].contact_id,
+                location: formData.get('location'),
+                seniority: formData.get('seniority'),
+                skills: getTags('skillsContainer'),
+                platforms: getTags('platformsContainer'),
+                is_superstar: formData.get('is_superstar') === 'true',
+                notes: formData.get('notes')
+            };
+
+            fetch('/api/save-enrichment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(enrichmentData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update local contact data
+                    Object.assign(contacts[currentContactIndex], enrichmentData);
+                    
+                    enrichedCount++;
+                    if (enrichmentData.is_superstar) {
+                        superstarCount++;
+                    }
+                    
+                    updateStats();
+                    currentContactIndex++;
+                    displayCurrentContact();
+                } else {
+                    alert('Error saving enrichment: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error saving enrichment');
+            });
+        }
+
+        function skipContact() {
+            currentContactIndex++;
+            displayCurrentContact();
+        }
+
+        function showCompletionModal() {
+            document.getElementById('finalEnrichedCount').textContent = enrichedCount;
+            document.getElementById('finalSuperstarCount').textContent = superstarCount;
+            document.getElementById('completionModal').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
+
+
+

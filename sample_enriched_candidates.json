@@ -1,0 +1,20 @@
+[
+  {
+    "First Name": "Cian",
+    "Last Name": "Dowling",
+    "Company": "Synthesia",
+    "Position": "Senior Software Engineer",
+    "location": "London, UK",
+    "match_score": 25.5,
+    "location_score": 8.0
+  },
+  {
+    "First Name": "Allyson",
+    "Last Name": "Pemberton",
+    "Company": "Synthesia",
+    "Position": "Senior Software Engineer",
+    "location": "San Francisco, CA",
+    "match_score": 23.0,
+    "location_score": 0.0
+  }
+]

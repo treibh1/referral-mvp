@@ -1,0 +1,194 @@
+{
+  "google": {
+    "industry": "Consumer Tech",
+    "company_type": "FAANG"
+  },
+  "meta": {
+    "industry": "Consumer Tech",
+    "company_type": "FAANG"
+  },
+  "apple": {
+    "industry": "Consumer Tech",
+    "company_type": "FAANG"
+  },
+  "amazon": {
+    "industry": "E-Commerce",
+    "company_type": "FAANG"
+  },
+  "netflix": {
+    "industry": "Media",
+    "company_type": "FAANG"
+  },
+  "microsoft": {
+    "industry": "Enterprise Software",
+    "company_type": "Enterprise"
+  },
+  "salesforce": {
+    "industry": "SaaS",
+    "company_type": "Enterprise"
+  },
+  "hubspot": {
+    "industry": "SaaS",
+    "company_type": "Scale-up"
+  },
+  "zendesk": {
+  "industry": "SaaS",
+  "company_type": "Enterprise"
+},
+  "workday": {
+    "industry": "SaaS",
+    "company_type": "Enterprise"
+  },
+  "sap": {
+    "industry": "Enterprise Software",
+    "company_type": "Enterprise"
+  },
+  "oracle": {
+    "industry": "Enterprise Software",
+    "company_type": "Enterprise"
+  },
+  "stripe": {
+    "industry": "FinTech",
+    "company_type": "Scale-up"
+  },
+  "square": {
+    "industry": "FinTech",
+    "company_type": "Scale-up"
+  },
+  "revolut": {
+    "industry": "FinTech",
+    "company_type": "Scale-up"
+  },
+  "monzo": {
+    "industry": "FinTech",
+    "company_type": "Startup"
+  },
+  "wise": {
+    "industry": "FinTech",
+    "company_type": "Scale-up"
+  },
+  "accenture": {
+    "industry": "Consulting",
+    "company_type": "Big 4"
+  },
+  "deloitte": {
+    "industry": "Consulting",
+    "company_type": "Big 4"
+  },
+  "ey": {
+    "industry": "Consulting",
+    "company_type": "Big 4"
+  },
+  "kpmg": {
+    "industry": "Consulting",
+    "company_type": "Big 4"
+  },
+  "pwc": {
+    "industry": "Consulting",
+    "company_type": "Big 4"
+  },
+  "nvidia": {
+    "industry": "Hardware",
+    "company_type": "Enterprise"
+  },
+  "intel": {
+    "industry": "Hardware",
+    "company_type": "Enterprise"
+  },
+  "amd": {
+    "industry": "Hardware",
+    "company_type": "Enterprise"
+  },
+  "qualcomm": {
+    "industry": "Hardware",
+    "company_type": "Enterprise"
+  },
+  "arm": {
+    "industry": "Hardware",
+    "company_type": "Enterprise"
+  },
+  "openai": {
+    "industry": "AI",
+    "company_type": "Scale-up"
+  },
+  "anthropic": {
+    "industry": "AI",
+    "company_type": "Startup"
+  },
+  "mistral": {
+    "industry": "AI",
+    "company_type": "Startup"
+  },
+  "deepmind": {
+    "industry": "AI",
+    "company_type": "FAANG"
+  },
+  "oxford university": {
+    "industry": "Education",
+    "company_type": "University"
+  },
+  "trinity college dublin": {
+    "industry": "Education",
+    "company_type": "University"
+  },
+  "university of cambridge": {
+    "industry": "Education",
+    "company_type": "University"
+  },
+  "university of edinburgh": {
+    "industry": "Education",
+    "company_type": "University"
+  },
+  "hse": {
+    "industry": "Healthcare",
+    "company_type": "Government"
+  },
+  "nhs": {
+    "industry": "Healthcare",
+    "company_type": "Government"
+  },
+  "publicjobs.ie": {
+    "industry": "Government",
+    "company_type": "Government"
+  },
+  "european commission": {
+    "industry": "Government",
+    "company_type": "Government"
+  },
+  "department of health": {
+    "industry": "Government",
+    "company_type": "Government"
+  },
+  "who": {
+    "industry": "Healthcare",
+    "company_type": "NGO"
+  },
+  "unicef": {
+    "industry": "Nonprofit",
+    "company_type": "NGO"
+  },
+  "red cross": {
+    "industry": "Nonprofit",
+    "company_type": "NGO"
+  },
+  "bbc": {
+    "industry": "Media",
+    "company_type": "Government"
+  },
+  "spotify": {
+    "industry": "Media",
+    "company_type": "Scale-up"
+  },
+  "airbnb": {
+    "industry": "Travel",
+    "company_type": "Scale-up"
+  },
+  "booking.com": {
+    "industry": "Travel",
+    "company_type": "Enterprise"
+  },
+  "expedia": {
+    "industry": "Travel",
+    "company_type": "Enterprise"
+  }
+}

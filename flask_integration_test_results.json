@@ -1,0 +1,97 @@
+{
+  "candidates": [
+    {
+      "company": "Synthesia",
+      "email": "",
+      "first_name": "Eryk",
+      "last_name": "Napierala",
+      "linkedin": "",
+      "match_score": 23.5,
+      "matched_role": "software engineer",
+      "platform_matches": [],
+      "position": "Senior Software Engineer",
+      "score_breakdown": {
+        "company_score": 0,
+        "industry_score": 0.0,
+        "platform_score": 0.0,
+        "role_score": 8.0,
+        "seniority_bonus": 1.5,
+        "skill_score": 6.0
+      },
+      "skill_matches": [
+        "software architecture",
+        "software development"
+      ]
+    },
+    {
+      "company": "Synthesia",
+      "email": "",
+      "first_name": "Allyson",
+      "last_name": "Pemberton",
+      "linkedin": "",
+      "match_score": 23.5,
+      "matched_role": "software engineer",
+      "platform_matches": [],
+      "position": "Senior Software Engineer",
+      "score_breakdown": {
+        "company_score": 0,
+        "industry_score": 0.0,
+        "platform_score": 0.0,
+        "role_score": 8.0,
+        "seniority_bonus": 1.5,
+        "skill_score": 6.0
+      },
+      "skill_matches": [
+        "software architecture",
+        "software development"
+      ]
+    },
+    {
+      "company": "Synthesia",
+      "email": "",
+      "first_name": "Catherine",
+      "last_name": "Oxley",
+      "linkedin": "",
+      "match_score": 23.5,
+      "matched_role": "software engineer",
+      "platform_matches": [],
+      "position": "Senior Software Engineer",
+      "score_breakdown": {
+        "company_score": 0,
+        "industry_score": 0.0,
+        "platform_score": 0.0,
+        "role_score": 8.0,
+        "seniority_bonus": 1.5,
+        "skill_score": 6.0
+      },
+      "skill_matches": [
+        "software architecture",
+        "software development"
+      ]
+    }
+  ],
+  "job_analysis": {
+    "company_detected": null,
+    "platforms_found": [
+      "R",
+      "Gin"
+    ],
+    "role_confidence": 1.0,
+    "role_detected": "software engineer",
+    "seniority_detected": "senior",
+    "skills_found": [
+      "software development",
+      "software architecture",
+      "proof of concept",
+      "search engine optimization",
+      "statement of work drafting",
+      "software support"
+    ],
+    "suggested_roles": [
+      "data scientist"
+    ]
+  },
+  "processing_time": 1.38,
+  "success": true,
+  "total_candidates_found": 3
+}

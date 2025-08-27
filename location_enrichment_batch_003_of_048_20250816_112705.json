@@ -1,0 +1,334 @@
+{
+  "batch_info": {
+    "batch_name": "003_of_048",
+    "start_idx": 100,
+    "end_idx": 150,
+    "timestamp": "2025-08-16T11:27:05.195160",
+    "successful": 33,
+    "failed": 7,
+    "skipped": 10,
+    "success_rate": "82.5%"
+  },
+  "results": [
+    {
+      "row_number": 111,
+      "full_name": "Jonty MacDonald",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Greater London",
+      "success": true
+    },
+    {
+      "row_number": 112,
+      "full_name": "TJ Lucas-Box",
+      "company": "Apple",
+      "location_found": true,
+      "location_raw": "San Francisco Bay Area",
+      "success": true
+    },
+    {
+      "row_number": 113,
+      "full_name": "Shella Anne Dela Cruz",
+      "company": "Reef - Your Third Workspace",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 114,
+      "full_name": "Dawn Osbourne",
+      "company": "Inclusive Employers",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "success": true
+    },
+    {
+      "row_number": 115,
+      "full_name": "Lisa D'Arcy",
+      "company": "EDIFY_EDU",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 116,
+      "full_name": "Fiona Sugden ChPP MAPM",
+      "company": "Arcadis",
+      "location_found": true,
+      "location_raw": "London",
+      "success": true
+    },
+    {
+      "row_number": 117,
+      "full_name": "Dan Gallagher",
+      "company": "Avanade",
+      "location_found": true,
+      "location_raw": "London",
+      "success": true
+    },
+    {
+      "row_number": 118,
+      "full_name": "Matthew Harriet Randall",
+      "company": "Aston Martin Lagonda Ltd",
+      "location_found": true,
+      "location_raw": "Warwick",
+      "success": true
+    },
+    {
+      "row_number": 119,
+      "full_name": "Janina Roth",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Binningen",
+      "success": true
+    },
+    {
+      "row_number": 120,
+      "full_name": "Ralf Hoegerle",
+      "company": "Salesforce",
+      "location_found": true,
+      "location_raw": "Düsseldorf",
+      "success": true
+    },
+    {
+      "row_number": 121,
+      "full_name": "Rachel Power",
+      "company": "Dublin City University",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "success": true
+    },
+    {
+      "row_number": 122,
+      "full_name": "Sean O'Keefe",
+      "company": "Awardco",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 123,
+      "full_name": "Allison Becker",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York",
+      "success": true
+    },
+    {
+      "row_number": 124,
+      "full_name": "Aman Mender",
+      "company": "Stealth",
+      "location_found": true,
+      "location_raw": "Kolkata",
+      "success": true
+    },
+    {
+      "row_number": 125,
+      "full_name": "Gary Watts",
+      "company": "Obstackl",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 126,
+      "full_name": "Ruth Gwilt",
+      "company": "Illustrate Digital",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 127,
+      "full_name": "Mark “Doobles” Deubel",
+      "company": "Doobles",
+      "location_found": true,
+      "location_raw": "Amsterdam",
+      "success": true
+    },
+    {
+      "row_number": 128,
+      "full_name": "Agnieszka Jaśkowska",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 129,
+      "full_name": "Nick Waite",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Greater London",
+      "success": true
+    },
+    {
+      "row_number": 130,
+      "full_name": "Dr Jacqui Shepherd",
+      "company": "Freelance",
+      "location_found": true,
+      "location_raw": "Tonbridge",
+      "success": true
+    },
+    {
+      "row_number": 131,
+      "full_name": "Dr Neil Rogers MRes",
+      "company": "Microlink PC (UK) Ltd",
+      "location_found": true,
+      "location_raw": "Chandler&#x27;s Ford",
+      "success": true
+    },
+    {
+      "row_number": 132,
+      "full_name": "Liam MW Butler",
+      "company": "Sprung Studios - UX-UI Design",
+      "location_found": true,
+      "location_raw": "Vancouver",
+      "success": true
+    },
+    {
+      "row_number": 133,
+      "full_name": "Aydan Aktug",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York City Metropolitan Area",
+      "success": true
+    },
+    {
+      "row_number": 134,
+      "full_name": "Grace Prior",
+      "company": "Silicon Brighton",
+      "location_found": true,
+      "location_raw": "Wigan.",
+      "success": true
+    },
+    {
+      "row_number": 135,
+      "full_name": "Faith Elizabeth Miller",
+      "company": "ADP",
+      "location_found": true,
+      "location_raw": "Providence",
+      "success": true
+    },
+    {
+      "row_number": 136,
+      "full_name": "Lennart Jan Reitsma",
+      "company": "Accessibility Foundation",
+      "location_found": true,
+      "location_raw": "Waalre",
+      "success": true
+    },
+    {
+      "row_number": 137,
+      "full_name": "Richard Morton",
+      "company": "Department for Science, Innovation and Technology",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "success": true
+    },
+    {
+      "row_number": 138,
+      "full_name": "Jake Abma",
+      "company": "Funka Max",
+      "location_found": true,
+      "location_raw": "Amsterdam",
+      "success": true
+    },
+    {
+      "row_number": 139,
+      "full_name": "Harriet Roberts",
+      "company": "Standard Chartered",
+      "location_found": true,
+      "location_raw": "London",
+      "success": true
+    },
+    {
+      "row_number": 140,
+      "full_name": "Donna Bungard, CPWA",
+      "company": "Indeed",
+      "location_found": true,
+      "location_raw": "United States",
+      "success": true
+    },
+    {
+      "row_number": 141,
+      "full_name": "Claire Poste, CPWA",
+      "company": "BBC",
+      "location_found": true,
+      "location_raw": "London",
+      "success": true
+    },
+    {
+      "row_number": 142,
+      "full_name": "Cornel Hrisca-Munn",
+      "company": "BlackRock",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "success": true
+    },
+    {
+      "row_number": 143,
+      "full_name": "David Macarthur",
+      "company": "Accessibility Now",
+      "location_found": true,
+      "location_raw": "Forres",
+      "success": true
+    },
+    {
+      "row_number": 144,
+      "full_name": "Kellie Mote",
+      "company": "Jisc",
+      "location_found": true,
+      "location_raw": "Edinburgh",
+      "success": true
+    },
+    {
+      "row_number": 145,
+      "full_name": "Christoph Rump",
+      "company": "Accenture",
+      "location_found": true,
+      "location_raw": "Zurich",
+      "success": true
+    },
+    {
+      "row_number": 146,
+      "full_name": "David Fernandez Fernandez",
+      "company": "Autónomo",
+      "location_found": true,
+      "location_raw": "Greater Madrid Metropolitan Area",
+      "success": true
+    },
+    {
+      "row_number": 147,
+      "full_name": "Hannah Harvey",
+      "company": "Brighton and Hove City Council",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 148,
+      "full_name": "Solange Molina Urrutia",
+      "company": "NielsenIQ",
+      "location_found": true,
+      "location_raw": "Barcelona",
+      "success": true
+    },
+    {
+      "row_number": 149,
+      "full_name": "Elen Jones",
+      "company": "Theatr Cymru",
+      "location_found": true,
+      "location_raw": "Mold",
+      "success": true
+    },
+    {
+      "row_number": 150,
+      "full_name": "Keri Harrowven",
+      "company": "Accenture",
+      "location_found": true,
+      "location_raw": "New York",
+      "success": true
+    }
+  ]
+}

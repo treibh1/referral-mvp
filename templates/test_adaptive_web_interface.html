@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive Role Matching Test - Zendesk Engagement Manager</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+        .test-section h2 {
+            color: #2980b9;
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .results {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .loading {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .success {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .error {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .comparison-section {
+            padding: 15px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Adaptive Role Matching Test</h1>
+        <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px;">
+            Testing the Zendesk Engagement Manager role with adaptive matching
+        </p>
+
+        <!-- Test 1: Adaptive Matching -->
+        <div class="test-section">
+            <h2>🎯 Test 1: Adaptive Role Matching (Custom Role)</h2>
+            <p>This test uses the adaptive role matching system with custom criteria for the Engagement Manager role.</p>
+            
+            <div class="form-group">
+                <label for="adaptive-job-title">Job Title:</label>
+                <input type="text" id="adaptive-job-title" value="Engagement Manager" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="adaptive-role-category">Role Category:</label>
+                <select id="adaptive-role-category">
+                    <option value="custom" selected>Custom</option>
+                    <option value="core">Core</option>
+                    <option value="hybrid">Hybrid</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="adaptive-industry">Industry Context:</label>
+                <input type="text" id="adaptive-industry" value="SaaS/Professional Services">
+            </div>
+            
+            <div class="form-group">
+                <label for="adaptive-target-titles">Target Job Titles:</label>
+                <textarea id="adaptive-target-titles">Engagement Manager, Project Manager, Implementation Manager, Customer Success Manager, Professional Services Manager, Delivery Manager</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="adaptive-required-skills">Required Skills:</label>
+                <textarea id="adaptive-required-skills">Project Management, Stakeholder Management, SaaS Implementation, Customer Success, Professional Services, Risk Management, Budget Management, Process Improvement</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="adaptive-job-description">Job Description:</label>
+                <textarea id="adaptive-job-description">Engagement Manager - Remote, United Kingdom
+
+About the role:
+We are looking for an Engagement Manager to join our Professional Services team. 
+The Engagement Manager will be responsible for managing complex customer implementations 
+and ensuring successful project delivery.
+
+Key responsibilities:
+- Lead and manage complex customer implementation projects
+- Develop and maintain project plans, timelines, and deliverables
+- Coordinate with cross-functional teams including Sales, Product, and Engineering
+- Ensure customer satisfaction and successful project outcomes
+- Manage project budgets, resources, and risk mitigation
+- Provide regular status updates to stakeholders
+- Drive process improvements and best practices
+
+Requirements:
+- 5+ years experience in project management or professional services
+- Experience with SaaS implementations and enterprise customers
+- Strong stakeholder management and communication skills
+- Experience with project management methodologies (Agile, Scrum, etc.)
+- Knowledge of customer success and implementation best practices
+- Experience with CRM systems and business process optimization
+- Ability to manage multiple projects simultaneously
+- Strong problem-solving and analytical skills
+
+Preferred qualifications:
+- Experience with Zendesk or similar customer service platforms
+- PMP or similar project management certification
+- Experience in customer success or professional services consulting
+- Knowledge of customer experience (CX) and service management</textarea>
+            </div>
+            
+            <button onclick="testAdaptiveMatching()">🧠 Test Adaptive Matching</button>
+            <div id="adaptive-results" class="results" style="display: none;"></div>
+        </div>
+
+        <!-- Test 2: Standard Matching -->
+        <div class="test-section">
+            <h2>📋 Test 2: Standard Matching (No Adaptive Criteria)</h2>
+            <p>This test uses the standard matching system without adaptive role criteria for comparison.</p>
+            
+            <div class="form-group">
+                <label for="standard-job-title">Job Title:</label>
+                <input type="text" id="standard-job-title" value="Engagement Manager" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="standard-job-description">Job Description:</label>
+                <textarea id="standard-job-description" readonly>Engagement Manager - Remote, United Kingdom
+
+About the role:
+We are looking for an Engagement Manager to join our Professional Services team. 
+The Engagement Manager will be responsible for managing complex customer implementations 
+and ensuring successful project delivery.
+
+Key responsibilities:
+- Lead and manage complex customer implementation projects
+- Develop and maintain project plans, timelines, and deliverables
+- Coordinate with cross-functional teams including Sales, Product, and Engineering
+- Ensure customer satisfaction and successful project outcomes
+- Manage project budgets, resources, and risk mitigation
+- Provide regular status updates to stakeholders
+- Drive process improvements and best practices
+
+Requirements:
+- 5+ years experience in project management or professional services
+- Experience with SaaS implementations and enterprise customers
+- Strong stakeholder management and communication skills
+- Experience with project management methodologies (Agile, Scrum, etc.)
+- Knowledge of customer success and implementation best practices
+- Experience with CRM systems and business process optimization
+- Ability to manage multiple projects simultaneously
+- Strong problem-solving and analytical skills
+
+Preferred qualifications:
+- Experience with Zendesk or similar customer service platforms
+- PMP or similar project management certification
+- Experience in customer success or professional services consulting
+- Knowledge of customer experience (CX) and service management</textarea>
+            </div>
+            
+            <button onclick="testStandardMatching()">📋 Test Standard Matching</button>
+            <div id="standard-results" class="results" style="display: none;"></div>
+        </div>
+
+        <!-- Comparison Results -->
+        <div class="test-section">
+            <h2>📊 Comparison Results</h2>
+            <div id="comparison-results" class="comparison" style="display: none;">
+                <div class="comparison-section">
+                    <h3>🧠 Adaptive Matching</h3>
+                    <div id="adaptive-summary"></div>
+                </div>
+                <div class="comparison-section">
+                    <h3>📋 Standard Matching</h3>
+                    <div id="standard-summary"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function testAdaptiveMatching() {
+            const resultsDiv = document.getElementById('adaptive-results');
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = '<span class="loading">🧠 Testing Adaptive Role Matching...</span>';
+            
+            const data = {
+                jobDescription: document.getElementById('adaptive-job-description').value,
+                jobTitle: document.getElementById('adaptive-job-title').value,
+                roleCategory: document.getElementById('adaptive-role-category').value,
+                industryContext: document.getElementById('adaptive-industry').value,
+                targetJobTitles: document.getElementById('adaptive-target-titles').value,
+                requiredSkills: document.getElementById('adaptive-required-skills').value,
+                preferredBackground: 'SaaS companies, Professional services firms, Consulting companies, Customer success teams, Implementation teams',
+                roleExclusions: 'CEO, CFO, VP, Director, Head of, Sales Manager, Marketing Manager',
+                roleDescription: 'Professional services role focused on managing complex customer implementations and ensuring successful project delivery for SaaS platform',
+                topN: 5,
+                enableLocationEnrichment: false
+            };
+            
+            try {
+                const response = await fetch('/api/match', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    resultsDiv.innerHTML = `<span class="success">✅ Adaptive Matching Successful!</span>\n\n` +
+                        `📊 Results:\n` +
+                        `   Candidates found: ${result.total_candidates_found}\n` +
+                        `   Processing time: ${result.processing_time}s\n\n` +
+                        `📋 Job Analysis:\n` +
+                        `   Role detected: ${result.job_analysis?.role_detected || 'N/A'}\n` +
+                        `   Role confidence: ${result.job_analysis?.role_confidence || 'N/A'}\n` +
+                        `   Skills found: ${result.job_analysis?.skills_found?.length || 0}\n` +
+                        `   Company detected: ${result.job_analysis?.company_detected || 'N/A'}\n\n` +
+                        `🏆 Top Candidates:\n` +
+                        formatCandidates(result.matches);
+                    
+                    // Store results for comparison
+                    window.adaptiveResults = result;
+                    updateComparison();
+                } else {
+                    resultsDiv.innerHTML = `<span class="error">❌ Adaptive Matching Failed</span>\n\nError: ${result.error || 'Unknown error'}`;
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `<span class="error">❌ Request Failed</span>\n\nError: ${error.message}`;
+            }
+        }
+        
+        async function testStandardMatching() {
+            const resultsDiv = document.getElementById('standard-results');
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = '<span class="loading">📋 Testing Standard Matching...</span>';
+            
+            const data = {
+                jobDescription: document.getElementById('standard-job-description').value,
+                jobTitle: document.getElementById('standard-job-title').value,
+                topN: 5,
+                enableLocationEnrichment: false
+            };
+            
+            try {
+                const response = await fetch('/api/match', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    resultsDiv.innerHTML = `<span class="success">✅ Standard Matching Successful!</span>\n\n` +
+                        `📊 Results:\n` +
+                        `   Candidates found: ${result.total_candidates_found}\n` +
+                        `   Processing time: ${result.processing_time}s\n\n` +
+                        `📋 Job Analysis:\n` +
+                        `   Role detected: ${result.job_analysis?.role_detected || 'N/A'}\n` +
+                        `   Role confidence: ${result.job_analysis?.role_confidence || 'N/A'}\n` +
+                        `   Skills found: ${result.job_analysis?.skills_found?.length || 0}\n` +
+                        `   Company detected: ${result.job_analysis?.company_detected || 'N/A'}\n\n` +
+                        `🏆 Top Candidates:\n` +
+                        formatCandidates(result.matches);
+                    
+                    // Store results for comparison
+                    window.standardResults = result;
+                    updateComparison();
+                } else {
+                    resultsDiv.innerHTML = `<span class="error">❌ Standard Matching Failed</span>\n\nError: ${result.error || 'Unknown error'}`;
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `<span class="error">❌ Request Failed</span>\n\nError: ${error.message}`;
+            }
+        }
+        
+        function formatCandidates(matches) {
+            if (!matches || matches.length === 0) {
+                return '   No candidates found';
+            }
+            
+            return matches.slice(0, 3).map((match, index) => 
+                `   ${index + 1}. ${match.name || 'N/A'} - ${match.position || 'N/A'}\n` +
+                `      Company: ${match.company || 'N/A'}\n` +
+                `      Score: ${match.score || 'N/A'}\n` +
+                `      Skills: ${(match.skills || []).slice(0, 3).join(', ')}...`
+            ).join('\n\n');
+        }
+        
+        function updateComparison() {
+            if (window.adaptiveResults && window.standardResults) {
+                const comparisonDiv = document.getElementById('comparison-results');
+                const adaptiveSummary = document.getElementById('adaptive-summary');
+                const standardSummary = document.getElementById('standard-summary');
+                
+                comparisonDiv.style.display = 'grid';
+                
+                // Adaptive summary
+                adaptiveSummary.innerHTML = `
+                    <p><strong>Candidates:</strong> ${window.adaptiveResults.total_candidates_found}</p>
+                    <p><strong>Time:</strong> ${window.adaptiveResults.processing_time}s</p>
+                    <p><strong>Role:</strong> ${window.adaptiveResults.job_analysis?.role_detected || 'N/A'}</p>
+                    <p><strong>Confidence:</strong> ${window.adaptiveResults.job_analysis?.role_confidence || 'N/A'}</p>
+                    <p><strong>Skills:</strong> ${window.adaptiveResults.job_analysis?.skills_found?.length || 0}</p>
+                `;
+                
+                // Standard summary
+                standardSummary.innerHTML = `
+                    <p><strong>Candidates:</strong> ${window.standardResults.total_candidates_found}</p>
+                    <p><strong>Time:</strong> ${window.standardResults.processing_time}s</p>
+                    <p><strong>Role:</strong> ${window.standardResults.job_analysis?.role_detected || 'N/A'}</p>
+                    <p><strong>Confidence:</strong> ${window.standardResults.job_analysis?.role_confidence || 'N/A'}</p>
+                    <p><strong>Skills:</strong> ${window.standardResults.job_analysis?.skills_found?.length || 0}</p>
+                `;
+                
+                // Add improvement analysis
+                const candidateDiff = window.standardResults.total_candidates_found - window.adaptiveResults.total_candidates_found;
+                const improvement = candidateDiff > 0 ? 
+                    `✅ Reduced candidates by ${candidateDiff} (${Math.round(candidateDiff/window.standardResults.total_candidates_found*100)}% improvement)` :
+                    `⚠️ No candidate reduction`;
+                
+                comparisonDiv.innerHTML += `
+                    <div style="grid-column: 1 / -1; margin-top: 20px; padding: 15px; background-color: #e8f5e8; border-radius: 5px;">
+                        <h3>📈 Improvement Analysis</h3>
+                        <p>${improvement}</p>
+                        <p><strong>Adaptive Benefits:</strong></p>
+                        <ul>
+                            <li>Custom role patterns applied</li>
+                            <li>Industry-specific matching</li>
+                            <li>Skill-based scoring enhancement</li>
+                            <li>Lower thresholds for niche roles</li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

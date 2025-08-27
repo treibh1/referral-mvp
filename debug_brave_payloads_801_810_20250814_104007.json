@@ -1,0 +1,878 @@
+{
+  "test_info": {
+    "timestamp": "2025-08-14T10:40:07.955847",
+    "contacts_tested": 10,
+    "search_format": "fullname - currentcompany - \"linkedin profile\"",
+    "system_version": "Brave Search API (Google Search) - Debug Mode"
+  },
+  "results": [
+    {
+      "row_number": 801,
+      "full_name": "Stephen Fuery",
+      "company": "Zendesk",
+      "position": "Customer Success Manager",
+      "search_query": "Stephen Fuery - Zendesk - \"linkedin profile\"",
+      "expected_location": "Greater Dublin, County Dublin",
+      "location_found": false,
+      "location_raw": null,
+      "location_city": null,
+      "location_country": null,
+      "location_confidence": null,
+      "location_source": null,
+      "location_url": null,
+      "brave_api_response": {
+        "query": {
+          "original": "Stephen Fuery - Zendesk - \"linkedin profile\"",
+          "show_strict_warning": false,
+          "cleaned": "Stephen Fuery - Zendesk - linkedin profile",
+          "is_navigational": false,
+          "is_news_breaking": false,
+          "spellcheck_off": false,
+          "country": "us",
+          "bad_results": false,
+          "should_fallback": true,
+          "postal_code": "",
+          "city": "",
+          "header_country": "",
+          "more_results_available": false,
+          "state": ""
+        },
+        "mixed": {
+          "type": "mixed",
+          "main": [
+            {
+              "type": "web",
+              "index": 0,
+              "all": false
+            },
+            {
+              "type": "web",
+              "index": 1,
+              "all": false
+            }
+          ],
+          "top": [],
+          "side": []
+        },
+        "type": "search",
+        "web": {
+          "type": "search",
+          "results": [
+            {
+              "title": "Alex Small - Stripe | LinkedIn",
+              "url": "https://www.linkedin.com/in/alex-small-37482b98/",
+              "is_source_local": false,
+              "is_source_both": false,
+              "description": "Seasoned leader with deep experience in finance, customer experience, technology\u2026 \u00b7 Experience: Stripe \u00b7 Education: University of California, Santa Cruz \u00b7 Location: San Francisco Bay Area \u00b7 500+ connections on <strong>LinkedIn</strong>. View Alex Small\u2019s <strong>profile</strong> <strong>on</strong> <strong>LinkedIn</strong>, a professional community ...",
+              "profile": {
+                "name": "LinkedIn",
+                "url": "https://www.linkedin.com/in/alex-small-37482b98/",
+                "long_name": "linkedin.com",
+                "img": "https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw"
+              },
+              "language": "en",
+              "family_friendly": true,
+              "type": "search_result",
+              "subtype": "generic",
+              "is_live": false,
+              "meta_url": {
+                "scheme": "https",
+                "netloc": "linkedin.com",
+                "hostname": "www.linkedin.com",
+                "favicon": "https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw",
+                "path": "\u203a in  \u203a alex-small-37482b98"
+              },
+              "thumbnail": {
+                "src": "https://imgs.search.brave.com/9HGRtnPxa6Rc4BPY1aaz8y575w5c1cXrDMYhqgdMgmw/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9zdGF0/aWMubGljZG4uY29t/L2Flcm8tdjEvc2Mv/aC8xYzV1NTc4aWls/eGZpNG00ZHZjNHE4/MTBx",
+                "original": "https://static.licdn.com/aero-v1/sc/h/1c5u578iilxfi4m4dvc4q810q",
+                "logo": false
+              }
+            },
+            {
+              "title": "Why am I seeing an error when I submit my LinkedIn profile link? \u2013 MIT Bootcamps",
+              "url": "https://mitbootcamps.zendesk.com/hc/en-us/articles/360048724371-Why-am-I-seeing-an-error-when-I-submit-my-LinkedIn-profile-link",
+              "is_source_local": false,
+              "is_source_both": false,
+              "description": "There may be multiple reasons why the link to your <strong>LinkedIn</strong> <strong>profile</strong> is not accepted, but in almost all cases, we find that one of the following is the problem: Link Formatting Issue The error mes...",
+              "profile": {
+                "name": "MIT Bootcamps",
+                "url": "https://mitbootcamps.zendesk.com/hc/en-us/articles/360048724371-Why-am-I-seeing-an-error-when-I-submit-my-LinkedIn-profile-link",
+                "long_name": "mitbootcamps.zendesk.com",
+                "img": "https://imgs.search.brave.com/h9JlYQdfjyHAf4DxWuTYgbS22QyvMcjvmrx3EyMdnqE/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNTFkYTUwYTEy/MTg0OGY1MTRlNDZk/MTFmNzFhODhmZjVh/ODMwMTIxNzIzYjVi/YzEyNTY0ZjdkZWEx/YjNiYThlNi9taXRi/b290Y2FtcHMuemVu/ZGVzay5jb20v"
+              },
+              "language": "en",
+              "family_friendly": true,
+              "type": "search_result",
+              "subtype": "generic",
+              "is_live": false,
+              "meta_url": {
+                "scheme": "https",
+                "netloc": "mitbootcamps.zendesk.com",
+                "hostname": "mitbootcamps.zendesk.com",
+                "favicon": "https://imgs.search.brave.com/h9JlYQdfjyHAf4DxWuTYgbS22QyvMcjvmrx3EyMdnqE/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNTFkYTUwYTEy/MTg0OGY1MTRlNDZk/MTFmNzFhODhmZjVh/ODMwMTIxNzIzYjVi/YzEyNTY0ZjdkZWEx/YjNiYThlNi9taXRi/b290Y2FtcHMuemVu/ZGVzay5jb20v",
+                "path": "\u203a hc  \u203a en-us  \u203a articles  \u203a 360048724371-Why-am-I-seeing-an-error-when-I-submit-my-LinkedIn-profile-link"
+              },
+              "thumbnail": {
+                "src": "https://imgs.search.brave.com/BExFt6cw8FDo6fcK_si75XLrY4Tyfb_SFtRh_QKQ-lM/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9taXRi/b290Y2FtcHMuemVu/ZGVzay5jb20vaGMv/dGhlbWluZ19hc3Nl/dHMvMDFKMDE3NU5D/MVJWNEdKWVZUTjBK/RlI2NkM",
+                "original": "https://mitbootcamps.zendesk.com/hc/theming_assets/01J0175NC1RV4GJYVTN0JFR66C",
+                "logo": false
+              }
+            }
+          ],
+          "family_friendly": true
+        }
+      },
+      "error": null
+    },
+    {
+      "row_number": 802,
+      "full_name": "Charlotte Weaver",
+      "company": "Zendesk",
+      "position": "Principal Enterprise Program Manager",
+      "search_query": "Charlotte Weaver - Zendesk - \"linkedin profile\"",
+      "expected_location": "Dublin, County Dublin",
+      "location_found": false,
+      "location_raw": null,
+      "location_city": null,
+      "location_country": null,
+      "location_confidence": null,
+      "location_source": null,
+      "location_url": null,
+      "brave_api_response": {
+        "query": {
+          "original": "Charlotte Weaver - Zendesk - \"linkedin profile\"",
+          "show_strict_warning": false,
+          "cleaned": "Charlotte Weaver - Zendesk - linkedin profile",
+          "is_navigational": false,
+          "is_news_breaking": false,
+          "spellcheck_off": false,
+          "country": "us",
+          "bad_results": false,
+          "should_fallback": true,
+          "postal_code": "",
+          "city": "",
+          "header_country": "",
+          "more_results_available": false,
+          "state": ""
+        },
+        "mixed": {
+          "type": "mixed",
+          "main": [
+            {
+              "type": "web",
+              "index": 0,
+              "all": false
+            },
+            {
+              "type": "web",
+              "index": 1,
+              "all": false
+            }
+          ],
+          "top": [],
+          "side": []
+        },
+        "type": "search",
+        "web": {
+          "type": "search",
+          "results": [
+            {
+              "title": "Investors | Startup Symposium",
+              "url": "https://startupsymposium.com/investors/",
+              "is_source_local": false,
+              "is_source_both": false,
+              "description": "Dave Berkus has a well-established track record in operations, venture investing and corporate board service, both public and private. As an entrepreneur, he has formed, managed and sold successful businesses in the entertainment and software arenas. As a private equity investor, he has obtained ...",
+              "page_age": "2024-10-06T22:25:41",
+              "profile": {
+                "name": "Pismo Ventures",
+                "url": "https://startupsymposium.com/investors/",
+                "long_name": "startupsymposium.com",
+                "img": "https://imgs.search.brave.com/oWySb0MBofmk5FF6MQZAP8judVt9qTvR_KyJ8FpDg3Q/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvMTJkODg1NzBi/Mjc5MWU2Nzk1NDkw/ZmYxODRlNDkyNzRi/YTliNzE2YjUzYzk4/ZDhjMjk0MjM0MzYy/ZDVjZDE4MC9zdGFy/dHVwc3ltcG9zaXVt/LmNvbS8"
+              },
+              "language": "en",
+              "family_friendly": true,
+              "type": "search_result",
+              "subtype": "generic",
+              "is_live": false,
+              "meta_url": {
+                "scheme": "https",
+                "netloc": "startupsymposium.com",
+                "hostname": "startupsymposium.com",
+                "favicon": "https://imgs.search.brave.com/oWySb0MBofmk5FF6MQZAP8judVt9qTvR_KyJ8FpDg3Q/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvMTJkODg1NzBi/Mjc5MWU2Nzk1NDkw/ZmYxODRlNDkyNzRi/YTliNzE2YjUzYzk4/ZDhjMjk0MjM0MzYy/ZDVjZDE4MC9zdGFy/dHVwc3ltcG9zaXVt/LmNvbS8",
+                "path": "  \u203a home  \u203a investors"
+              },
+              "thumbnail": {
+                "src": "https://imgs.search.brave.com/jJsmq6OweswE4NZtaMjmXPXhnnSj4X81aMlfDqXZdik/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9zdGFy/dHVwc3ltcG9zaXVt/LmNvbS93cC1jb250/ZW50L3VwbG9hZHMv/MjAyNC8xMC9Ub255/MzAwLmpwZw",
+                "original": "https://startupsymposium.com/wp-content/uploads/2024/10/Tony300.jpg",
+                "logo": false
+              },
+              "age": "October 6, 2024",
+              "organization": {
+                "type": "organization",
+                "name": "Pismo Ventures",
+                "contact_points": []
+              }
+            },
+            {
+              "title": "Profile Not Found | LinkedIn",
+              "url": "https://www.linkedin.com/in/charlotte-m-weaver5/",
+              "is_source_local": false,
+              "is_source_both": false,
+              "description": "<strong>LinkedIn</strong> strengthens and extends your existing network of trusted contacts. <strong>LinkedIn</strong> is a networking tool that helps you discover inside connections to recommended job candidates, industry experts and business partners.",
+              "profile": {
+                "name": "LinkedIn",
+                "url": "https://www.linkedin.com/in/charlotte-m-weaver5/",
+                "long_name": "linkedin.com",
+                "img": "https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw"
+              },
+              "language": "en",
+              "family_friendly": true,
+              "type": "search_result",
+              "subtype": "generic",
+              "is_live": false,
+              "meta_url": {
+                "scheme": "https",
+                "netloc": "linkedin.com",
+                "hostname": "www.linkedin.com",
+                "favicon": "https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw",
+                "path": "\u203a in  \u203a charlotte-m-weaver5"
+              }
+            }
+          ],
+          "family_friendly": true
+        }
+      },
+      "error": null
+    },
+    {
+      "row_number": 803,
+      "full_name": "Izan Coomonte Su\u00e1rez",
+      "company": "Datadog",
+      "position": "Strategic Account Executive",
+      "search_query": "Izan Coomonte Su\u00e1rez - Datadog - \"linkedin profile\"",
+      "expected_location": "Madrid",
+      "location_found": false,
+      "location_raw": null,
+      "location_city": null,
+      "location_country": null,
+      "location_confidence": null,
+      "location_source": null,
+      "location_url": null,
+      "brave_api_response": {
+        "query": {
+          "original": "Izan Coomonte Su\u00e1rez - Datadog - \"linkedin profile\"",
+          "show_strict_warning": false,
+          "cleaned": "Izan Coomonte Su\u00e1rez - Datadog - linkedin profile",
+          "is_news_breaking": false,
+          "spellcheck_off": false,
+          "country": "us",
+          "bad_results": false,
+          "should_fallback": true,
+          "postal_code": "",
+          "city": "",
+          "header_country": "",
+          "more_results_available": false,
+          "state": ""
+        },
+        "mixed": {
+          "type": "mixed",
+          "main": [],
+          "top": [],
+          "side": []
+        },
+        "type": "search"
+      },
+      "error": null
+    },
+    {
+      "row_number": 804,
+      "full_name": "Chris Lynch",
+      "company": "Personio",
+      "position": "Account Manager L3",
+      "search_query": "Chris Lynch - Personio - \"linkedin profile\"",
+      "expected_location": "London",
+      "location_found": false,
+      "location_raw": null,
+      "location_city": null,
+      "location_country": null,
+      "location_confidence": null,
+      "location_source": null,
+      "location_url": null,
+      "brave_api_response": {
+        "query": {
+          "original": "Chris Lynch - Personio - \"linkedin profile\"",
+          "show_strict_warning": false,
+          "cleaned": "Chris Lynch - Personio - linkedin profile",
+          "is_navigational": false,
+          "is_news_breaking": false,
+          "spellcheck_off": false,
+          "country": "us",
+          "bad_results": false,
+          "should_fallback": true,
+          "postal_code": "",
+          "city": "",
+          "header_country": "",
+          "more_results_available": false,
+          "state": ""
+        },
+        "mixed": {
+          "type": "mixed",
+          "main": [
+            {
+              "type": "web",
+              "index": 0,
+              "all": false
+            }
+          ],
+          "top": [],
+          "side": []
+        },
+        "type": "search",
+        "web": {
+          "type": "search",
+          "results": [
+            {
+              "title": "Profile Not Found | LinkedIn",
+              "url": "https://www.linkedin.com/in/chris-lynch-58704788/",
+              "is_source_local": false,
+              "is_source_both": false,
+              "description": "<strong>LinkedIn</strong> strengthens and extends your existing network of trusted contacts. <strong>LinkedIn</strong> is a networking tool that helps you discover inside connections to recommended job candidates, industry experts and business partners.",
+              "profile": {
+                "name": "LinkedIn",
+                "url": "https://www.linkedin.com/in/chris-lynch-58704788/",
+                "long_name": "linkedin.com",
+                "img": "https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw"
+              },
+              "language": "en",
+              "family_friendly": true,
+              "type": "search_result",
+              "subtype": "generic",
+              "is_live": false,
+              "meta_url": {
+                "scheme": "https",
+                "netloc": "linkedin.com",
+                "hostname": "www.linkedin.com",
+                "favicon": "https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw",
+                "path": "\u203a in  \u203a chris-lynch-58704788"
+              }
+            }
+          ],
+          "family_friendly": true
+        }
+      },
+      "error": null
+    },
+    {
+      "row_number": 805,
+      "full_name": "Anika Behrens",
+      "company": "Zendesk",
+      "position": "Senior Commercial Account Executive",
+      "search_query": "Anika Behrens - Zendesk - \"linkedin profile\"",
+      "expected_location": "Dublin, County Dublin",
+      "location_found": false,
+      "location_raw": null,
+      "location_city": null,
+      "location_country": null,
+      "location_confidence": null,
+      "location_source": null,
+      "location_url": null,
+      "brave_api_response": {
+        "query": {
+          "original": "Anika Behrens - Zendesk - \"linkedin profile\"",
+          "show_strict_warning": false,
+          "cleaned": "Anika Behrens - Zendesk - linkedin profile",
+          "is_navigational": false,
+          "is_news_breaking": false,
+          "spellcheck_off": false,
+          "country": "us",
+          "bad_results": true,
+          "should_fallback": true,
+          "postal_code": "",
+          "city": "",
+          "header_country": "",
+          "more_results_available": false,
+          "state": ""
+        },
+        "mixed": {
+          "type": "mixed",
+          "main": [
+            {
+              "type": "web",
+              "index": 0,
+              "all": false
+            }
+          ],
+          "top": [],
+          "side": []
+        },
+        "type": "search",
+        "web": {
+          "type": "search",
+          "results": [
+            {
+              "title": "Anika P. - San Francisco Bay Area | Professional Profile | LinkedIn",
+              "url": "https://www.linkedin.com/in/apatelcse/",
+              "is_source_local": false,
+              "is_source_both": false,
+              "description": "currently dev-ing \u00b7 Location: San Francisco Bay Area. 500+ connections on <strong>LinkedIn</strong>. View <strong>Anika</strong> P.\u2019s <strong>profile</strong> <strong>on</strong> <strong>LinkedIn</strong>, a professional community of 1 billion members.",
+              "profile": {
+                "name": "LinkedIn",
+                "url": "https://www.linkedin.com/in/apatelcse/",
+                "long_name": "linkedin.com",
+                "img": "https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw"
+              },
+              "language": "en",
+              "family_friendly": true,
+              "type": "search_result",
+              "subtype": "generic",
+              "is_live": false,
+              "meta_url": {
+                "scheme": "https",
+                "netloc": "linkedin.com",
+                "hostname": "www.linkedin.com",
+                "favicon": "https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw",
+                "path": "\u203a in  \u203a apatelcse"
+              },
+              "thumbnail": {
+                "src": "https://imgs.search.brave.com/9HGRtnPxa6Rc4BPY1aaz8y575w5c1cXrDMYhqgdMgmw/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9zdGF0/aWMubGljZG4uY29t/L2Flcm8tdjEvc2Mv/aC8xYzV1NTc4aWls/eGZpNG00ZHZjNHE4/MTBx",
+                "original": "https://static.licdn.com/aero-v1/sc/h/1c5u578iilxfi4m4dvc4q810q",
+                "logo": false
+              }
+            }
+          ],
+          "family_friendly": true
+        }
+      },
+      "error": null
+    },
+    {
+      "row_number": 806,
+      "full_name": "Tania Asimionesei",
+      "company": "The Casual Leader",
+      "position": "Founder",
+      "search_query": "Tania Asimionesei - The Casual Leader - \"linkedin profile\"",
+      "expected_location": "Dubai",
+      "location_found": false,
+      "location_raw": null,
+      "location_city": null,
+      "location_country": null,
+      "location_confidence": null,
+      "location_source": null,
+      "location_url": null,
+      "brave_api_response": {
+        "query": {
+          "original": "Tania Asimionesei - The Casual Leader - \"linkedin profile\"",
+          "show_strict_warning": false,
+          "cleaned": "Tania Asimionesei - The Casual Leader - linkedin profile",
+          "is_navigational": false,
+          "is_news_breaking": false,
+          "spellcheck_off": false,
+          "country": "us",
+          "bad_results": false,
+          "should_fallback": true,
+          "postal_code": "",
+          "city": "",
+          "header_country": "",
+          "more_results_available": false,
+          "state": ""
+        },
+        "mixed": {
+          "type": "mixed",
+          "main": [
+            {
+              "type": "web",
+              "index": 0,
+              "all": false
+            },
+            {
+              "type": "web",
+              "index": 1,
+              "all": false
+            },
+            {
+              "type": "videos",
+              "all": true
+            }
+          ],
+          "top": [],
+          "side": []
+        },
+        "type": "search",
+        "videos": {
+          "type": "videos",
+          "results": [
+            {
+              "type": "video_result",
+              "url": "https://www.youtube.com/watch?v=kRDAqRogN9M",
+              "title": "LinkedIn Profile Features All Aspiring Thought Leaders Should Have ...",
+              "description": "Thought leadership is not just about your content and great ideas but also really about leaving an impactful presence across all channels you're in. Your Lin...",
+              "age": "February 21, 2025",
+              "page_age": "2025-02-21T15:17:26",
+              "fetched_content_timestamp": 1742321987,
+              "video": {
+                "duration": "22:33",
+                "views": 1,
+                "creator": "Social Sales Link",
+                "publisher": "YouTube"
+              },
+              "meta_url": {
+                "scheme": "https",
+                "netloc": "youtube.com",
+                "hostname": "www.youtube.com",
+                "favicon": "https://imgs.search.brave.com/Wg4wjE5SHAargkzePU3eSLmWgVz84BEZk1SjSglJK_U/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOTkyZTZiMWU3/YzU3Nzc5YjExYzUy/N2VhZTIxOWNlYjM5/ZGVjN2MyZDY4Nzdh/ZDYzMTYxNmI5N2Rk/Y2Q3N2FkNy93d3cu/eW91dHViZS5jb20v",
+                "path": "\u203a watch"
+              },
+              "thumbnail": {
+                "src": "https://imgs.search.brave.com/V7OEdtmwPMd-Hc7ptBR_xNb5pYq-cL8oRmLEbycJ3QQ/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9pLnl0/aW1nLmNvbS92aS9r/UkRBcVJvZ045TS9t/YXhyZXNkZWZhdWx0/LmpwZz9zcXA9LW9h/eW13RW9DSUFLRU5B/RjhxdUtxUU1jR0FE/d0FRSDRBYllJZ0FL/NENJb0NEQWdBRUFF/WU1pQk9LSDh3RHc9/PSZhbXA7cnM9QU9u/NENMQWZWNGl2T3Yx/dW1xaFVNcHFWSVhO/MFdOOUhKdw",
+                "original": "https://i.ytimg.com/vi/kRDAqRogN9M/maxresdefault.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAK4CIoCDAgAEAEYMiBOKH8wDw==&amp;rs=AOn4CLAfV4ivOv1umqhUMpqVIXN0WN9HJw"
+              }
+            }
+          ],
+          "mutated_by_goggles": false
+        },
+        "web": {
+          "type": "search",
+          "results": [
+            {
+              "title": "14 LinkedIn Profile Summary Examples (and 14 Best Practices)",
+              "url": "https://www.linkedin.com/business/talent/blog/product-tips/linkedin-profile-summaries-that-we-love-and-how-to-boost-your-own",
+              "is_source_local": false,
+              "is_source_both": false,
+              "description": "Write a <strong>LinkedIn</strong> <strong>Profile</strong> summary that will get you noticed by noting these 14 examples and 14 best practices.",
+              "profile": {
+                "name": "LinkedIn",
+                "url": "https://www.linkedin.com/business/talent/blog/product-tips/linkedin-profile-summaries-that-we-love-and-how-to-boost-your-own",
+                "long_name": "linkedin.com",
+                "img": "https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw"
+              },
+              "language": "en",
+              "family_friendly": true,
+              "type": "search_result",
+              "subtype": "generic",
+              "is_live": false,
+              "meta_url": {
+                "scheme": "https",
+                "netloc": "linkedin.com",
+                "hostname": "www.linkedin.com",
+                "favicon": "https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw",
+                "path": "\u203a business  \u203a talent  \u203a blog  \u203a product-tips  \u203a linkedin-profile-summaries-that-we-love-and-how-to-boost-your-own"
+              },
+              "thumbnail": {
+                "src": "https://imgs.search.brave.com/UdUV6QtXSgFh0mNi-Mt5rfbxjSAZQO7YVk-Qhlvj07Y/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5saWNkbi5jb20v/ZG1zL2ltYWdlL3Yy/L0Q0RDA4QVFHclFt/aWFVODJzbkEvY3Jv/ZnQtZnJvbnRlbmQt/c2hyaW5rVG9GaXQx/MDI0L2Nyb2Z0LWZy/b250ZW5kLXNocmlu/a1RvRml0MTAyNC8w/LzE2NDY3NTQ5NTY4/MTc_ZT0yMTQ3NDgz/NjQ3JmFtcDt2PWJl/dGEmYW1wO3Q9M1l6/eGdJcUJCdjN6SGg4/VzA3X3lTYmhGNE5G/d2NvSmpSLWhzdnZD/b09YZw",
+                "original": "https://media.licdn.com/dms/image/v2/D4D08AQGrQmiaU82snA/croft-frontend-shrinkToFit1024/croft-frontend-shrinkToFit1024/0/1646754956817?e=2147483647&amp;v=beta&amp;t=3YzxgIqBBv3zHh8W07_ySbhF4NFwcoJjR-hsvvCoOXg",
+                "logo": false
+              }
+            },
+            {
+              "title": "Tania Seibold - 1 year volunteering program in Aged Care - Sacred Heart Mission | LinkedIn",
+              "url": "https://www.linkedin.com/in/tania-seibold-5a521058/",
+              "is_source_local": false,
+              "is_source_both": false,
+              "description": "Available 2021 for a position - <strong>Casual</strong> or Part time 1-3 days \u00b7 An Executive Assistant to senior management in Blue Chip companies for more than 12 years and have over 25 years experience in Insurance and Financial Services industries \u00b7 Experience: Sacred Heart Mission \u00b7 Education: National ...",
+              "profile": {
+                "name": "LinkedIn",
+                "url": "https://www.linkedin.com/in/tania-seibold-5a521058/",
+                "long_name": "linkedin.com",
+                "img": "https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw"
+              },
+              "language": "en",
+              "family_friendly": true,
+              "type": "search_result",
+              "subtype": "generic",
+              "is_live": false,
+              "meta_url": {
+                "scheme": "https",
+                "netloc": "linkedin.com",
+                "hostname": "www.linkedin.com",
+                "favicon": "https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw",
+                "path": "\u203a in  \u203a tania-seibold-5a521058"
+              },
+              "thumbnail": {
+                "src": "https://imgs.search.brave.com/9HGRtnPxa6Rc4BPY1aaz8y575w5c1cXrDMYhqgdMgmw/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9zdGF0/aWMubGljZG4uY29t/L2Flcm8tdjEvc2Mv/aC8xYzV1NTc4aWls/eGZpNG00ZHZjNHE4/MTBx",
+                "original": "https://static.licdn.com/aero-v1/sc/h/1c5u578iilxfi4m4dvc4q810q",
+                "logo": false
+              }
+            }
+          ],
+          "family_friendly": true
+        }
+      },
+      "error": null
+    },
+    {
+      "row_number": 807,
+      "full_name": "Bj\u00f6rn Bauer",
+      "company": "Zendesk",
+      "position": "Director Solutions Consulting, DACH",
+      "search_query": "Bj\u00f6rn Bauer - Zendesk - \"linkedin profile\"",
+      "expected_location": "Hamburg und Umgebung",
+      "location_found": false,
+      "location_raw": null,
+      "location_city": null,
+      "location_country": null,
+      "location_confidence": null,
+      "location_source": null,
+      "location_url": null,
+      "brave_api_response": {
+        "query": {
+          "original": "Bj\u00f6rn Bauer - Zendesk - \"linkedin profile\"",
+          "show_strict_warning": false,
+          "cleaned": "Bj\u00f6rn Bauer - Zendesk - linkedin profile",
+          "is_news_breaking": false,
+          "spellcheck_off": false,
+          "country": "us",
+          "bad_results": false,
+          "should_fallback": true,
+          "postal_code": "",
+          "city": "",
+          "header_country": "",
+          "more_results_available": false,
+          "state": ""
+        },
+        "mixed": {
+          "type": "mixed",
+          "main": [],
+          "top": [],
+          "side": []
+        },
+        "type": "search"
+      },
+      "error": null
+    },
+    {
+      "row_number": 808,
+      "full_name": "Ting Shi Wang",
+      "company": "Tipalti",
+      "position": "Account Executive",
+      "search_query": "Ting Shi Wang - Tipalti - \"linkedin profile\"",
+      "expected_location": "Stoke Poges, England, United Kingdom",
+      "location_found": false,
+      "location_raw": null,
+      "location_city": null,
+      "location_country": null,
+      "location_confidence": null,
+      "location_source": null,
+      "location_url": null,
+      "brave_api_response": {
+        "query": {
+          "original": "Ting Shi Wang - Tipalti - \"linkedin profile\"",
+          "show_strict_warning": false,
+          "cleaned": "Ting Shi Wang - Tipalti - linkedin profile",
+          "is_news_breaking": false,
+          "spellcheck_off": false,
+          "country": "us",
+          "bad_results": false,
+          "should_fallback": true,
+          "postal_code": "",
+          "city": "",
+          "header_country": "",
+          "more_results_available": false,
+          "state": ""
+        },
+        "mixed": {
+          "type": "mixed",
+          "main": [],
+          "top": [],
+          "side": []
+        },
+        "type": "search"
+      },
+      "error": null
+    },
+    {
+      "row_number": 809,
+      "full_name": "Orna Morris",
+      "company": "Zendesk",
+      "position": "Sr. Solution Consultant UKI",
+      "search_query": "Orna Morris - Zendesk - \"linkedin profile\"",
+      "expected_location": "Ireland",
+      "location_found": false,
+      "location_raw": null,
+      "location_city": null,
+      "location_country": null,
+      "location_confidence": null,
+      "location_source": null,
+      "location_url": null,
+      "brave_api_response": {
+        "query": {
+          "original": "Orna Morris - Zendesk - \"linkedin profile\"",
+          "show_strict_warning": false,
+          "cleaned": "Orna Morris - Zendesk - linkedin profile",
+          "is_news_breaking": false,
+          "spellcheck_off": false,
+          "country": "us",
+          "bad_results": false,
+          "should_fallback": true,
+          "postal_code": "",
+          "city": "",
+          "header_country": "",
+          "more_results_available": false,
+          "state": ""
+        },
+        "mixed": {
+          "type": "mixed",
+          "main": [],
+          "top": [],
+          "side": []
+        },
+        "type": "search"
+      },
+      "error": null
+    },
+    {
+      "row_number": 810,
+      "full_name": "Frank Busch",
+      "company": "Zendesk",
+      "position": "Principal Solutions Consultant",
+      "search_query": "Frank Busch - Zendesk - \"linkedin profile\"",
+      "expected_location": "Berlin",
+      "location_found": true,
+      "location_raw": "Miami",
+      "location_city": "Miami",
+      "location_country": null,
+      "location_confidence": 0.8,
+      "location_source": "Brave Search API (Google)",
+      "location_url": "https://www.google.com/search?q=Frank+Busch+-+Zendesk+-+\"linkedin+profile\"",
+      "brave_api_response": {
+        "query": {
+          "original": "Frank Busch - Zendesk - \"linkedin profile\"",
+          "show_strict_warning": false,
+          "cleaned": "Frank Busch - Zendesk - linkedin profile",
+          "is_navigational": false,
+          "is_news_breaking": false,
+          "spellcheck_off": false,
+          "country": "us",
+          "bad_results": true,
+          "should_fallback": true,
+          "postal_code": "",
+          "city": "",
+          "header_country": "",
+          "more_results_available": false,
+          "state": ""
+        },
+        "mixed": {
+          "type": "mixed",
+          "main": [
+            {
+              "type": "web",
+              "index": 0,
+              "all": false
+            },
+            {
+              "type": "web",
+              "index": 1,
+              "all": false
+            },
+            {
+              "type": "web",
+              "index": 2,
+              "all": false
+            }
+          ],
+          "top": [],
+          "side": []
+        },
+        "type": "search",
+        "web": {
+          "type": "search",
+          "results": [
+            {
+              "title": "Christian Busch - R Florida | LinkedIn",
+              "url": "https://www.linkedin.com/in/christianbusch/",
+              "is_source_local": false,
+              "is_source_both": false,
+              "description": "\ud83c\udfe1 Bringing German Efficiency &amp; NY Hustle to Miami Real Estate \ud83d\udcb8 Turnkey Real Estate\u2026 \u00b7 Experience: R Florida \u00b7 Location: Miami-Fort Lauderdale Area \u00b7 500+ connections on <strong>LinkedIn</strong>. View Christian <strong>Busch</strong>\u2019<strong>s</strong> <strong>profile</strong> <strong>on</strong> <strong>LinkedIn</strong>, a professional community of 1 billion members.",
+              "page_age": "2025-07-05T15:39:32",
+              "profile": {
+                "name": "LinkedIn",
+                "url": "https://www.linkedin.com/in/christianbusch/",
+                "long_name": "linkedin.com",
+                "img": "https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw"
+              },
+              "language": "en",
+              "family_friendly": true,
+              "type": "search_result",
+              "subtype": "article",
+              "is_live": false,
+              "meta_url": {
+                "scheme": "https",
+                "netloc": "linkedin.com",
+                "hostname": "www.linkedin.com",
+                "favicon": "https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw",
+                "path": "\u203a in  \u203a christianbusch"
+              },
+              "thumbnail": {
+                "src": "https://imgs.search.brave.com/QASB5OG5oDnsQH4BwSx4jrlwFLI0SxPEKxkGTqzx00s/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5saWNkbi5jb20v/ZG1zL2ltYWdlL3Yy/L0Q0RTAzQVFHWjlm/V0s5aUoxekEvcHJv/ZmlsZS1kaXNwbGF5/cGhvdG8tc2hyaW5r/XzIwMF8yMDAvQjRF/WlZDMUZXYUhnQWMt/LzAvMTc0MDU4Mjk2/NzM2MT9lPTIxNDc0/ODM2NDcmYW1wO3Y9/YmV0YSZhbXA7dD1t/T21yS0owRXk5WUR3/Ykt0N3pRUC00OEhH/anA1VG1DNGl6QVlL/TnpGbUNr",
+                "original": "https://media.licdn.com/dms/image/v2/D4E03AQGZ9fWK9iJ1zA/profile-displayphoto-shrink_200_200/B4EZVC1FWaHgAc-/0/1740582967361?e=2147483647&amp;v=beta&amp;t=mOmrKJ0Ey9YDwbKt7zQP-48HGjp5TmC4izAYKNzFmCk",
+                "logo": false
+              },
+              "age": "July 5, 2025"
+            },
+            {
+              "title": "Frank Person - Paradigm Search | LinkedIn",
+              "url": "https://www.linkedin.com/in/frankperson/",
+              "is_source_local": false,
+              "is_source_both": false,
+              "description": "Experience: Paradigm Search \u00b7 Location: San Francisco Bay Area \u00b7 500+ connections on <strong>LinkedIn</strong>. View <strong>Frank</strong> Person\u2019s <strong>profile</strong> <strong>on</strong> <strong>LinkedIn</strong>, a professional community of 1 billion members.",
+              "profile": {
+                "name": "LinkedIn",
+                "url": "https://www.linkedin.com/in/frankperson/",
+                "long_name": "linkedin.com",
+                "img": "https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw"
+              },
+              "language": "en",
+              "family_friendly": true,
+              "type": "search_result",
+              "subtype": "generic",
+              "is_live": false,
+              "meta_url": {
+                "scheme": "https",
+                "netloc": "linkedin.com",
+                "hostname": "www.linkedin.com",
+                "favicon": "https://imgs.search.brave.com/B3dmoKTAgUkkbrvzAxFg_MfHAm5WmWy0N-4kH1AGWOo/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNGE1YzZjOWNj/NmNiODQ4NzI0ODg1/MGY5ZGQ2YzhjZTRm/N2NjOGIzZjc1NTlj/NDM2ZGI5Yjk3ZWI1/YzBmNzJmZS93d3cu/bGlua2VkaW4uY29t/Lw",
+                "path": "\u203a in  \u203a frankperson"
+              },
+              "thumbnail": {
+                "src": "https://imgs.search.brave.com/TKaDiKZgE85sL_xxVtoUtT52DTcZLIj6fTN-fU69Bd8/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5saWNkbi5jb20v/ZG1zL2ltYWdlL3Yy/L0M1NjAzQVFHYkUw/QnotUWpWWkEvcHJv/ZmlsZS1kaXNwbGF5/cGhvdG8tc2hyaW5r/XzIwMF8yMDAvcHJv/ZmlsZS1kaXNwbGF5/cGhvdG8tc2hyaW5r/XzIwMF8yMDAvMC8x/NjIyNjAwNDA2MDMx/P2U9MjE0NzQ4MzY0/NyZhbXA7dj1iZXRh/JmFtcDt0PWNNREF2/RG5JSFNkQUVKc3U5/dkhfSjREazR2SC1I/MFV3UElITUwyLTND/WDA",
+                "original": "https://media.licdn.com/dms/image/v2/C5603AQGbE0Bz-QjVZA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1622600406031?e=2147483647&amp;v=beta&amp;t=cMDAvDnIHSdAEJsu9vH_J4Dk4vH-H0UwPIHML2-3CX0",
+                "logo": false
+              }
+            },
+            {
+              "title": "Why am I seeing an error when I submit my LinkedIn profile link? \u2013 MIT Bootcamps",
+              "url": "https://mitbootcamps.zendesk.com/hc/en-us/articles/360048724371-Why-am-I-seeing-an-error-when-I-submit-my-LinkedIn-profile-link",
+              "is_source_local": false,
+              "is_source_both": false,
+              "description": "There may be multiple reasons why the link to your <strong>LinkedIn</strong> <strong>profile</strong> is not accepted, but in almost all cases, we find that one of the following is the problem: Link Formatting Issue The error mes...",
+              "profile": {
+                "name": "MIT Bootcamps",
+                "url": "https://mitbootcamps.zendesk.com/hc/en-us/articles/360048724371-Why-am-I-seeing-an-error-when-I-submit-my-LinkedIn-profile-link",
+                "long_name": "mitbootcamps.zendesk.com",
+                "img": "https://imgs.search.brave.com/h9JlYQdfjyHAf4DxWuTYgbS22QyvMcjvmrx3EyMdnqE/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNTFkYTUwYTEy/MTg0OGY1MTRlNDZk/MTFmNzFhODhmZjVh/ODMwMTIxNzIzYjVi/YzEyNTY0ZjdkZWEx/YjNiYThlNi9taXRi/b290Y2FtcHMuemVu/ZGVzay5jb20v"
+              },
+              "language": "en",
+              "family_friendly": true,
+              "type": "search_result",
+              "subtype": "generic",
+              "is_live": false,
+              "meta_url": {
+                "scheme": "https",
+                "netloc": "mitbootcamps.zendesk.com",
+                "hostname": "mitbootcamps.zendesk.com",
+                "favicon": "https://imgs.search.brave.com/h9JlYQdfjyHAf4DxWuTYgbS22QyvMcjvmrx3EyMdnqE/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvNTFkYTUwYTEy/MTg0OGY1MTRlNDZk/MTFmNzFhODhmZjVh/ODMwMTIxNzIzYjVi/YzEyNTY0ZjdkZWEx/YjNiYThlNi9taXRi/b290Y2FtcHMuemVu/ZGVzay5jb20v",
+                "path": "\u203a hc  \u203a en-us  \u203a articles  \u203a 360048724371-Why-am-I-seeing-an-error-when-I-submit-my-LinkedIn-profile-link"
+              },
+              "thumbnail": {
+                "src": "https://imgs.search.brave.com/BExFt6cw8FDo6fcK_si75XLrY4Tyfb_SFtRh_QKQ-lM/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9taXRi/b290Y2FtcHMuemVu/ZGVzay5jb20vaGMv/dGhlbWluZ19hc3Nl/dHMvMDFKMDE3NU5D/MVJWNEdKWVZUTjBK/RlI2NkM",
+                "original": "https://mitbootcamps.zendesk.com/hc/theming_assets/01J0175NC1RV4GJYVTN0JFR66C",
+                "logo": false
+              }
+            }
+          ],
+          "family_friendly": true
+        }
+      },
+      "error": null
+    }
+  ]
+}

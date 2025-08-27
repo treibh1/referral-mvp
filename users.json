@@ -1,0 +1,58 @@
+{
+  "d19e44d6-31a7-4d86-b4e2-67e50e12e515": {
+    "email": "test@example.com",
+    "name": "Test User",
+    "created_at": "2025-08-12T10:58:14.731682",
+    "total_contacts": 0,
+    "total_referrals": 0
+  },
+  "8403d82f-5da5-46bd-b80b-8b7796402aec": {
+    "email": "test@example.com",
+    "name": "Test User",
+    "created_at": "2025-08-12T10:58:51.457600",
+    "total_contacts": 5,
+    "total_referrals": 0
+  },
+  "a5f8c446-dfc7-4bb0-9dc9-91c4ead3dea0": {
+    "email": "test@example.com",
+    "name": "Test User",
+    "created_at": "2025-08-12T10:59:08.970341",
+    "total_contacts": 5,
+    "total_referrals": 0
+  },
+  "7fd4f4f1-2fa7-4161-8fd3-008ac08ce70d": {
+    "email": "test@example.com",
+    "name": "Test User",
+    "created_at": "2025-08-12T10:59:24.467726",
+    "total_contacts": 5,
+    "total_referrals": 0
+  },
+  "51e4b049-481e-4a9c-9ea9-797db6dc2842": {
+    "email": "demo@example.com",
+    "name": "Demo User",
+    "created_at": "2025-08-12T11:00:04.973882",
+    "total_contacts": 5,
+    "total_referrals": 0
+  },
+  "1f32ff0e-4faf-42d2-91ba-472715407ef6": {
+    "email": "admin@admin.com",
+    "name": "Dee Cee",
+    "created_at": "2025-08-15T15:25:47.983053",
+    "total_contacts": 0,
+    "total_referrals": 0
+  },
+  "93da3ff8-469e-4424-bd59-71fe45a69b4a": {
+    "email": "admin@admin.com",
+    "name": "admin",
+    "created_at": "2025-08-19T21:12:11.654556",
+    "total_contacts": 0,
+    "total_referrals": 0
+  },
+  "104a4706-00f4-4d27-8337-ce0ca570070b": {
+    "email": "admin@admin.com",
+    "name": "admin",
+    "created_at": "2025-08-19T21:44:04.914968",
+    "total_contacts": 0,
+    "total_referrals": 0
+  }
+}

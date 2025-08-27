@@ -1,0 +1,87 @@
+region_type,region_name,city_name,city_ascii,rank_by_population_in_region,is_capital
+COUNTRY,Bahrain,Manama,Manama,1.0,True
+COUNTRY,Bahrain,Riffa,Riffa,2.0,False
+COUNTRY,Bahrain,Muharraq,Muharraq,3.0,False
+COUNTRY,Bahrain,Hamad Town,Hamad Town,4.0,False
+COUNTRY,Bahrain,Isa Town,Isa Town,5.0,False
+COUNTRY,Cyprus,Nicosia,Nicosia,1.0,True
+COUNTRY,Cyprus,Limassol,Limassol,2.0,False
+COUNTRY,Cyprus,Larnaca,Larnaca,3.0,False
+COUNTRY,Cyprus,Paphos,Paphos,4.0,False
+COUNTRY,Cyprus,Famagusta,Famagusta,5.0,False
+COUNTRY,Egypt,Cairo,Cairo,1.0,True
+COUNTRY,Egypt,Alexandria,Alexandria,2.0,False
+COUNTRY,Egypt,Giza,Giza,3.0,False
+COUNTRY,Egypt,Shubra El Kheima,Shubra El Kheima,4.0,False
+COUNTRY,Egypt,Port Said,Port Said,5.0,False
+COUNTRY,Iran,Tehran,Tehran,1.0,True
+COUNTRY,Iran,Mashhad,Mashhad,2.0,False
+COUNTRY,Iran,Isfahan,Isfahan,3.0,False
+COUNTRY,Iran,Karaj,Karaj,4.0,False
+COUNTRY,Iran,Shiraz,Shiraz,5.0,False
+COUNTRY,Iraq,Baghdad,Baghdad,1.0,True
+COUNTRY,Iraq,Basra,Basra,2.0,False
+COUNTRY,Iraq,Mosul,Mosul,3.0,False
+COUNTRY,Iraq,Erbil,Erbil,4.0,False
+COUNTRY,Iraq,Sulaymaniyah,Sulaymaniyah,5.0,False
+COUNTRY,Israel,Jerusalem,Jerusalem,1.0,True
+COUNTRY,Israel,Tel Aviv,Tel Aviv,2.0,False
+COUNTRY,Israel,Haifa,Haifa,3.0,False
+COUNTRY,Israel,Rishon LeZion,Rishon LeZion,4.0,False
+COUNTRY,Israel,Petah Tikva,Petah Tikva,5.0,False
+COUNTRY,Jordan,Amman,Amman,1.0,True
+COUNTRY,Jordan,Zarqa,Zarqa,2.0,False
+COUNTRY,Jordan,Irbid,Irbid,3.0,False
+COUNTRY,Jordan,Russeifa,Russeifa,4.0,False
+COUNTRY,Jordan,Aqaba,Aqaba,5.0,False
+COUNTRY,Kuwait,Kuwait City,Kuwait City,1.0,True
+COUNTRY,Kuwait,Al Ahmadi,Al Ahmadi,2.0,False
+COUNTRY,Kuwait,Hawalli,Hawalli,3.0,False
+COUNTRY,Kuwait,Farwaniya,Farwaniya,4.0,False
+COUNTRY,Kuwait,Jahra,Jahra,5.0,False
+COUNTRY,Lebanon,Beirut,Beirut,1.0,True
+COUNTRY,Lebanon,Tripoli,Tripoli,2.0,False
+COUNTRY,Lebanon,Sidon,Sidon,3.0,False
+COUNTRY,Lebanon,Tyre,Tyre,4.0,False
+COUNTRY,Lebanon,Zahle,Zahle,5.0,False
+COUNTRY,Oman,Muscat,Muscat,1.0,True
+COUNTRY,Oman,Seeb,Seeb,2.0,False
+COUNTRY,Oman,Sohar,Sohar,3.0,False
+COUNTRY,Oman,Salalah,Salalah,4.0,False
+COUNTRY,Oman,Bawshar,Bawshar,5.0,False
+COUNTRY,Palestine,Gaza,Gaza,1.0,False
+COUNTRY,Palestine,Hebron,Hebron,2.0,False
+COUNTRY,Palestine,Nablus,Nablus,3.0,False
+COUNTRY,Palestine,Rafah,Rafah,4.0,False
+COUNTRY,Palestine,Khan Yunis,Khan Yunis,5.0,False
+COUNTRY,Palestine,Ramallah,Ramallah,,True
+COUNTRY,Qatar,Doha,Doha,1.0,True
+COUNTRY,Qatar,Al Rayyan,Al Rayyan,2.0,False
+COUNTRY,Qatar,Umm Salal,Umm Salal,3.0,False
+COUNTRY,Qatar,Al Wakrah,Al Wakrah,4.0,False
+COUNTRY,Qatar,Al Khor,Al Khor,5.0,False
+COUNTRY,Saudi Arabia,Riyadh,Riyadh,1.0,True
+COUNTRY,Saudi Arabia,Jeddah,Jeddah,2.0,False
+COUNTRY,Saudi Arabia,Mecca,Mecca,3.0,False
+COUNTRY,Saudi Arabia,Medina,Medina,4.0,False
+COUNTRY,Saudi Arabia,Dammam,Dammam,5.0,False
+COUNTRY,Syria,Damascus,Damascus,1.0,True
+COUNTRY,Syria,Aleppo,Aleppo,2.0,False
+COUNTRY,Syria,Homs,Homs,3.0,False
+COUNTRY,Syria,Hama,Hama,4.0,False
+COUNTRY,Syria,Latakia,Latakia,5.0,False
+COUNTRY,Turkey,Istanbul,Istanbul,1.0,False
+COUNTRY,Turkey,Ankara,Ankara,2.0,True
+COUNTRY,Turkey,Izmir,Izmir,3.0,False
+COUNTRY,Turkey,Bursa,Bursa,4.0,False
+COUNTRY,Turkey,Antalya,Antalya,5.0,False
+COUNTRY,United Arab Emirates,Dubai,Dubai,1.0,False
+COUNTRY,United Arab Emirates,Abu Dhabi,Abu Dhabi,2.0,True
+COUNTRY,United Arab Emirates,Sharjah,Sharjah,3.0,False
+COUNTRY,United Arab Emirates,Al Ain,Al Ain,4.0,False
+COUNTRY,United Arab Emirates,Ajman,Ajman,5.0,False
+COUNTRY,Yemen,Sana'a,Sana'a,1.0,True
+COUNTRY,Yemen,Aden,Aden,2.0,False
+COUNTRY,Yemen,Taiz,Taiz,3.0,False
+COUNTRY,Yemen,Hudaydah,Hudaydah,4.0,False
+COUNTRY,Yemen,Ibb,Ibb,5.0,False

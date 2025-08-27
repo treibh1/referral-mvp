@@ -1,0 +1,406 @@
+{
+  "batch_info": {
+    "batch_name": "002_of_048",
+    "start_idx": 50,
+    "end_idx": 100,
+    "timestamp": "2025-08-16T10:46:25.044533",
+    "successful": 44,
+    "failed": 5,
+    "skipped": 1,
+    "success_rate": "89.8%"
+  },
+  "results": [
+    {
+      "row_number": 51,
+      "full_name": "Charlie Triplett",
+      "company": "NBCUniversal",
+      "location_found": true,
+      "location_raw": "Greater Seattle Area",
+      "success": true
+    },
+    {
+      "row_number": 52,
+      "full_name": "Isabella Briones",
+      "company": "Babbel",
+      "location_found": true,
+      "location_raw": "New York City Metropolitan Area",
+      "success": true
+    },
+    {
+      "row_number": 53,
+      "full_name": "Matthew Kempin",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York City Metropolitan Area",
+      "success": true
+    },
+    {
+      "row_number": 54,
+      "full_name": "Alec Xu",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York City Metropolitan Area",
+      "success": true
+    },
+    {
+      "row_number": 55,
+      "full_name": "Rav Bhogal",
+      "company": "Morgan Stanley",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "success": true
+    },
+    {
+      "row_number": 56,
+      "full_name": "Stamatis Birsimijoglou",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York",
+      "success": true
+    },
+    {
+      "row_number": 57,
+      "full_name": "Edward Mancey",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New Milford",
+      "success": true
+    },
+    {
+      "row_number": 58,
+      "full_name": "Christiane Heidepriem",
+      "company": "DERTOUR Group Deutschland",
+      "location_found": true,
+      "location_raw": "Berlin",
+      "success": true
+    },
+    {
+      "row_number": 59,
+      "full_name": "Nicola Mascotto",
+      "company": "Flying Chair",
+      "location_found": true,
+      "location_raw": "Perugia",
+      "success": true
+    },
+    {
+      "row_number": 60,
+      "full_name": "Felix Spyrka",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York",
+      "success": true
+    },
+    {
+      "row_number": 61,
+      "full_name": "James Williams",
+      "company": "Lloyds Banking Group",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 62,
+      "full_name": "Panayiotis Vitakis",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York City Metropolitan Area",
+      "success": true
+    },
+    {
+      "row_number": 63,
+      "full_name": "Rick Davatwal",
+      "company": "Self-employed",
+      "location_found": true,
+      "location_raw": "Nanaimo",
+      "success": true
+    },
+    {
+      "row_number": 64,
+      "full_name": "Johannes Bernhard Goslar",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Kronberg",
+      "success": true
+    },
+    {
+      "row_number": 65,
+      "full_name": "Jessica Wilbor",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Austin",
+      "success": true
+    },
+    {
+      "row_number": 66,
+      "full_name": "Jamie Machin",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "London",
+      "success": true
+    },
+    {
+      "row_number": 67,
+      "full_name": "Shy Pulido",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "London",
+      "success": true
+    },
+    {
+      "row_number": 68,
+      "full_name": "Amy Low CPACC FRSA",
+      "company": "AbilityNet",
+      "location_found": true,
+      "location_raw": "Longbridge",
+      "success": true
+    },
+    {
+      "row_number": 69,
+      "full_name": "Martyn McDermott",
+      "company": "Major Digital",
+      "location_found": true,
+      "location_raw": "Nottinghamshire",
+      "success": true
+    },
+    {
+      "row_number": 70,
+      "full_name": "Ben Potter",
+      "company": "AccessAble",
+      "location_found": true,
+      "location_raw": "Austin",
+      "success": true
+    },
+    {
+      "row_number": 71,
+      "full_name": "Sam DeSilva",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York",
+      "success": true
+    },
+    {
+      "row_number": 72,
+      "full_name": "Bill Tipton CPACC",
+      "company": "Hewlett Packard Enterprise",
+      "location_found": true,
+      "location_raw": "San Jose",
+      "success": true
+    },
+    {
+      "row_number": 73,
+      "full_name": "Florent Dragusha",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Pristina",
+      "success": true
+    },
+    {
+      "row_number": 74,
+      "full_name": "Justin Watanabe",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Wailuku.",
+      "success": true
+    },
+    {
+      "row_number": 75,
+      "full_name": "Keith Claffey",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Nashville",
+      "success": true
+    },
+    {
+      "row_number": 76,
+      "full_name": "Inna Petkova",
+      "company": "myPOS",
+      "location_found": true,
+      "location_raw": "Varna",
+      "success": true
+    },
+    {
+      "row_number": 77,
+      "full_name": "Zenab Khan",
+      "company": "Thomson Reuters",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "success": true
+    },
+    {
+      "row_number": 78,
+      "full_name": "Ben Orr",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Houston",
+      "success": true
+    },
+    {
+      "row_number": 79,
+      "full_name": "Aileen Mackey",
+      "company": "NHS Lanarkshire",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "success": true
+    },
+    {
+      "row_number": 80,
+      "full_name": "Mark Nutley",
+      "company": "Capgemini Invent",
+      "location_found": true,
+      "location_raw": "Greater London",
+      "success": true
+    },
+    {
+      "row_number": 81,
+      "full_name": "Sara Vošinek Gašpar 👋",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Koper",
+      "success": true
+    },
+    {
+      "row_number": 82,
+      "full_name": "Jon Weitzel",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Greater Richmond Region",
+      "success": true
+    },
+    {
+      "row_number": 83,
+      "full_name": "Todd Lemmon 🌎",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Columbus",
+      "success": true
+    },
+    {
+      "row_number": 84,
+      "full_name": "Meadhbh Conlan",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "success": true
+    },
+    {
+      "row_number": 85,
+      "full_name": "Bianca Prins",
+      "company": "CV Works Incluencer",
+      "location_found": true,
+      "location_raw": "Amsterdam",
+      "success": true
+    },
+    {
+      "row_number": 86,
+      "full_name": "Javier Pita",
+      "company": "NaviLens",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 87,
+      "full_name": "Rosie Valentine",
+      "company": "Primark",
+      "location_found": true,
+      "location_raw": "Dublin",
+      "success": true
+    },
+    {
+      "row_number": 88,
+      "full_name": "Sumaira Latif",
+      "company": "Procter & Gamble",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 89,
+      "full_name": "Brendan Mac Donagh",
+      "company": "Kooba",
+      "location_found": true,
+      "location_raw": "Dublin",
+      "success": true
+    },
+    {
+      "row_number": 90,
+      "full_name": "Suchita Sondkar CPACC, WAS, CPWA, TT",
+      "company": "Inclusive A11y",
+      "location_found": true,
+      "location_raw": "Plano",
+      "success": true
+    },
+    {
+      "row_number": 91,
+      "full_name": "Milagros Altagracia Jaime",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 92,
+      "full_name": "Kendra Shutts",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "London",
+      "success": true
+    },
+    {
+      "row_number": 93,
+      "full_name": "Sophia Majidian",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "London",
+      "success": true
+    },
+    {
+      "row_number": 94,
+      "full_name": "Bob Moran",
+      "company": "Accessibility Shield",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 95,
+      "full_name": "Brian Matthews",
+      "company": "Nexus Inclusion",
+      "location_found": true,
+      "location_raw": "San Francisco Bay Area",
+      "success": true
+    },
+    {
+      "row_number": 96,
+      "full_name": "Hannah Travers",
+      "company": "Chelsea Football Club",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "success": true
+    },
+    {
+      "row_number": 97,
+      "full_name": "Neale Ormston",
+      "company": "Tarmac",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "success": true
+    },
+    {
+      "row_number": 98,
+      "full_name": "Lucia Venturi",
+      "company": "University College Dublin",
+      "location_found": true,
+      "location_raw": "Dublin",
+      "success": true
+    },
+    {
+      "row_number": 99,
+      "full_name": "ahamed Hussain shaik",
+      "company": "SAP",
+      "location_found": true,
+      "location_raw": "Hyderabad",
+      "success": true
+    }
+  ]
+}

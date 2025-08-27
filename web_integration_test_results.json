@@ -1,0 +1,153 @@
+{
+  "success": true,
+  "candidates": [
+    {
+      "first_name": "David",
+      "last_name": "Pribil",
+      "position": "Senior Software Engineer",
+      "company": "Synthesia",
+      "email": "",
+      "linkedin": "",
+      "location": "",
+      "match_score": 31.0,
+      "skill_matches": [
+        "software architecture",
+        "problem solving",
+        "software development"
+      ],
+      "matched_role": "software engineer",
+      "score_breakdown": {
+        "skill_score": 9.0,
+        "role_score": 8.0,
+        "company_score": 2.0,
+        "industry_score": 2.5,
+        "seniority_bonus": 1.5,
+        "location_score": 0
+      }
+    },
+    {
+      "first_name": "Catherine",
+      "last_name": "Oxley",
+      "position": "Senior Software Engineer",
+      "company": "Synthesia",
+      "email": "",
+      "linkedin": "",
+      "location": "",
+      "match_score": 31.0,
+      "skill_matches": [
+        "software architecture",
+        "problem solving",
+        "software development"
+      ],
+      "matched_role": "software engineer",
+      "score_breakdown": {
+        "skill_score": 9.0,
+        "role_score": 8.0,
+        "company_score": 2.0,
+        "industry_score": 2.5,
+        "seniority_bonus": 1.5,
+        "location_score": 0
+      }
+    },
+    {
+      "first_name": "Eryk",
+      "last_name": "Napierala",
+      "position": "Senior Software Engineer",
+      "company": "Synthesia",
+      "email": "",
+      "linkedin": "",
+      "location": "",
+      "match_score": 31.0,
+      "skill_matches": [
+        "software architecture",
+        "problem solving",
+        "software development"
+      ],
+      "matched_role": "software engineer",
+      "score_breakdown": {
+        "skill_score": 9.0,
+        "role_score": 8.0,
+        "company_score": 2.0,
+        "industry_score": 2.5,
+        "seniority_bonus": 1.5,
+        "location_score": 0
+      }
+    },
+    {
+      "first_name": "Allyson",
+      "last_name": "Pemberton",
+      "position": "Senior Software Engineer",
+      "company": "Synthesia",
+      "email": "",
+      "linkedin": "",
+      "location": "",
+      "match_score": 31.0,
+      "skill_matches": [
+        "software architecture",
+        "problem solving",
+        "software development"
+      ],
+      "matched_role": "software engineer",
+      "score_breakdown": {
+        "skill_score": 9.0,
+        "role_score": 8.0,
+        "company_score": 2.0,
+        "industry_score": 2.5,
+        "seniority_bonus": 1.5,
+        "location_score": 0
+      }
+    },
+    {
+      "first_name": "Johannes Bernhard",
+      "last_name": "Goslar",
+      "position": "Software Engineer",
+      "company": "Synthesia",
+      "email": "",
+      "linkedin": "",
+      "location": "",
+      "match_score": 29.5,
+      "skill_matches": [
+        "software architecture",
+        "problem solving",
+        "software development"
+      ],
+      "matched_role": "software engineer",
+      "score_breakdown": {
+        "skill_score": 9.0,
+        "role_score": 8.0,
+        "company_score": 2.0,
+        "industry_score": 2.5,
+        "seniority_bonus": 0.0,
+        "location_score": 0
+      }
+    }
+  ],
+  "job_analysis": {
+    "skills_found": [
+      "problem solving",
+      "software architecture",
+      "software development",
+      "Excel",
+      "analytics and reporting",
+      "AWS",
+      "generative AI",
+      "reporting and analytics",
+      "proof of concept",
+      "feature engineering",
+      "surveys and questionnaires",
+      "product requirements",
+      "search engine optimization"
+    ],
+    "platforms_found": [],
+    "role_detected": "software engineer",
+    "role_confidence": 1.0,
+    "suggested_roles": [
+      "data scientist",
+      "product manager"
+    ],
+    "company_detected": "synthesia",
+    "seniority_detected": "senior"
+  },
+  "processing_time": 1.2,
+  "total_candidates_found": 5
+}

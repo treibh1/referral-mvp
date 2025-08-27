@@ -1,0 +1,268 @@
+region_type,region_name,city_name,city_ascii,rank_by_population_in_region,is_capital
+US-STATE,Alabama,Huntsville,Huntsville,1.0,False
+US-STATE,Alabama,Birmingham,Birmingham,2.0,False
+US-STATE,Alabama,Montgomery,Montgomery,3.0,True
+US-STATE,Alabama,Mobile,Mobile,4.0,False
+US-STATE,Alabama,Tuscaloosa,Tuscaloosa,5.0,False
+US-STATE,Alaska,Anchorage,Anchorage,1.0,False
+US-STATE,Alaska,Fairbanks,Fairbanks,2.0,False
+US-STATE,Alaska,Juneau,Juneau,3.0,True
+US-STATE,Alaska,Wasilla,Wasilla,4.0,False
+US-STATE,Alaska,Sitka,Sitka,5.0,False
+US-STATE,Arizona,Phoenix,Phoenix,1.0,True
+US-STATE,Arizona,Tucson,Tucson,2.0,False
+US-STATE,Arizona,Mesa,Mesa,3.0,False
+US-STATE,Arizona,Chandler,Chandler,4.0,False
+US-STATE,Arizona,Gilbert,Gilbert,5.0,False
+US-STATE,Arkansas,Little Rock,Little Rock,1.0,True
+US-STATE,Arkansas,Fayetteville,Fayetteville,2.0,False
+US-STATE,Arkansas,Fort Smith,Fort Smith,3.0,False
+US-STATE,Arkansas,Springdale,Springdale,4.0,False
+US-STATE,Arkansas,Jonesboro,Jonesboro,5.0,False
+US-STATE,California,Los Angeles,Los Angeles,1.0,False
+US-STATE,California,San Diego,San Diego,2.0,False
+US-STATE,California,San Jose,San Jose,3.0,False
+US-STATE,California,San Francisco,San Francisco,4.0,False
+US-STATE,California,Fresno,Fresno,5.0,False
+US-STATE,California,Sacramento,Sacramento,,True
+US-STATE,Colorado,Denver,Denver,1.0,True
+US-STATE,Colorado,Colorado Springs,Colorado Springs,2.0,False
+US-STATE,Colorado,Aurora,Aurora,3.0,False
+US-STATE,Colorado,Fort Collins,Fort Collins,4.0,False
+US-STATE,Colorado,Lakewood,Lakewood,5.0,False
+US-STATE,Connecticut,Bridgeport,Bridgeport,1.0,False
+US-STATE,Connecticut,Stamford,Stamford,2.0,False
+US-STATE,Connecticut,New Haven,New Haven,3.0,False
+US-STATE,Connecticut,Hartford,Hartford,4.0,True
+US-STATE,Connecticut,Waterbury,Waterbury,5.0,False
+US-STATE,Delaware,Wilmington,Wilmington,1.0,False
+US-STATE,Delaware,Dover,Dover,2.0,True
+US-STATE,Delaware,Newark,Newark,3.0,False
+US-STATE,Delaware,Middletown,Middletown,4.0,False
+US-STATE,Delaware,Smyrna,Smyrna,5.0,False
+US-STATE,Florida,Jacksonville,Jacksonville,1.0,False
+US-STATE,Florida,Miami,Miami,2.0,False
+US-STATE,Florida,Tampa,Tampa,3.0,False
+US-STATE,Florida,Orlando,Orlando,4.0,False
+US-STATE,Florida,St. Petersburg,St. Petersburg,5.0,False
+US-STATE,Florida,Tallahassee,Tallahassee,,True
+US-STATE,Georgia,Atlanta,Atlanta,1.0,True
+US-STATE,Georgia,Augusta,Augusta,2.0,False
+US-STATE,Georgia,Columbus,Columbus,3.0,False
+US-STATE,Georgia,Macon,Macon,4.0,False
+US-STATE,Georgia,Savannah,Savannah,5.0,False
+US-STATE,Hawaii,Urban Honolulu,Urban Honolulu,1.0,False
+US-STATE,Hawaii,East Honolulu,East Honolulu,2.0,False
+US-STATE,Hawaii,Hilo,Hilo,3.0,False
+US-STATE,Hawaii,Pearl City,Pearl City,4.0,False
+US-STATE,Hawaii,Kailua,Kailua,5.0,False
+US-STATE,Hawaii,Honolulu,Honolulu,,True
+US-STATE,Idaho,Boise,Boise,1.0,True
+US-STATE,Idaho,Meridian,Meridian,2.0,False
+US-STATE,Idaho,Nampa,Nampa,3.0,False
+US-STATE,Idaho,Idaho Falls,Idaho Falls,4.0,False
+US-STATE,Idaho,Caldwell,Caldwell,5.0,False
+US-STATE,Illinois,Chicago,Chicago,1.0,False
+US-STATE,Illinois,Aurora,Aurora,2.0,False
+US-STATE,Illinois,Joliet,Joliet,3.0,False
+US-STATE,Illinois,Naperville,Naperville,4.0,False
+US-STATE,Illinois,Rockford,Rockford,5.0,False
+US-STATE,Illinois,Springfield,Springfield,,True
+US-STATE,Indiana,Indianapolis,Indianapolis,1.0,True
+US-STATE,Indiana,Fort Wayne,Fort Wayne,2.0,False
+US-STATE,Indiana,Evansville,Evansville,3.0,False
+US-STATE,Indiana,South Bend,South Bend,4.0,False
+US-STATE,Indiana,Carmel,Carmel,5.0,False
+US-STATE,Iowa,Des Moines,Des Moines,1.0,True
+US-STATE,Iowa,Cedar Rapids,Cedar Rapids,2.0,False
+US-STATE,Iowa,Davenport,Davenport,3.0,False
+US-STATE,Iowa,Sioux City,Sioux City,4.0,False
+US-STATE,Iowa,Iowa City,Iowa City,5.0,False
+US-STATE,Kansas,Wichita,Wichita,1.0,False
+US-STATE,Kansas,Overland Park,Overland Park,2.0,False
+US-STATE,Kansas,Kansas City,Kansas City,3.0,False
+US-STATE,Kansas,Olathe,Olathe,4.0,False
+US-STATE,Kansas,Topeka,Topeka,5.0,True
+US-STATE,Kentucky,Louisville,Louisville,1.0,False
+US-STATE,Kentucky,Lexington,Lexington,2.0,False
+US-STATE,Kentucky,Bowling Green,Bowling Green,3.0,False
+US-STATE,Kentucky,Owensboro,Owensboro,4.0,False
+US-STATE,Kentucky,Covington,Covington,5.0,False
+US-STATE,Kentucky,Frankfort,Frankfort,,True
+US-STATE,Louisiana,New Orleans,New Orleans,1.0,False
+US-STATE,Louisiana,Baton Rouge,Baton Rouge,2.0,True
+US-STATE,Louisiana,Shreveport,Shreveport,3.0,False
+US-STATE,Louisiana,Lafayette,Lafayette,4.0,False
+US-STATE,Louisiana,Lake Charles,Lake Charles,5.0,False
+US-STATE,Maine,Portland,Portland,1.0,False
+US-STATE,Maine,Lewiston,Lewiston,2.0,False
+US-STATE,Maine,Bangor,Bangor,3.0,False
+US-STATE,Maine,South Portland,South Portland,4.0,False
+US-STATE,Maine,Auburn,Auburn,5.0,False
+US-STATE,Maine,Augusta,Augusta,,True
+US-STATE,Maryland,Baltimore,Baltimore,1.0,False
+US-STATE,Maryland,Frederick,Frederick,2.0,False
+US-STATE,Maryland,Rockville,Rockville,3.0,False
+US-STATE,Maryland,Gaithersburg,Gaithersburg,4.0,False
+US-STATE,Maryland,Bowie,Bowie,5.0,False
+US-STATE,Maryland,Annapolis,Annapolis,,True
+US-STATE,Massachusetts,Boston,Boston,1.0,True
+US-STATE,Massachusetts,Worcester,Worcester,2.0,False
+US-STATE,Massachusetts,Springfield,Springfield,3.0,False
+US-STATE,Massachusetts,Cambridge,Cambridge,4.0,False
+US-STATE,Massachusetts,Lowell,Lowell,5.0,False
+US-STATE,Michigan,Detroit,Detroit,1.0,False
+US-STATE,Michigan,Grand Rapids,Grand Rapids,2.0,False
+US-STATE,Michigan,Warren,Warren,3.0,False
+US-STATE,Michigan,Sterling Heights,Sterling Heights,4.0,False
+US-STATE,Michigan,Ann Arbor,Ann Arbor,5.0,False
+US-STATE,Michigan,Lansing,Lansing,,True
+US-STATE,Minnesota,Minneapolis,Minneapolis,1.0,False
+US-STATE,Minnesota,Saint Paul,Saint Paul,2.0,True
+US-STATE,Minnesota,Rochester,Rochester,3.0,False
+US-STATE,Minnesota,Bloomington,Bloomington,4.0,False
+US-STATE,Minnesota,Duluth,Duluth,5.0,False
+US-STATE,Mississippi,Jackson,Jackson,1.0,True
+US-STATE,Mississippi,Gulfport,Gulfport,2.0,False
+US-STATE,Mississippi,Southaven,Southaven,3.0,False
+US-STATE,Mississippi,Hattiesburg,Hattiesburg,4.0,False
+US-STATE,Mississippi,Biloxi,Biloxi,5.0,False
+US-STATE,Missouri,Kansas City,Kansas City,1.0,False
+US-STATE,Missouri,St. Louis,St. Louis,2.0,False
+US-STATE,Missouri,Springfield,Springfield,3.0,False
+US-STATE,Missouri,Columbia,Columbia,4.0,False
+US-STATE,Missouri,Independence,Independence,5.0,False
+US-STATE,Missouri,Jefferson City,Jefferson City,,True
+US-STATE,Montana,Billings,Billings,1.0,False
+US-STATE,Montana,Missoula,Missoula,2.0,False
+US-STATE,Montana,Great Falls,Great Falls,3.0,False
+US-STATE,Montana,Bozeman,Bozeman,4.0,False
+US-STATE,Montana,Butte,Butte,5.0,False
+US-STATE,Montana,Helena,Helena,,True
+US-STATE,Nebraska,Omaha,Omaha,1.0,False
+US-STATE,Nebraska,Lincoln,Lincoln,2.0,True
+US-STATE,Nebraska,Bellevue,Bellevue,3.0,False
+US-STATE,Nebraska,Grand Island,Grand Island,4.0,False
+US-STATE,Nebraska,Kearney,Kearney,5.0,False
+US-STATE,Nevada,Las Vegas,Las Vegas,1.0,False
+US-STATE,Nevada,Henderson,Henderson,2.0,False
+US-STATE,Nevada,Reno,Reno,3.0,False
+US-STATE,Nevada,North Las Vegas,North Las Vegas,4.0,False
+US-STATE,Nevada,Sparks,Sparks,5.0,False
+US-STATE,Nevada,Carson City,Carson City,,True
+US-STATE,New Hampshire,Manchester,Manchester,1.0,False
+US-STATE,New Hampshire,Nashua,Nashua,2.0,False
+US-STATE,New Hampshire,Concord,Concord,3.0,True
+US-STATE,New Hampshire,Dover,Dover,4.0,False
+US-STATE,New Hampshire,Rochester,Rochester,5.0,False
+US-STATE,New Jersey,Newark,Newark,1.0,False
+US-STATE,New Jersey,Jersey City,Jersey City,2.0,False
+US-STATE,New Jersey,Paterson,Paterson,3.0,False
+US-STATE,New Jersey,Elizabeth,Elizabeth,4.0,False
+US-STATE,New Jersey,Toms River,Toms River,5.0,False
+US-STATE,New Jersey,Trenton,Trenton,,True
+US-STATE,New Mexico,Albuquerque,Albuquerque,1.0,False
+US-STATE,New Mexico,Las Cruces,Las Cruces,2.0,False
+US-STATE,New Mexico,Rio Rancho,Rio Rancho,3.0,False
+US-STATE,New Mexico,Santa Fe,Santa Fe,4.0,True
+US-STATE,New Mexico,Roswell,Roswell,5.0,False
+US-STATE,New York,New York,New York,1.0,False
+US-STATE,New York,Buffalo,Buffalo,2.0,False
+US-STATE,New York,Yonkers,Yonkers,3.0,False
+US-STATE,New York,Rochester,Rochester,4.0,False
+US-STATE,New York,Syracuse,Syracuse,5.0,False
+US-STATE,New York,Albany,Albany,,True
+US-STATE,North Carolina,Charlotte,Charlotte,1.0,False
+US-STATE,North Carolina,Raleigh,Raleigh,2.0,True
+US-STATE,North Carolina,Greensboro,Greensboro,3.0,False
+US-STATE,North Carolina,Durham,Durham,4.0,False
+US-STATE,North Carolina,Winston-Salem,Winston-Salem,5.0,False
+US-STATE,North Dakota,Fargo,Fargo,1.0,False
+US-STATE,North Dakota,Bismarck,Bismarck,2.0,True
+US-STATE,North Dakota,Grand Forks,Grand Forks,3.0,False
+US-STATE,North Dakota,Minot,Minot,4.0,False
+US-STATE,North Dakota,West Fargo,West Fargo,5.0,False
+US-STATE,Ohio,Columbus,Columbus,1.0,True
+US-STATE,Ohio,Cleveland,Cleveland,2.0,False
+US-STATE,Ohio,Cincinnati,Cincinnati,3.0,False
+US-STATE,Ohio,Toledo,Toledo,4.0,False
+US-STATE,Ohio,Akron,Akron,5.0,False
+US-STATE,Oklahoma,Oklahoma City,Oklahoma City,1.0,True
+US-STATE,Oklahoma,Tulsa,Tulsa,2.0,False
+US-STATE,Oklahoma,Norman,Norman,3.0,False
+US-STATE,Oklahoma,Broken Arrow,Broken Arrow,4.0,False
+US-STATE,Oklahoma,Edmond,Edmond,5.0,False
+US-STATE,Oregon,Portland,Portland,1.0,False
+US-STATE,Oregon,Eugene,Eugene,2.0,False
+US-STATE,Oregon,Salem,Salem,3.0,True
+US-STATE,Oregon,Gresham,Gresham,4.0,False
+US-STATE,Oregon,Hillsboro,Hillsboro,5.0,False
+US-STATE,Pennsylvania,Philadelphia,Philadelphia,1.0,False
+US-STATE,Pennsylvania,Pittsburgh,Pittsburgh,2.0,False
+US-STATE,Pennsylvania,Allentown,Allentown,3.0,False
+US-STATE,Pennsylvania,Reading,Reading,4.0,False
+US-STATE,Pennsylvania,Erie,Erie,5.0,False
+US-STATE,Pennsylvania,Harrisburg,Harrisburg,,True
+US-STATE,Rhode Island,Providence,Providence,1.0,True
+US-STATE,Rhode Island,Warwick,Warwick,2.0,False
+US-STATE,Rhode Island,Cranston,Cranston,3.0,False
+US-STATE,Rhode Island,Pawtucket,Pawtucket,4.0,False
+US-STATE,Rhode Island,East Providence,East Providence,5.0,False
+US-STATE,South Carolina,Charleston,Charleston,1.0,False
+US-STATE,South Carolina,Columbia,Columbia,2.0,True
+US-STATE,South Carolina,North Charleston,North Charleston,3.0,False
+US-STATE,South Carolina,Mount Pleasant,Mount Pleasant,4.0,False
+US-STATE,South Carolina,Rock Hill,Rock Hill,5.0,False
+US-STATE,South Dakota,Sioux Falls,Sioux Falls,1.0,False
+US-STATE,South Dakota,Rapid City,Rapid City,2.0,False
+US-STATE,South Dakota,Aberdeen,Aberdeen,3.0,False
+US-STATE,South Dakota,Brookings,Brookings,4.0,False
+US-STATE,South Dakota,Watertown,Watertown,5.0,False
+US-STATE,South Dakota,Pierre,Pierre,,True
+US-STATE,Tennessee,Nashville,Nashville,1.0,True
+US-STATE,Tennessee,Memphis,Memphis,2.0,False
+US-STATE,Tennessee,Knoxville,Knoxville,3.0,False
+US-STATE,Tennessee,Chattanooga,Chattanooga,4.0,False
+US-STATE,Tennessee,Clarksville,Clarksville,5.0,False
+US-STATE,Texas,Houston,Houston,1.0,False
+US-STATE,Texas,San Antonio,San Antonio,2.0,False
+US-STATE,Texas,Dallas,Dallas,3.0,False
+US-STATE,Texas,Austin,Austin,4.0,True
+US-STATE,Texas,Fort Worth,Fort Worth,5.0,False
+US-STATE,Utah,Salt Lake City,Salt Lake City,1.0,True
+US-STATE,Utah,West Valley City,West Valley City,2.0,False
+US-STATE,Utah,West Jordan,West Jordan,3.0,False
+US-STATE,Utah,Provo,Provo,4.0,False
+US-STATE,Utah,Orem,Orem,5.0,False
+US-STATE,Vermont,Burlington,Burlington,1.0,False
+US-STATE,Vermont,South Burlington,South Burlington,2.0,False
+US-STATE,Vermont,Rutland,Rutland,3.0,False
+US-STATE,Vermont,Essex Junction,Essex Junction,4.0,False
+US-STATE,Vermont,Barre,Barre,5.0,False
+US-STATE,Vermont,Montpelier,Montpelier,,True
+US-STATE,Virginia,Virginia Beach,Virginia Beach,1.0,False
+US-STATE,Virginia,Chesapeake,Chesapeake,2.0,False
+US-STATE,Virginia,Norfolk,Norfolk,3.0,False
+US-STATE,Virginia,Richmond,Richmond,4.0,True
+US-STATE,Virginia,Newport News,Newport News,5.0,False
+US-STATE,Washington,Seattle,Seattle,1.0,False
+US-STATE,Washington,Spokane,Spokane,2.0,False
+US-STATE,Washington,Tacoma,Tacoma,3.0,False
+US-STATE,Washington,Vancouver,Vancouver,4.0,False
+US-STATE,Washington,Bellevue,Bellevue,5.0,False
+US-STATE,Washington,Olympia,Olympia,,True
+US-STATE,West Virginia,Charleston,Charleston,1.0,True
+US-STATE,West Virginia,Huntington,Huntington,2.0,False
+US-STATE,West Virginia,Morgantown,Morgantown,3.0,False
+US-STATE,West Virginia,Parkersburg,Parkersburg,4.0,False
+US-STATE,West Virginia,Wheeling,Wheeling,5.0,False
+US-STATE,Wisconsin,Milwaukee,Milwaukee,1.0,False
+US-STATE,Wisconsin,Madison,Madison,2.0,True
+US-STATE,Wisconsin,Green Bay,Green Bay,3.0,False
+US-STATE,Wisconsin,Kenosha,Kenosha,4.0,False
+US-STATE,Wisconsin,Racine,Racine,5.0,False
+US-STATE,Wyoming,Cheyenne,Cheyenne,1.0,True
+US-STATE,Wyoming,Casper,Casper,2.0,False
+US-STATE,Wyoming,Gillette,Gillette,3.0,False
+US-STATE,Wyoming,Laramie,Laramie,4.0,False
+US-STATE,Wyoming,Rock Springs,Rock Springs,5.0,False

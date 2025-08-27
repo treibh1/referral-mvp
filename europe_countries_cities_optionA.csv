@@ -1,0 +1,225 @@
+region_type,region_name,city_name,city_ascii,rank_by_population_in_region,is_capital
+COUNTRY,Albania,Tirana,Tirana,1.0,True
+COUNTRY,Albania,Durrës,Durres,2.0,False
+COUNTRY,Albania,Vlorë,Vlore,3.0,False
+COUNTRY,Albania,Elbasan,Elbasan,4.0,False
+COUNTRY,Albania,Shkodër,Shkoder,5.0,False
+COUNTRY,Andorra,Andorra la Vella,Andorra la Vella,1.0,True
+COUNTRY,Andorra,Escaldes-Engordany,Escaldes-Engordany,2.0,False
+COUNTRY,Andorra,Encamp,Encamp,3.0,False
+COUNTRY,Austria,Vienna,Vienna,1.0,True
+COUNTRY,Austria,Graz,Graz,2.0,False
+COUNTRY,Austria,Linz,Linz,3.0,False
+COUNTRY,Austria,Salzburg,Salzburg,4.0,False
+COUNTRY,Austria,Innsbruck,Innsbruck,5.0,False
+COUNTRY,Belarus,Minsk,Minsk,1.0,True
+COUNTRY,Belarus,Gomel,Gomel,2.0,False
+COUNTRY,Belarus,Mogilev,Mogilev,3.0,False
+COUNTRY,Belarus,Vitebsk,Vitebsk,4.0,False
+COUNTRY,Belarus,Hrodna,Hrodna,5.0,False
+COUNTRY,Belgium,Brussels,Brussels,1.0,True
+COUNTRY,Belgium,Antwerp,Antwerp,2.0,False
+COUNTRY,Belgium,Ghent,Ghent,3.0,False
+COUNTRY,Belgium,Charleroi,Charleroi,4.0,False
+COUNTRY,Belgium,Liège,Liege,5.0,False
+COUNTRY,Bosnia and Herzegovina,Sarajevo,Sarajevo,1.0,True
+COUNTRY,Bosnia and Herzegovina,Banja Luka,Banja Luka,2.0,False
+COUNTRY,Bosnia and Herzegovina,Tuzla,Tuzla,3.0,False
+COUNTRY,Bosnia and Herzegovina,Zenica,Zenica,4.0,False
+COUNTRY,Bosnia and Herzegovina,Mostar,Mostar,5.0,False
+COUNTRY,Bulgaria,Sofia,Sofia,1.0,True
+COUNTRY,Bulgaria,Plovdiv,Plovdiv,2.0,False
+COUNTRY,Bulgaria,Varna,Varna,3.0,False
+COUNTRY,Bulgaria,Burgas,Burgas,4.0,False
+COUNTRY,Bulgaria,Ruse,Ruse,5.0,False
+COUNTRY,Croatia,Zagreb,Zagreb,1.0,True
+COUNTRY,Croatia,Split,Split,2.0,False
+COUNTRY,Croatia,Rijeka,Rijeka,3.0,False
+COUNTRY,Croatia,Osijek,Osijek,4.0,False
+COUNTRY,Croatia,Zadar,Zadar,5.0,False
+COUNTRY,Cyprus,Nicosia,Nicosia,1.0,True
+COUNTRY,Cyprus,Limassol,Limassol,2.0,False
+COUNTRY,Cyprus,Larnaca,Larnaca,3.0,False
+COUNTRY,Cyprus,Paphos,Paphos,4.0,False
+COUNTRY,Cyprus,Famagusta,Famagusta,5.0,False
+COUNTRY,Czechia,Prague,Prague,1.0,True
+COUNTRY,Czechia,Brno,Brno,2.0,False
+COUNTRY,Czechia,Ostrava,Ostrava,3.0,False
+COUNTRY,Czechia,Plzeň,Plzen,4.0,False
+COUNTRY,Czechia,Liberec,Liberec,5.0,False
+COUNTRY,Denmark,Copenhagen,Copenhagen,1.0,True
+COUNTRY,Denmark,Aarhus,Aarhus,2.0,False
+COUNTRY,Denmark,Odense,Odense,3.0,False
+COUNTRY,Denmark,Aalborg,Aalborg,4.0,False
+COUNTRY,Denmark,Esbjerg,Esbjerg,5.0,False
+COUNTRY,Estonia,Tallinn,Tallinn,1.0,True
+COUNTRY,Estonia,Tartu,Tartu,2.0,False
+COUNTRY,Estonia,Narva,Narva,3.0,False
+COUNTRY,Estonia,Pärnu,Parnu,4.0,False
+COUNTRY,Estonia,Kohtla-Järve,Kohtla-Jarve,5.0,False
+COUNTRY,Finland,Helsinki,Helsinki,1.0,True
+COUNTRY,Finland,Espoo,Espoo,2.0,False
+COUNTRY,Finland,Tampere,Tampere,3.0,False
+COUNTRY,Finland,Vantaa,Vantaa,4.0,False
+COUNTRY,Finland,Oulu,Oulu,5.0,False
+COUNTRY,France,Paris,Paris,1.0,True
+COUNTRY,France,Marseille,Marseille,2.0,False
+COUNTRY,France,Lyon,Lyon,3.0,False
+COUNTRY,France,Toulouse,Toulouse,4.0,False
+COUNTRY,France,Nice,Nice,5.0,False
+COUNTRY,Germany,Berlin,Berlin,1.0,True
+COUNTRY,Germany,Hamburg,Hamburg,2.0,False
+COUNTRY,Germany,Munich,Munich,3.0,False
+COUNTRY,Germany,Cologne,Cologne,4.0,False
+COUNTRY,Germany,Frankfurt,Frankfurt,5.0,False
+COUNTRY,Greece,Athens,Athens,1.0,True
+COUNTRY,Greece,Thessaloniki,Thessaloniki,2.0,False
+COUNTRY,Greece,Patras,Patras,3.0,False
+COUNTRY,Greece,Heraklion,Heraklion,4.0,False
+COUNTRY,Greece,Larissa,Larissa,5.0,False
+COUNTRY,Hungary,Budapest,Budapest,1.0,True
+COUNTRY,Hungary,Debrecen,Debrecen,2.0,False
+COUNTRY,Hungary,Szeged,Szeged,3.0,False
+COUNTRY,Hungary,Miskolc,Miskolc,4.0,False
+COUNTRY,Hungary,Pécs,Pecs,5.0,False
+COUNTRY,Iceland,Reykjavík,Reykjavik,1.0,True
+COUNTRY,Iceland,Kópavogur,Kopavogur,2.0,False
+COUNTRY,Iceland,Hafnarfjörður,Hafnarfjorður,3.0,False
+COUNTRY,Iceland,Akureyri,Akureyri,4.0,False
+COUNTRY,Iceland,Reykjanesbær,Reykjanesbær,5.0,False
+COUNTRY,Ireland,Dublin,Dublin,1.0,True
+COUNTRY,Ireland,Cork,Cork,2.0,False
+COUNTRY,Ireland,Limerick,Limerick,3.0,False
+COUNTRY,Ireland,Galway,Galway,4.0,False
+COUNTRY,Ireland,Waterford,Waterford,5.0,False
+COUNTRY,Italy,Rome,Rome,1.0,True
+COUNTRY,Italy,Milan,Milan,2.0,False
+COUNTRY,Italy,Naples,Naples,3.0,False
+COUNTRY,Italy,Turin,Turin,4.0,False
+COUNTRY,Italy,Palermo,Palermo,5.0,False
+COUNTRY,Kosovo,Pristina,Pristina,1.0,True
+COUNTRY,Kosovo,Prizren,Prizren,2.0,False
+COUNTRY,Kosovo,Ferizaj,Ferizaj,3.0,False
+COUNTRY,Kosovo,Gjilan,Gjilan,4.0,False
+COUNTRY,Kosovo,Peja,Peja,5.0,False
+COUNTRY,Latvia,Riga,Riga,1.0,True
+COUNTRY,Latvia,Daugavpils,Daugavpils,2.0,False
+COUNTRY,Latvia,Liepāja,Liepaja,3.0,False
+COUNTRY,Latvia,Jelgava,Jelgava,4.0,False
+COUNTRY,Latvia,Jūrmala,Jurmala,5.0,False
+COUNTRY,Liechtenstein,Schaan,Schaan,1.0,False
+COUNTRY,Liechtenstein,Vaduz,Vaduz,2.0,True
+COUNTRY,Liechtenstein,Triesen,Triesen,3.0,False
+COUNTRY,Liechtenstein,Balzers,Balzers,4.0,False
+COUNTRY,Liechtenstein,Eschen,Eschen,5.0,False
+COUNTRY,Lithuania,Vilnius,Vilnius,1.0,True
+COUNTRY,Lithuania,Kaunas,Kaunas,2.0,False
+COUNTRY,Lithuania,Klaipėda,Klaipeda,3.0,False
+COUNTRY,Lithuania,Šiauliai,Siauliai,4.0,False
+COUNTRY,Lithuania,Panevėžys,Panevezys,5.0,False
+COUNTRY,Luxembourg,Luxembourg City,Luxembourg City,1.0,True
+COUNTRY,Luxembourg,Esch-sur-Alzette,Esch-sur-Alzette,2.0,False
+COUNTRY,Luxembourg,Differdange,Differdange,3.0,False
+COUNTRY,Luxembourg,Dudelange,Dudelange,4.0,False
+COUNTRY,Luxembourg,Pétange,Petange,5.0,False
+COUNTRY,Malta,Birkirkara,Birkirkara,1.0,False
+COUNTRY,Malta,Mosta,Mosta,2.0,False
+COUNTRY,Malta,Qormi,Qormi,3.0,False
+COUNTRY,Malta,Żabbar,Zabbar,4.0,False
+COUNTRY,Malta,St. Paul’s Bay,St. Paul’s Bay,5.0,False
+COUNTRY,Malta,Valletta,Valletta,,True
+COUNTRY,Moldova,Chișinău,Chisinau,1.0,True
+COUNTRY,Moldova,Bălți,Balti,2.0,False
+COUNTRY,Moldova,Tiraspol,Tiraspol,3.0,False
+COUNTRY,Moldova,Bender,Bender,4.0,False
+COUNTRY,Moldova,Rîbnița,Ribnita,5.0,False
+COUNTRY,Monaco,Monaco,Monaco,1.0,True
+COUNTRY,Montenegro,Podgorica,Podgorica,1.0,True
+COUNTRY,Montenegro,Nikšić,Niksic,2.0,False
+COUNTRY,Montenegro,Herceg Novi,Herceg Novi,3.0,False
+COUNTRY,Montenegro,Pljevlja,Pljevlja,4.0,False
+COUNTRY,Montenegro,Bar,Bar,5.0,False
+COUNTRY,Netherlands,Amsterdam,Amsterdam,1.0,True
+COUNTRY,Netherlands,Rotterdam,Rotterdam,2.0,False
+COUNTRY,Netherlands,The Hague,The Hague,3.0,False
+COUNTRY,Netherlands,Utrecht,Utrecht,4.0,False
+COUNTRY,Netherlands,Eindhoven,Eindhoven,5.0,False
+COUNTRY,North Macedonia,Skopje,Skopje,1.0,True
+COUNTRY,North Macedonia,Bitola,Bitola,2.0,False
+COUNTRY,North Macedonia,Kumanovo,Kumanovo,3.0,False
+COUNTRY,North Macedonia,Prilep,Prilep,4.0,False
+COUNTRY,North Macedonia,Tetovo,Tetovo,5.0,False
+COUNTRY,Norway,Oslo,Oslo,1.0,True
+COUNTRY,Norway,Bergen,Bergen,2.0,False
+COUNTRY,Norway,Trondheim,Trondheim,3.0,False
+COUNTRY,Norway,Stavanger,Stavanger,4.0,False
+COUNTRY,Norway,Drammen,Drammen,5.0,False
+COUNTRY,Poland,Warsaw,Warsaw,1.0,True
+COUNTRY,Poland,Kraków,Krakow,2.0,False
+COUNTRY,Poland,Łódź,Łodz,3.0,False
+COUNTRY,Poland,Wrocław,Wrocław,4.0,False
+COUNTRY,Poland,Poznań,Poznan,5.0,False
+COUNTRY,Portugal,Lisbon,Lisbon,1.0,True
+COUNTRY,Portugal,Porto,Porto,2.0,False
+COUNTRY,Portugal,Vila Nova de Gaia,Vila Nova de Gaia,3.0,False
+COUNTRY,Portugal,Braga,Braga,4.0,False
+COUNTRY,Portugal,Amadora,Amadora,5.0,False
+COUNTRY,Romania,Bucharest,Bucharest,1.0,True
+COUNTRY,Romania,Cluj-Napoca,Cluj-Napoca,2.0,False
+COUNTRY,Romania,Timișoara,Timisoara,3.0,False
+COUNTRY,Romania,Iași,Iasi,4.0,False
+COUNTRY,Romania,Constanța,Constanta,5.0,False
+COUNTRY,Russia,Moscow,Moscow,1.0,True
+COUNTRY,Russia,Saint Petersburg,Saint Petersburg,2.0,False
+COUNTRY,Russia,Novosibirsk,Novosibirsk,3.0,False
+COUNTRY,Russia,Yekaterinburg,Yekaterinburg,4.0,False
+COUNTRY,Russia,Nizhny Novgorod,Nizhny Novgorod,5.0,False
+COUNTRY,San Marino,Serravalle,Serravalle,1.0,False
+COUNTRY,San Marino,Borgo Maggiore,Borgo Maggiore,2.0,False
+COUNTRY,San Marino,San Marino,San Marino,3.0,True
+COUNTRY,Serbia,Belgrade,Belgrade,1.0,True
+COUNTRY,Serbia,Novi Sad,Novi Sad,2.0,False
+COUNTRY,Serbia,Niš,Nis,3.0,False
+COUNTRY,Serbia,Kragujevac,Kragujevac,4.0,False
+COUNTRY,Serbia,Subotica,Subotica,5.0,False
+COUNTRY,Slovakia,Bratislava,Bratislava,1.0,True
+COUNTRY,Slovakia,Košice,Kosice,2.0,False
+COUNTRY,Slovakia,Prešov,Presov,3.0,False
+COUNTRY,Slovakia,Žilina,Zilina,4.0,False
+COUNTRY,Slovakia,Nitra,Nitra,5.0,False
+COUNTRY,Slovenia,Ljubljana,Ljubljana,1.0,True
+COUNTRY,Slovenia,Maribor,Maribor,2.0,False
+COUNTRY,Slovenia,Celje,Celje,3.0,False
+COUNTRY,Slovenia,Kranj,Kranj,4.0,False
+COUNTRY,Slovenia,Koper,Koper,5.0,False
+COUNTRY,Spain,Madrid,Madrid,1.0,True
+COUNTRY,Spain,Barcelona,Barcelona,2.0,False
+COUNTRY,Spain,Valencia,Valencia,3.0,False
+COUNTRY,Spain,Seville,Seville,4.0,False
+COUNTRY,Spain,Zaragoza,Zaragoza,5.0,False
+COUNTRY,Sweden,Stockholm,Stockholm,1.0,True
+COUNTRY,Sweden,Gothenburg,Gothenburg,2.0,False
+COUNTRY,Sweden,Malmö,Malmo,3.0,False
+COUNTRY,Sweden,Uppsala,Uppsala,4.0,False
+COUNTRY,Sweden,Västerås,Vasteras,5.0,False
+COUNTRY,Switzerland,Zürich,Zurich,1.0,False
+COUNTRY,Switzerland,Geneva,Geneva,2.0,False
+COUNTRY,Switzerland,Basel,Basel,3.0,False
+COUNTRY,Switzerland,Lausanne,Lausanne,4.0,False
+COUNTRY,Switzerland,Bern,Bern,5.0,True
+COUNTRY,Turkey,Istanbul,Istanbul,1.0,False
+COUNTRY,Turkey,Ankara,Ankara,2.0,True
+COUNTRY,Turkey,İzmir,Izmir,3.0,False
+COUNTRY,Turkey,Bursa,Bursa,4.0,False
+COUNTRY,Turkey,Antalya,Antalya,5.0,False
+COUNTRY,Ukraine,Kyiv,Kyiv,1.0,True
+COUNTRY,Ukraine,Kharkiv,Kharkiv,2.0,False
+COUNTRY,Ukraine,Odesa,Odesa,3.0,False
+COUNTRY,Ukraine,Dnipro,Dnipro,4.0,False
+COUNTRY,Ukraine,Lviv,Lviv,5.0,False
+COUNTRY,United Kingdom,London,London,1.0,True
+COUNTRY,United Kingdom,Birmingham,Birmingham,2.0,False
+COUNTRY,United Kingdom,Glasgow,Glasgow,3.0,False
+COUNTRY,United Kingdom,Liverpool,Liverpool,4.0,False
+COUNTRY,United Kingdom,Manchester,Manchester,5.0,False
+COUNTRY,Vatican City,Vatican City,Vatican City,1.0,True

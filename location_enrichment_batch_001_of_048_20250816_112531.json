@@ -1,0 +1,38 @@
+{
+  "batch_info": {
+    "batch_name": "001_of_048",
+    "start_idx": 0,
+    "end_idx": 50,
+    "timestamp": "2025-08-16T11:25:31.670489",
+    "successful": 1,
+    "failed": 2,
+    "skipped": 47,
+    "success_rate": "33.3%"
+  },
+  "results": [
+    {
+      "row_number": 4,
+      "full_name": "Gearóid Trimble",
+      "company": "Foras na Gaeilge",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "success": true
+    },
+    {
+      "row_number": 14,
+      "full_name": "Thayer Prime",
+      "company": "Team Prime",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 25,
+      "full_name": "Alex Washwin",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    }
+  ]
+}

@@ -1,0 +1,342 @@
+{
+  "batch_info": {
+    "batch_name": "001_of_048",
+    "start_idx": 0,
+    "end_idx": 50,
+    "timestamp": "2025-08-16T10:36:54.908216",
+    "successful": 38,
+    "failed": 3,
+    "skipped": 9,
+    "success_rate": "92.7%"
+  },
+  "results": [
+    {
+      "row_number": 4,
+      "full_name": "Gearóid Trimble",
+      "company": "Foras na Gaeilge",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 11,
+      "full_name": "Lorenzo Freckleton",
+      "company": "Clacton Rugby Club",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "success": true
+    },
+    {
+      "row_number": 12,
+      "full_name": "Casey (Stanton) Masciantonio",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Philadelphia",
+      "success": true
+    },
+    {
+      "row_number": 13,
+      "full_name": "Bob Nutting, M.Ed.",
+      "company": "Zscaler",
+      "location_found": true,
+      "location_raw": "Greater Pittsburgh Region",
+      "success": true
+    },
+    {
+      "row_number": 14,
+      "full_name": "Thayer Prime",
+      "company": "Team Prime",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 15,
+      "full_name": "Mollie Gardner",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Évora",
+      "success": true
+    },
+    {
+      "row_number": 16,
+      "full_name": "Lindsay S",
+      "company": "Zscaler",
+      "location_found": true,
+      "location_raw": "Austin, Texas Metropolitan Area",
+      "success": true
+    },
+    {
+      "row_number": 17,
+      "full_name": "Brendan Rice",
+      "company": "Boston Consulting Group (BCG)",
+      "location_found": true,
+      "location_raw": "Greater London",
+      "success": true
+    },
+    {
+      "row_number": 18,
+      "full_name": "Aratrika Moitra",
+      "company": "Zscaler",
+      "location_found": true,
+      "location_raw": "San Francisco Bay Area",
+      "success": true
+    },
+    {
+      "row_number": 19,
+      "full_name": "Isabelle Soares",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York",
+      "success": true
+    },
+    {
+      "row_number": 20,
+      "full_name": "Archana Kalbhor,  CPWA (CPACC ,WAS) , Trusted Tester",
+      "company": "Persistent Systems",
+      "location_found": true,
+      "location_raw": "Pune",
+      "success": true
+    },
+    {
+      "row_number": 21,
+      "full_name": "Tim Price-Walker",
+      "company": "Victoria University of Wellington",
+      "location_found": true,
+      "location_raw": "Porirua",
+      "success": true
+    },
+    {
+      "row_number": 22,
+      "full_name": "Tatsiana Lisouskaya",
+      "company": "MY.GAMES",
+      "location_found": true,
+      "location_raw": "Clerkenwell",
+      "success": true
+    },
+    {
+      "row_number": 23,
+      "full_name": "Liù Batchelor",
+      "company": "LiuBatchelor.com",
+      "location_found": true,
+      "location_raw": "London Area, United Kingdom",
+      "success": true
+    },
+    {
+      "row_number": 24,
+      "full_name": "Gabriel Carlsson",
+      "company": "Planhat",
+      "location_found": true,
+      "location_raw": "Joinville",
+      "success": true
+    },
+    {
+      "row_number": 25,
+      "full_name": "Alex Washwin",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 26,
+      "full_name": "Kim Aplin",
+      "company": "IDeaS Revenue Solutions",
+      "location_found": true,
+      "location_raw": "St. Petersburg",
+      "success": true
+    },
+    {
+      "row_number": 27,
+      "full_name": "Kate Sukhanova",
+      "company": "PICS Telecom",
+      "location_found": true,
+      "location_raw": "Greater Newport Area",
+      "success": true
+    },
+    {
+      "row_number": 28,
+      "full_name": "Allyson Pemberton",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Greater London",
+      "success": true
+    },
+    {
+      "row_number": 29,
+      "full_name": "Philipp Würsch",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York",
+      "success": true
+    },
+    {
+      "row_number": 30,
+      "full_name": "Tommy Benning 🐙",
+      "company": "Spekit 🐙",
+      "location_found": true,
+      "location_raw": "Salt Lake City",
+      "success": true
+    },
+    {
+      "row_number": 31,
+      "full_name": "Vivian Batman",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Richmond",
+      "success": true
+    },
+    {
+      "row_number": 32,
+      "full_name": "Ross Watson",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Greater St. Louis",
+      "success": true
+    },
+    {
+      "row_number": 33,
+      "full_name": "David Shaffer",
+      "company": "Zscaler",
+      "location_found": true,
+      "location_raw": "Palm Beach",
+      "success": true
+    },
+    {
+      "row_number": 34,
+      "full_name": "Pete Kistler",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "London",
+      "success": true
+    },
+    {
+      "row_number": 35,
+      "full_name": "Simon Kisner",
+      "company": "British Airways",
+      "location_found": true,
+      "location_raw": "Old Greenwich",
+      "success": true
+    },
+    {
+      "row_number": 36,
+      "full_name": "Caroline McGrotty",
+      "company": "ESB",
+      "location_found": true,
+      "location_raw": "Bray",
+      "success": true
+    },
+    {
+      "row_number": 37,
+      "full_name": "Justin Vipond",
+      "company": "DTN",
+      "location_found": true,
+      "location_raw": "Waterloo",
+      "success": true
+    },
+    {
+      "row_number": 38,
+      "full_name": "Qamar Riaz",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Mississauga",
+      "success": true
+    },
+    {
+      "row_number": 39,
+      "full_name": "Leigh Wood",
+      "company": "Bright Data",
+      "location_found": true,
+      "location_raw": "London",
+      "success": true
+    },
+    {
+      "row_number": 40,
+      "full_name": "Ryan O'Connor",
+      "company": "Intercom",
+      "location_found": true,
+      "location_raw": "London",
+      "success": true
+    },
+    {
+      "row_number": 41,
+      "full_name": "Austin Ruddock",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Austin",
+      "success": true
+    },
+    {
+      "row_number": 42,
+      "full_name": "Anurag Joshi",
+      "company": "Zscaler",
+      "location_found": true,
+      "location_raw": "Des Moines",
+      "success": true
+    },
+    {
+      "row_number": 43,
+      "full_name": "Michele O'Brien",
+      "company": "Zscaler",
+      "location_found": true,
+      "location_raw": "San Francisco Bay Area",
+      "success": true
+    },
+    {
+      "row_number": 44,
+      "full_name": "Adi Givony",
+      "company": "Pluro Accessibility",
+      "location_found": true,
+      "location_raw": "Los Angeles Metropolitan Area",
+      "success": true
+    },
+    {
+      "row_number": 45,
+      "full_name": "Jayke Arkell",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Gold Coast.",
+      "success": true
+    },
+    {
+      "row_number": 46,
+      "full_name": "Amanda Gold",
+      "company": "Zscaler",
+      "location_found": true,
+      "location_raw": "Boston",
+      "success": true
+    },
+    {
+      "row_number": 47,
+      "full_name": "Antony Neill",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Liverpool",
+      "success": true
+    },
+    {
+      "row_number": 48,
+      "full_name": "Sean Reddy",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Greater Boston",
+      "success": true
+    },
+    {
+      "row_number": 49,
+      "full_name": "Meri 🧠🌶️ Wilson",
+      "company": "GAIN",
+      "location_found": true,
+      "location_raw": "Greater Bristol Area, United Kingdom",
+      "success": true
+    },
+    {
+      "row_number": 50,
+      "full_name": "Cynthia Shelly",
+      "company": "Self-employed",
+      "location_found": true,
+      "location_raw": "Kings Mountain",
+      "success": true
+    }
+  ]
+}

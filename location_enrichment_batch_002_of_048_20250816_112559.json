@@ -1,0 +1,54 @@
+{
+  "batch_info": {
+    "batch_name": "002_of_048",
+    "start_idx": 50,
+    "end_idx": 100,
+    "timestamp": "2025-08-16T11:25:59.265332",
+    "successful": 1,
+    "failed": 4,
+    "skipped": 45,
+    "success_rate": "20.0%"
+  },
+  "results": [
+    {
+      "row_number": 61,
+      "full_name": "James Williams",
+      "company": "Lloyds Banking Group",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "success": true
+    },
+    {
+      "row_number": 86,
+      "full_name": "Javier Pita",
+      "company": "NaviLens",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 88,
+      "full_name": "Sumaira Latif",
+      "company": "Procter & Gamble",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 91,
+      "full_name": "Milagros Altagracia Jaime",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 94,
+      "full_name": "Bob Moran",
+      "company": "Accessibility Shield",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    }
+  ]
+}

@@ -1,0 +1,1688 @@
+{
+  "quickbooks online": [
+    "accounting software",
+    "bookkeeping",
+    "invoicing",
+    "small-business finance",
+    "payroll SaaS"
+  ],
+  "blackline": [
+    "financial close",
+    "accounting automation",
+    "reconciliations",
+    "ERP integration",
+    "SaaS"
+  ],
+"zendesk":["customer service", 
+"crm", 
+"saas", 
+"ticketing", 
+"customer experience"],
+  "freshworks": [
+    "customer service",
+    "support tech",
+    "saas",
+    "customer experience",
+    "help desk"
+  ],
+  "anaplan": [
+    "connected planning",
+    "financial modeling",
+    "forecasting",
+    "budgeting",
+    "enterprise planning"
+  ],
+  "procore": [
+    "construction management",
+    "project scheduling",
+    "field collaboration",
+    "building SaaS"
+  ],
+  "autodesk bim 360": [
+    "construction management",
+    "BIM collaboration",
+    "field documentation",
+    "design coordination SaaS"
+  ],
+  "plangrid": [
+    "construction drawings",
+    "field collaboration",
+    "project documentation",
+    "mobile plans SaaS"
+  ],
+  "buildertrend": [
+    "home-builder software",
+    "project management",
+    "client portal",
+    "schedules",
+    "construction SaaS"
+  ],
+  "servicetitan": [
+    "field-service management",
+    "dispatching",
+    "HVAC software",
+    "job costing",
+    "technician scheduling SaaS"
+  ],
+  "jobber": [
+    "service-business software",
+    "scheduling",
+    "invoicing",
+    "field-service management",
+    "quotes SaaS"
+  ],
+  "mailchimp": [
+    "email marketing",
+    "marketing automation",
+    "newsletters",
+    "campaign management",
+    "small-business SaaS"
+  ],
+  "klaviyo": [
+    "e-commerce marketing",
+    "email automation",
+    "SMS campaigns",
+    "customer segmentation",
+    "personalization SaaS"
+  ],
+  "activecampaign": [
+    "marketing automation",
+    "email campaigns",
+    "CRM",
+    "customer-experience automation",
+    "messaging SaaS"
+  ],
+  "sendgrid": [
+    "email delivery",
+    "transactional email",
+    "SMTP relay",
+    "email API",
+    "deliverability SaaS"
+  ],
+  "constant contact": [
+    "email marketing",
+    "contact management",
+    "event marketing",
+    "SMB campaigns",
+    "automation SaaS"
+  ],
+  "figma": [
+    "design software",
+    "collaboration tools",
+    "productivity SaaS",
+    "design systems",
+    "prototyping tools"
+  ],
+  "notion": [
+    "productivity software",
+    "collaboration tools",
+    "knowledge management",
+    "workspace SaaS",
+    "documentation"
+  ],
+  "slack": [
+    "team communication",
+    "collaboration tools",
+    "messaging SaaS",
+    "workplace productivity",
+    "team chat"
+  ],
+  "zoom": [
+    "video conferencing",
+    "communication tools",
+    "remote work SaaS",
+    "webinar platform",
+    "virtual meetings"
+  ],
+  "asana": [
+    "project management",
+    "task management",
+    "team collaboration",
+    "workflow automation",
+    "productivity SaaS"
+  ],
+  "trello": [
+    "project management",
+    "kanban boards",
+    "task organization",
+    "team collaboration",
+    "productivity SaaS"
+  ],
+  "monday.com": [
+    "project management",
+    "workflow automation",
+    "team collaboration",
+    "productivity SaaS",
+    "task tracking"
+  ],
+  "clickup": [
+    "project management",
+    "productivity software",
+    "task management",
+    "team collaboration",
+    "workflow automation"
+  ],
+  "linear": [
+    "project management",
+    "issue tracking",
+    "software development",
+    "productivity SaaS",
+    "team collaboration"
+  ],
+  "jira": [
+    "project management",
+    "issue tracking",
+    "agile development",
+    "software development",
+    "team collaboration"
+  ],
+  "confluence": [
+    "knowledge management",
+    "documentation",
+    "team collaboration",
+    "workspace SaaS",
+    "content management"
+  ],
+  "github": [
+    "software development",
+    "version control",
+    "code collaboration",
+    "developer tools",
+    "open source"
+  ],
+  "gitlab": [
+    "software development",
+    "version control",
+    "CI/CD",
+    "devops tools",
+    "code collaboration"
+  ],
+  "bitbucket": [
+    "software development",
+    "version control",
+    "code collaboration",
+    "developer tools",
+    "project management"
+  ],
+  "openai": [
+    "artificial intelligence",
+    "machine learning",
+    "language models",
+    "AI research",
+    "generative AI"
+  ],
+  "anthropic": [
+    "artificial intelligence",
+    "machine learning",
+    "language models",
+    "AI research",
+    "generative AI"
+  ],
+  "databricks": [
+    "data analytics",
+    "big data",
+    "machine learning",
+    "data engineering",
+    "cloud computing"
+  ],
+  "snowflake": [
+    "data warehousing",
+    "cloud computing",
+    "data analytics",
+    "big data",
+    "database SaaS"
+  ],
+  "palantir": [
+    "data analytics",
+    "big data",
+    "artificial intelligence",
+    "government software",
+    "enterprise software"
+  ],
+  "datadog": [
+    "monitoring",
+    "observability",
+    "devops tools",
+    "application performance",
+    "infrastructure monitoring"
+  ],
+  "new relic": [
+    "monitoring",
+    "observability",
+    "application performance",
+    "devops tools",
+    "infrastructure monitoring"
+  ],
+  "splunk": [
+    "log management",
+    "security analytics",
+    "monitoring",
+    "observability",
+    "big data analytics"
+  ],
+  "elastic": [
+    "search engine",
+    "log analytics",
+    "monitoring",
+    "observability",
+    "data analytics"
+  ],
+  "mongodb": [
+    "database",
+    "NoSQL",
+    "document database",
+    "cloud database",
+    "developer tools"
+  ],
+  "redis": [
+    "database",
+    "caching",
+    "in-memory database",
+    "key-value store",
+    "developer tools"
+  ],
+  "postgresql": [
+    "database",
+    "relational database",
+    "open source",
+    "cloud database",
+    "developer tools"
+  ],
+  "mysql": [
+    "database",
+    "relational database",
+    "open source",
+    "cloud database",
+    "developer tools"
+  ],
+  "aws": [
+    "cloud computing",
+    "infrastructure",
+    "developer tools",
+    "enterprise software",
+    "cloud services"
+  ],
+  "amazon web services": [
+    "cloud computing",
+    "infrastructure",
+    "developer tools",
+    "enterprise software",
+    "cloud services"
+  ],
+  "google cloud": [
+    "cloud computing",
+    "infrastructure",
+    "developer tools",
+    "enterprise software",
+    "cloud services"
+  ],
+  "microsoft azure": [
+    "cloud computing",
+    "infrastructure",
+    "developer tools",
+    "enterprise software",
+    "cloud services"
+  ],
+  "azure": [
+    "cloud computing",
+    "infrastructure",
+    "developer tools",
+    "enterprise software",
+    "cloud services"
+  ],
+  "digitalocean": [
+    "cloud computing",
+    "infrastructure",
+    "developer tools",
+    "hosting services",
+    "cloud services"
+  ],
+  "heroku": [
+    "cloud computing",
+    "platform as a service",
+    "developer tools",
+    "application hosting",
+    "cloud services"
+  ],
+  "vercel": [
+    "cloud computing",
+    "platform as a service",
+    "developer tools",
+    "application hosting",
+    "frontend hosting"
+  ],
+  "netlify": [
+    "cloud computing",
+    "platform as a service",
+    "developer tools",
+    "application hosting",
+    "frontend hosting"
+  ],
+  "docker": [
+    "containerization",
+    "developer tools",
+    "devops tools",
+    "cloud computing",
+    "application deployment"
+  ],
+  "kubernetes": [
+    "container orchestration",
+    "devops tools",
+    "cloud computing",
+    "application deployment",
+    "infrastructure"
+  ],
+  "terraform": [
+    "infrastructure as code",
+    "devops tools",
+    "cloud computing",
+    "automation",
+    "configuration management"
+  ],
+  "ansible": [
+    "configuration management",
+    "automation",
+    "devops tools",
+    "infrastructure",
+    "deployment"
+  ],
+  "jenkins": [
+    "CI/CD",
+    "automation",
+    "devops tools",
+    "continuous integration",
+    "build automation"
+  ],
+  "circleci": [
+    "CI/CD",
+    "automation",
+    "devops tools",
+    "continuous integration",
+    "build automation"
+  ],
+  "github actions": [
+    "CI/CD",
+    "automation",
+    "devops tools",
+    "continuous integration",
+    "build automation"
+  ],
+  "gitlab ci": [
+    "CI/CD",
+    "automation",
+    "devops tools",
+    "continuous integration",
+    "build automation"
+  ],
+  "hugging face": [
+    "artificial intelligence",
+    "machine learning",
+    "natural language processing",
+    "open source",
+    "AI research"
+  ],
+  "weights & biases": [
+    "machine learning",
+    "experiment tracking",
+    "MLOps",
+    "AI research",
+    "model management"
+  ],
+  "mlflow": [
+    "machine learning",
+    "experiment tracking",
+    "MLOps",
+    "model management",
+    "open source"
+  ],
+  "kubeflow": [
+    "machine learning",
+    "MLOps",
+    "kubernetes",
+    "model deployment",
+    "open source"
+  ],
+  "ray": [
+    "distributed computing",
+    "machine learning",
+    "python",
+    "scalable computing",
+    "open source"
+  ],
+  "apache spark": [
+    "big data",
+    "distributed computing",
+    "data processing",
+    "machine learning",
+    "open source"
+  ],
+  "apache kafka": [
+    "stream processing",
+    "message queues",
+    "real-time data",
+    "distributed systems",
+    "open source"
+  ],
+  "apache airflow": [
+    "workflow orchestration",
+    "data pipelines",
+    "scheduling",
+    "automation",
+    "open source"
+  ],
+  "dbt": [
+    "data transformation",
+    "data analytics",
+    "data modeling",
+    "SQL",
+    "open source"
+  ],
+  "fivetran": [
+    "data integration",
+    "ETL",
+    "data pipelines",
+    "data analytics",
+    "cloud data"
+  ],
+  "airbyte": [
+    "data integration",
+    "ETL",
+    "data pipelines",
+    "open source",
+    "cloud data"
+  ],
+  "segment": [
+    "customer data platform",
+    "data analytics",
+    "customer insights",
+    "marketing analytics",
+    "data integration"
+  ],
+  "rudderstack": [
+    "customer data platform",
+    "data analytics",
+    "customer insights",
+    "open source",
+    "data integration"
+  ],
+  "amplitude": [
+    "product analytics",
+    "user analytics",
+    "behavioral analytics",
+    "data analytics",
+    "product insights"
+  ],
+  "mixpanel": [
+    "product analytics",
+    "user analytics",
+    "behavioral analytics",
+    "data analytics",
+    "product insights"
+  ],
+  "pagerduty": [
+    "incident management",
+    "alerting",
+    "monitoring",
+    "devops tools",
+    "on-call management"
+  ],
+  "grafana": [
+    "monitoring",
+    "observability",
+    "data visualization",
+    "metrics",
+    "open source"
+  ],
+  "prometheus": [
+    "monitoring",
+    "observability",
+    "metrics",
+    "time series database",
+    "open source"
+  ],
+  "campaign monitor": [
+    "email marketing",
+    "template builder",
+    "list management",
+    "email analytics",
+    "SaaS"
+  ],
+  "marketo": [
+    "marketing automation",
+    "lead nurturing",
+    "campaign orchestration",
+    "B2B marketing SaaS"
+  ],
+  "pardot": [
+    "B2B marketing automation",
+    "lead scoring",
+    "email campaigns",
+    "Salesforce marketing cloud SaaS"
+  ],
+  "eloqua": [
+    "marketing automation",
+    "demand generation",
+    "campaign management",
+    "lead management",
+    "Oracle SaaS"
+  ],
+  "semrush": [
+    "SEO platform",
+    "keyword research",
+    "competitive analysis",
+    "content marketing",
+    "search analytics SaaS"
+  ],
+  "ahrefs": [
+    "SEO tools",
+    "backlink analysis",
+    "keyword research",
+    "site audit",
+    "search-engine optimization SaaS"
+  ],
+  "moz": [
+    "SEO software",
+    "domain authority",
+    "keyword explorer",
+    "rank tracking",
+    "inbound marketing SaaS"
+  ],
+  "yoast": [
+    "SEO plugin",
+    "WordPress optimization",
+    "content analysis",
+    "on-page SEO",
+    "readability SaaS"
+  ],
+  "gong": [
+    "revenue intelligence",
+    "call recording",
+    "conversational analytics",
+    "sales coaching",
+    "AI insights SaaS"
+  ],
+  "chorus.ai": [
+    "conversation intelligence",
+    "call analysis",
+    "sales coaching",
+    "deal insights",
+    "revenue platform SaaS"
+  ],
+  "salesloft": [
+    "sales engagement",
+    "cadence automation",
+    "email & dialer",
+    "prospecting",
+    "revenue workflow SaaS"
+  ],
+  "outreach": [
+    "sales engagement",
+    "multichannel sequences",
+    "prospecting automation",
+    "pipeline generation SaaS"
+  ],
+  "apollo.io": [
+    "sales intelligence",
+    "lead data",
+    "prospecting platform",
+    "email sequences",
+    "revenue acceleration SaaS"
+  ],
+  "zoominfo": [
+    "B2B data",
+    "contact database",
+    "sales intelligence",
+    "lead generation",
+    "go-to-market SaaS"
+  ],
+  "linkedin sales navigator": [
+    "social selling",
+    "prospect discovery",
+    "relationship insights",
+    "B2B sales",
+    "LinkedIn SaaS"
+  ],
+  "medallia": [
+    "CX analytics",
+    "voice of customer",
+    "feedback management",
+    "experience platform",
+    "sentiment analysis SaaS"
+  ],
+  "qualtrics": [
+    "experience management",
+    "survey platform",
+    "feedback analytics",
+    "CX research",
+    "employee engagement SaaS"
+  ],
+  "surveymonkey": [
+    "survey platform",
+    "online questionnaires",
+    "market research",
+    "feedback collection",
+    "data insights SaaS"
+  ],
+  "typeform": [
+    "conversational forms",
+    "surveys & quizzes",
+    "data collection",
+    "interactive questionnaires",
+    "no-code SaaS"
+  ],
+  "usertesting": [
+    "user research",
+    "usability testing",
+    "video feedback",
+    "customer insights",
+    "UX testing SaaS"
+  ],
+  "hotjar": [
+    "behavior analytics",
+    "heatmaps",
+    "session recordings",
+    "feedback polls",
+    "UX optimization SaaS"
+  ],
+  "fullstory": [
+    "digital-experience analytics",
+    "session replay",
+    "conversion insights",
+    "product analytics SaaS"
+  ],
+  "contentsquare": [
+    "digital-experience analytics",
+    "UX insights",
+    "heatmaps",
+    "journey analysis SaaS"
+  ],
+  "optimizely": [
+    "experimentation platform",
+    "A/B testing",
+    "feature flags",
+    "digital optimization SaaS"
+  ],
+  "vwo": [
+    "A/B testing",
+    "CRO platform",
+    "personalization",
+    "web experimentation",
+    "behavior analytics SaaS"
+  ],
+  "launchdarkly": [
+    "feature management",
+    "feature flags",
+    "release orchestration",
+    "progressive delivery SaaS"
+  ],
+  "netlify": [
+    "front-end hosting",
+    "serverless functions",
+    "CI/CD",
+    "JAMstack deployment",
+    "web infrastructure SaaS"
+  ],
+  "vercel": [
+    "front-end cloud",
+    "Next.js hosting",
+    "edge network",
+    "serverless deployment",
+    "developer experience SaaS"
+  ],
+  "firebase": [
+    "app backend",
+    "realtime database",
+    "push notifications",
+    "authentication",
+    "mobile development SaaS"
+  ],
+  "algolia": [
+    "search API",
+    "instant search",
+    "full-text search",
+    "relevance engine",
+    "developer platform SaaS"
+  ],
+  "lucidchart": [
+    "diagramming",
+    "flowcharts",
+    "visual collaboration",
+    "process mapping SaaS"
+  ],
+  "miro": [
+    "online whiteboard",
+    "visual collaboration",
+    "brainstorming",
+    "workshops",
+    "remote teamwork SaaS"
+  ],
+  "figma": [
+    "design collaboration",
+    "UI prototyping",
+    "vector graphics",
+    "multiplayer editing",
+    "cloud design SaaS"
+  ],
+  "canva": [
+    "graphic design",
+    "drag-and-drop editing",
+    "marketing creatives",
+    "social-media graphics SaaS"
+  ],
+  "sketch": [
+    "vector design",
+    "UI design",
+    "prototyping",
+    "Mac app",
+    "design-system SaaS"
+  ],
+  "invision": [
+    "design collaboration",
+    "prototypes & mockups",
+    "design workflow",
+    "stakeholder feedback SaaS"
+  ],
+  "framer": [
+    "interactive prototyping",
+    "design-to-code",
+    "React components",
+    "visual design SaaS"
+  ],
+  "axure rp": [
+    "UX wireframing",
+    "interactive prototypes",
+    "requirements documentation",
+    "diagramming SaaS"
+  ],
+  "balsamiq": [
+    "wireframing tool",
+    "low-fidelity mockups",
+    "rapid prototyping",
+    "UI sketches SaaS"
+  ],
+  "webflow": [
+    "visual website builder",
+    "no-code CMS",
+    "responsive design",
+    "hosting platform SaaS"
+  ],
+  "wix": [
+    "website builder",
+    "drag-and-drop sites",
+    "e-commerce stores",
+    "marketing tools SaaS"
+  ],
+  "squarespace": [
+    "website builder",
+    "portfolio sites",
+    "e-commerce platform",
+    "templates & design SaaS"
+  ],
+  "bigcommerce": [
+    "e-commerce platform",
+    "online stores",
+    "multi-channel retail",
+    "B2B commerce SaaS"
+  ],
+  "magento commerce": [
+    "e-commerce platform",
+    "shopping cart",
+    "order management",
+    "open-source commerce SaaS"
+  ],
+  "stripe billing": [
+    "subscription billing",
+    "invoicing APIs",
+    "recurring payments",
+    "revenue recognition SaaS"
+  ],
+  "braintree": [
+    "payment gateway",
+    "online payments",
+    "mobile checkout",
+    "merchant services SaaS"
+  ],
+  "adyen": [
+    "payment processing",
+    "omnichannel payments",
+    "point-of-sale",
+    "risk management SaaS"
+  ],
+  "square": [
+    "POS systems",
+    "card processing",
+    "payment hardware",
+    "small-business finance SaaS"
+  ],
+  "paypal": [
+    "online payments",
+    "digital wallet",
+    "merchant services",
+    "checkout processing SaaS"
+  ],
+  "checkout.com": [
+    "payment gateway",
+    "global acquiring",
+    "card issuing",
+    "fraud management SaaS"
+  ],
+  "wise": [
+    "cross-border payments",
+    "foreign exchange",
+    "international transfers",
+    "fintech platform SaaS"
+  ],
+  "airwallex": [
+    "cross-border payments",
+    "FX platform",
+    "multi-currency accounts",
+    "business cards SaaS"
+  ],
+  "brex": [
+    "corporate cards",
+    "expense management",
+    "spend management",
+    "startup finance SaaS"
+  ],
+  "ramp": [
+    "corporate cards",
+    "expense automation",
+    "spend analytics",
+    "finance platform SaaS"
+  ],
+  "divvy": [
+    "spend management",
+    "corporate cards",
+    "expense tracking",
+    "budget controls SaaS"
+  ],
+  "expensify": [
+    "expense management",
+    "receipt scanning",
+    "reimbursement automation",
+    "SMB finance SaaS"
+  ],
+  "concur": [
+    "travel & expense",
+    "itinerary management",
+    "reimbursement",
+    "spend compliance SaaS"
+  ],
+  "gusto": [
+    "payroll software",
+    "HR & benefits",
+    "employee onboarding",
+    "taxes & compliance SaaS"
+  ],
+  "deel": [
+    "global payroll",
+    "contractor payments",
+    "EOR services",
+    "compliance automation SaaS"
+  ],
+  "remote.com": [
+    "employer of record",
+    "global hiring",
+    "payroll & benefits",
+    "compliance platform SaaS"
+  ],
+  "rippling": [
+    "HRIS platform",
+    "payroll & IT",
+    "device management",
+    "employee onboarding SaaS"
+  ],
+  "zenefits": [
+    "HR management",
+    "benefits administration",
+    "payroll & compliance",
+    "SMB HR SaaS"
+  ],
+  "bamboohr": [
+    "HR management",
+    "applicant tracking",
+    "performance reviews",
+    "employee data SaaS"
+  ],
+  "adp workforce now": [
+    "payroll & HR",
+    "time tracking",
+    "benefits administration",
+    "workforce management SaaS"
+  ],
+  "paychex flex": [
+    "payroll software",
+    "HR services",
+    "benefits management",
+    "SMB finance SaaS"
+  ],
+  "lever": [
+    "applicant tracking",
+    "recruiting CRM",
+    "talent acquisition",
+    "hiring pipeline SaaS"
+  ],
+  "greenhouse": [
+    "applicant tracking",
+    "recruiting software",
+    "interview scheduling",
+    "talent acquisition SaaS"
+  ],
+  "smartrecruiters": [
+    "talent acquisition",
+    "ATS platform",
+    "collaborative hiring",
+    "recruitment marketing SaaS"
+  ],
+  "icims": [
+    "talent cloud",
+    "applicant tracking",
+    "onboarding",
+    "recruitment marketing SaaS"
+  ],
+  "workable": [
+    "applicant tracking",
+    "job posting",
+    "candidate sourcing",
+    "recruiting software SaaS"
+  ],
+  "jobvite": [
+    "recruiting software",
+    "applicant tracking",
+    "employee referrals",
+    "talent management SaaS"
+  ],
+  "bullhorn": [
+    "staffing software",
+    "recruiting CRM",
+    "applicant tracking",
+    "talent pipeline SaaS"
+  ],
+  "clearcompany": [
+    "talent management",
+    "performance reviews",
+    "applicant tracking",
+    "goal alignment SaaS"
+  ],
+  "ringcentral": [
+    "cloud PBX",
+    "business phone",
+    "video meetings",
+    "UCaaS",
+    "VoIP SaaS"
+  ],
+  "8x8": [
+    "cloud communications",
+    "contact center",
+    "VoIP phone",
+    "UCaaS",
+    "video conferencing SaaS"
+  ],
+  "five9": [
+    "cloud contact center",
+    "inbound & outbound calling",
+    "customer service",
+    "CCaaS SaaS"
+  ],
+  "talkdesk": [
+    "cloud contact center",
+    "AI routing",
+    "omnichannel support",
+    "CX platform SaaS"
+  ],
+  "genesys cloud": [
+    "contact center",
+    "customer experience",
+    "omnichannel routing",
+    "AI engagement SaaS"
+  ],
+  "aircall": [
+    "cloud call center",
+    "VoIP phone system",
+    "sales calling",
+    "customer support SaaS"
+  ],
+  "nice incontact": [
+    "contact center",
+    "omnichannel CX",
+    "workforce optimization",
+    "analytics SaaS"
+  ],
+  "dialpad": [
+    "AI voice",
+    "business phone",
+    "video meetings",
+    "contact center",
+    "UCaaS SaaS"
+  ],
+  "vonage business": [
+    "cloud communications",
+    "VoIP phone",
+    "SMS & API",
+    "UCaaS",
+    "contact center SaaS"
+  ],
+  "twilio": [
+    "communications API",
+    "SMS & voice",
+    "programmable messaging",
+    "email API SaaS"
+  ],
+  "messagebird": [
+    "communication platform",
+    "omnichannel API",
+    "SMS & voice",
+    "chat channels SaaS"
+  ],
+  "sendinblue": [
+    "email marketing",
+    "SMS campaigns",
+    "marketing automation",
+    "transactional email SaaS"
+  ],
+  "plivo": [
+    "voice & SMS API",
+    "cloud communications",
+    "programmable messaging",
+    "contact center SaaS"
+  ],
+  "infobip": [
+    "omnichannel communications",
+    "messaging API",
+    "chat apps",
+    "contact center SaaS"
+  ],
+  "calendly": [
+    "scheduling software",
+    "meeting booking",
+    "calendar integration",
+    "appointment automation SaaS"
+  ],
+  "doodle": [
+    "meeting scheduling",
+    "poll-based booking",
+    "calendar coordination",
+    "availability sharing SaaS"
+  ],
+  "timecamp": [
+    "time tracking",
+    "productivity monitoring",
+    "timesheets & reports",
+    "project cost SaaS"
+  ],
+  "toggl": [
+    "time tracking",
+    "billable hours",
+    "productivity analytics",
+    "team timesheets SaaS"
+  ],
+  "harvest": [
+    "time tracking",
+    "invoicing",
+    "expense tracking",
+    "project budgeting SaaS"
+  ],
+  "jira software": [
+    "issue tracking",
+    "agile project management",
+    "scrum boards",
+    "DevOps workflow SaaS"
+  ],
+  "confluence": [
+    "team wiki",
+    "knowledge base",
+    "collaboration docs",
+    "content management SaaS"
+  ],
+  "basecamp": [
+    "project management",
+    "team communication",
+    "task lists",
+    "file sharing SaaS"
+  ],
+  "clickup": [
+    "productivity platform",
+    "tasks & docs",
+    "project management",
+    "goal tracking SaaS"
+  ],
+  "airtable": [
+    "relational database",
+    "no-code apps",
+    "spreadsheet-database hybrid",
+    "collaboration platform SaaS"
+  ],
+  "coda": [
+    "docs-as-apps",
+    "all-in-one workspace",
+    "interactive tables",
+    "no-code automation SaaS"
+  ],
+  "zoho projects": [
+    "project management",
+    "task tracking",
+    "Gantt charts",
+    "team collaboration SaaS"
+  ],
+  "teamwork": [
+    "project management",
+    "client-work platform",
+    "time tracking",
+    "collaboration tools SaaS"
+  ],
+  "wrike": [
+    "project management",
+    "work management",
+    "collaboration",
+    "Gantt charts SaaS"
+  ],
+  "meistertask": [
+    "kanban boards",
+    "task management",
+    "workflow automation",
+    "team collaboration SaaS"
+  ],
+  "proofhub": [
+    "project management",
+    "team collaboration",
+    "discussions & notes",
+    "time tracking SaaS"
+  ],
+  "pipedrive": [
+    "sales CRM",
+    "pipeline management",
+    "deal tracking",
+    "activity scheduling SaaS"
+  ],
+  "copper crm": [
+    "Gmail-integrated CRM",
+    "pipeline management",
+    "relationship tracking SaaS"
+  ],
+  "insightly": [
+    "CRM & project management",
+    "relationship linking",
+    "sales pipeline SaaS"
+  ],
+  "freshsales": [
+    "sales CRM",
+    "contact management",
+    "email tracking",
+    "deal pipeline SaaS"
+  ],
+  "sugarcrm": [
+    "customer relationship",
+    "sales automation",
+    "marketing integration",
+    "support platform SaaS"
+  ],
+  "agile crm": [
+    "sales & marketing CRM",
+    "automation",
+    "contact management",
+    "helpdesk SaaS"
+  ],
+  "nimble": [
+    "social CRM",
+    "relationship intelligence",
+    "contact management",
+    "sales insights SaaS"
+  ],
+  "gainsight": [
+    "customer success",
+    "churn prevention",
+    "health scoring",
+    "lifecycle management SaaS"
+  ],
+  "totango": [
+    "customer success",
+    "adoption tracking",
+    "health scoring",
+    "lifecycle journeys SaaS"
+  ],
+  "churnzero": [
+    "customer success",
+    "churn analytics",
+    "usage tracking",
+    "account health SaaS"
+  ],
+  "chartmogul": [
+    "subscription analytics",
+    "MRR metrics",
+    "cohort analysis",
+    "SaaS revenue insights SaaS"
+  ],
+  "baremetrics": [
+    "subscription analytics",
+    "ARR & MRR",
+    "churn metrics",
+    "dashboards SaaS"
+  ],
+  "profitwell": [
+    "subscription metrics",
+    "revenue automation",
+    "pricing insights",
+    "retention tools SaaS"
+  ],
+  "kissmetrics": [
+    "behavioral analytics",
+    "conversion tracking",
+    "cohort analysis",
+    "marketing insights SaaS"
+  ],
+  "rudderstack": [
+    "customer data platform",
+    "event streaming",
+    "data pipelines",
+    "warehouse integration SaaS"
+  ],
+  "snowplow": [
+    "behavioral data",
+    "event tracking",
+    "data pipelines",
+    "analytics infrastructure SaaS"
+  ],
+  "databricks": [
+    "data lakehouse",
+    "big-data analytics",
+    "Apache Spark platform",
+    "machine learning SaaS"
+  ],
+  "datarobot": [
+    "automated machine learning",
+    "MLOps platform",
+    "predictive analytics",
+    "AI models SaaS"
+  ],
+  "h2o.ai": [
+    "machine-learning platform",
+    "AutoML",
+    "AI models",
+    "open-source AI SaaS"
+  ],
+  "dataiku": [
+    "data-science platform",
+    "ML workflows",
+    "collaborative analytics",
+    "governed AI SaaS"
+  ],
+  "alteryx": [
+    "data preparation",
+    "analytics automation",
+    "self-service BI",
+    "ETL platform SaaS"
+  ],
+  "rapidminer": [
+    "data-science platform",
+    "visual ML",
+    "predictive analytics",
+    "ETL SaaS"
+  ],
+  "thoughtspot": [
+    "search-based analytics",
+    "BI platform",
+    "AI insights",
+    "data visualization SaaS"
+  ],
+  "qubole": [
+    "big-data platform",
+    "data lakes",
+    "Apache Spark",
+    "workflow orchestration SaaS"
+  ],
+  "talend cloud": [
+    "data integration",
+    "ETL pipelines",
+    "API services",
+    "data quality SaaS"
+  ],
+  "informatica cloud": [
+    "data integration",
+    "data governance",
+    "MDM",
+    "data quality SaaS"
+  ],
+  "fivetran": [
+    "automated data pipelines",
+    "ELT",
+    "data integration",
+    "connectors SaaS"
+  ],
+  "stitch": [
+    "ETL service",
+    "data pipelines",
+    "analytics integration",
+    "data loading SaaS"
+  ],
+  "matillion": [
+    "cloud ETL",
+    "data transformation",
+    "data integration",
+    "Snowflake partner SaaS"
+  ],
+  "airbyte cloud": [
+    "open-source ELT",
+    "data connectors",
+    "data integration",
+    "modern stack SaaS"
+  ],
+  "snyk": [
+    "developer security",
+    "open-source scanning",
+    "container security",
+    "IaC security SaaS"
+  ],
+  "gitguardian": [
+    "secrets detection",
+    "code security",
+    "credential leak prevention",
+    "DevSecOps SaaS"
+  ],
+  "sonarcloud": [
+    "code quality",
+    "static analysis",
+    "technical debt",
+    "DevSecOps SaaS"
+  ],
+  "mend (whitesource)": [
+    "open-source security",
+    "license compliance",
+    "vulnerability scanning",
+    "DevSecOps SaaS"
+  ],
+  "jfrog": [
+    "artifact repository",
+    "DevOps binaries",
+    "software supply chain",
+    "security SaaS"
+  ],
+  "circleci": [
+    "CI/CD platform",
+    "continuous integration",
+    "automated testing",
+    "deployment pipelines SaaS"
+  ],
+  "travis ci": [
+    "continuous integration",
+    "build automation",
+    "open-source testing",
+    "CI/CD SaaS"
+  ],
+  "buddy": [
+    "CI/CD pipelines",
+    "Docker automation",
+    "Kubernetes deployments",
+    "DevOps platform SaaS"
+  ],
+  "codeship": [
+    "continuous integration",
+    "automated builds",
+    "deployment pipelines SaaS"
+  ],
+  "codefresh": [
+    "CI/CD for containers",
+    "Kubernetes deployment",
+    "GitOps",
+    "DevOps automation SaaS"
+  ],
+  "harness": [
+    "continuous delivery",
+    "feature flags",
+    "cloud cost management",
+    "CI/CD platform SaaS"
+  ],
+  "octopus deploy": [
+    "deployment automation",
+    "release management",
+    "DevOps",
+    "CI/CD integration SaaS"
+  ],
+  "chef automate": [
+    "infrastructure automation",
+    "configuration management",
+    "CI/CD pipeline SaaS"
+  ],
+  "puppet enterprise": [
+    "infrastructure automation",
+    "configuration management",
+    "compliance",
+    "DevOps SaaS"
+  ],
+  "ansible tower": [
+    "IT automation",
+    "configuration management",
+    "orchestration",
+    "DevOps SaaS"
+  ],
+  "terraform cloud": [
+    "infrastructure as code",
+    "provisioning automation",
+    "cloud orchestration SaaS"
+  ],
+  "cloudhealth": [
+    "cloud cost management",
+    "cloud governance",
+    "optimization analytics SaaS"
+  ],
+  "dynatrace": [
+    "application performance",
+    "infrastructure monitoring",
+    "digital experience",
+    "observability SaaS"
+  ],
+  "appdynamics": [
+    "application performance",
+    "APM",
+    "monitoring & analytics",
+    "DevOps SaaS"
+  ],
+  "instana": [
+    "application performance",
+    "distributed tracing",
+    "real-time monitoring",
+    "observability SaaS"
+  ],
+  "grafana cloud": [
+    "metrics dashboards",
+    "logs & traces",
+    "observability platform",
+    "visualization SaaS"
+  ],
+  "humio": [
+    "log analytics",
+    "real-time search",
+    "observability",
+    "SIEM SaaS"
+  ],
+  "logz.io": [
+    "log analytics",
+    "ELK-as-a-service",
+    "observability",
+    "metrics & traces SaaS"
+  ],
+  "papertrail": [
+    "log aggregation",
+    "log management",
+    "real-time search",
+    "monitoring SaaS"
+  ],
+  "loggly": [
+    "log management",
+    "analytics & monitoring",
+    "cloud-based logs SaaS"
+  ],
+  "timber.io": [
+    "structured logging",
+    "log storage",
+    "observability",
+    "monitoring SaaS"
+  ],
+  "sumo logic": [
+    "cloud SIEM",
+    "log analytics",
+    "security monitoring",
+    "observability SaaS"
+  ],
+  "honeycomb.io": [
+    "observability",
+    "distributed tracing",
+    "debugging",
+    "performance tuning SaaS"
+  ],
+  "lightstep": [
+    "distributed tracing",
+    "observability",
+    "incident analysis",
+    "performance insights SaaS"
+  ],
+  "raygun": [
+    "error monitoring",
+    "crash reporting",
+    "performance tracking",
+    "diagnostics SaaS"
+  ],
+  "bugsnag": [
+    "error monitoring",
+    "stability management",
+    "crash reporting",
+    "mobile diagnostics SaaS"
+  ],
+  "crashlytics": [
+    "crash reporting",
+    "mobile analytics",
+    "app stability",
+    "Firebase SaaS"
+  ],
+  "app center": [
+    "app distribution",
+    "device testing",
+    "crash reporting",
+    "mobile DevOps SaaS"
+  ],
+  "gitkraken": [
+    "Git GUI",
+    "version control",
+    "repository management",
+    "developer productivity SaaS"
+  ],
+  "mural": [
+    "online whiteboard",
+    "visual collaboration",
+    "brainstorming sessions",
+    "remote teamwork SaaS"
+  ],
+  "whimsical": [
+    "wireframes & flowcharts",
+    "visual thinking",
+    "brainstorm diagrams",
+    "collaboration SaaS"
+  ],
+  "lucidspark": [
+    "virtual whiteboard",
+    "brainstorming",
+    "agile planning",
+    "team workshops SaaS"
+  ],
+  "draw.io": [
+    "diagramming tool",
+    "flowcharts",
+    "network diagrams",
+    "visual documentation SaaS"
+  ],
+  "teamgantt": [
+    "Gantt charts",
+    "project timelines",
+    "resource planning",
+    "scheduling SaaS"
+  ],
+  "ganttpro": [
+    "Gantt chart software",
+    "project scheduling",
+    "resource management SaaS"
+  ],
+  "hubstaff": [
+    "time tracking",
+    "productivity monitoring",
+    "workforce analytics",
+    "employee monitoring SaaS"
+  ],
+  "time doctor": [
+    "time tracking",
+    "screenshots & activity",
+    "productivity analytics",
+    "remote teams SaaS"
+  ],
+  "clockify": [
+    "time tracking",
+    "timesheets",
+    "billable hours",
+    "project reporting SaaS"
+  ],
+  "paylocity": [
+    "payroll & HR",
+    "workforce management",
+    "employee engagement",
+    "benefits administration SaaS"
+  ],
+  "workhuman": [
+    "employee recognition",
+    "engagement platform",
+    "peer bonuses",
+    "company culture SaaS"
+  ],
+  "bettercloud": [
+    "SaaS management",
+    "application security",
+    "user lifecycle",
+    "automation workflows SaaS"
+  ],
+  "jamf pro": [
+    "Apple device management",
+    "MDM",
+    "macOS & iOS security",
+    "enterprise mobility SaaS"
+  ],
+  "kaseya": [
+    "IT management",
+    "RMM",
+    "endpoint monitoring",
+    "MSP software SaaS"
+  ],
+  "teamviewer": [
+    "remote desktop",
+    "screen sharing",
+    "remote support",
+    "device access SaaS"
+  ],
+  "anydesk": [
+    "remote desktop",
+    "screen sharing",
+    "remote support",
+    "fast connection SaaS"
+  ],
+  "discord": [
+    "community chat",
+    "voice chat",
+    "real-time messaging",
+    "gamer communication SaaS"
+  ],
+  "palantir technologies": [
+    "data integration",
+    "big-data analytics",
+    "enterprise intelligence",
+    "operational planning SaaS"
+  ],
+  "mozilla": [
+    "open-source browser",
+    "developer tools",
+    "internet services",
+    "web platform SaaS"
+  ],
+  "synthesia": [
+    "ai",
+    "video tech",
+    "synthetic media",
+    "content creation",
+    "saas"
+  ]
+}

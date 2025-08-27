@@ -1,0 +1,2985 @@
+{
+  "metadata": {
+    "target_companies": [
+      "Zendesk",
+      "Salesforce",
+      "Qualtrics",
+      "Synthesia"
+    ],
+    "timestamp": "2025-08-16T12:17:59.651341",
+    "total_target_contacts": 409,
+    "successful": 119,
+    "failed": 237,
+    "skipped": 53,
+    "success_rate": "33.4%"
+  },
+  "results": [
+    {
+      "row_number": 25,
+      "full_name": "Alex Washwin",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 91,
+      "full_name": "Milagros Altagracia Jaime",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 128,
+      "full_name": "Agnieszka Jaśkowska",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 162,
+      "full_name": "Tyler Tai",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 172,
+      "full_name": "Andy Winsey-Thomas",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 222,
+      "full_name": "Chloe Phillips",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 223,
+      "full_name": "Karolina Markan",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 230,
+      "full_name": "Crystal Preston-Watson",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 256,
+      "full_name": "Tosin Oshinyemi",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 269,
+      "full_name": "Eryk Napierala",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Wrocław",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 272,
+      "full_name": "Christine Lopez",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York City Metropolitan Area",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 337,
+      "full_name": "Sanghyun Lee",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Germany",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 343,
+      "full_name": "💡Anton Bondarenko",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 365,
+      "full_name": "Catherine Oxley",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 370,
+      "full_name": "Muj Talib",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 379,
+      "full_name": "Jonathon Bowers",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 384,
+      "full_name": "Tom Cole",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 440,
+      "full_name": "Ravi Kiran Halladakoppalu Shivanna",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 458,
+      "full_name": "Kyle Odefey",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 467,
+      "full_name": "Josh Baker-Mendoza",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 487,
+      "full_name": "Galina Avramova",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 488,
+      "full_name": "Cathryn Miller",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 489,
+      "full_name": "William Morrissy",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 490,
+      "full_name": "Clay Tolbert",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 491,
+      "full_name": "Alexa Flax",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 493,
+      "full_name": "Jamie Shefi",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "London Area, United Kingdom",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 494,
+      "full_name": "Jessica Weiner",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York City Metropolitan Area",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 496,
+      "full_name": "Mark Mavretic",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 497,
+      "full_name": "Acacia Dougan",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 499,
+      "full_name": "Rebecca Miller",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 501,
+      "full_name": "George Wilson",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Greater London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 502,
+      "full_name": "Alexa Zovdun",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 505,
+      "full_name": "Martin Tschammer",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 511,
+      "full_name": "Thomas Barber",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 512,
+      "full_name": "Christopher Raymond Nolan-Downs MInstD",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Auckland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 523,
+      "full_name": "George Wedd",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 525,
+      "full_name": "Chris Evans",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Colchester",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 528,
+      "full_name": "Lawrence Keltie",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 530,
+      "full_name": "Monty Florin",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 532,
+      "full_name": "Deirdre Donohue",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 536,
+      "full_name": "Ross Reitman",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 538,
+      "full_name": "Fernanda Matos",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 540,
+      "full_name": "Daniel Verten",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 544,
+      "full_name": "Kevin Hennig",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 545,
+      "full_name": "Kelly Filius",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Breda",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 546,
+      "full_name": "Ian Wind",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 547,
+      "full_name": "Christopher Spitz",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 549,
+      "full_name": "Roberto Santos",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 550,
+      "full_name": "Alice Ketch",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 554,
+      "full_name": "Charlotte Barnes",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 556,
+      "full_name": "Leander Sodji",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 557,
+      "full_name": "Ahmad Ali",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 558,
+      "full_name": "Jarod Groome",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 559,
+      "full_name": "Uzma Sofi",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 560,
+      "full_name": "Cory Johnson",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 561,
+      "full_name": "Lousine Boyakhandjyan",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 563,
+      "full_name": "Jacob Westbrook",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 564,
+      "full_name": "Daniel Aboudy",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 565,
+      "full_name": "Tilen Kegl",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Vienna",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 567,
+      "full_name": "Sarah Cliffe",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 568,
+      "full_name": "Henry Fotheringham-Brown",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 569,
+      "full_name": "Martin Zelzner",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 570,
+      "full_name": "Shan Thomas",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 571,
+      "full_name": "Sophie Armenante",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 572,
+      "full_name": "Christine Cardot",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 574,
+      "full_name": "Sebastian Beierling",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 577,
+      "full_name": "Nick DiNapoli",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 580,
+      "full_name": "Ema Lukan",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 581,
+      "full_name": "Adam White",
+      "company": "Salesforce",
+      "location_found": true,
+      "location_raw": "Richmond",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 582,
+      "full_name": "Ariadna García  González",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 583,
+      "full_name": "Stephen O'Leary",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 586,
+      "full_name": "Jack Townsend",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 591,
+      "full_name": "Ken Lawshe",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 592,
+      "full_name": "Jiaying Kong",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 594,
+      "full_name": "Alexandru Voica",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 595,
+      "full_name": "Sundar Solai",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 596,
+      "full_name": "Luciano Romanelli",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 599,
+      "full_name": "Constantina Samara",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 600,
+      "full_name": "Nicolas Narbaïs-Jauréguy",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 604,
+      "full_name": "Harry Watt",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 605,
+      "full_name": "Pierre Guceski",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 607,
+      "full_name": "Naina K Badesha",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 608,
+      "full_name": "Gosia Grzyb",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 609,
+      "full_name": "Tayla Wright",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 610,
+      "full_name": "Nikkita Kalgren",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 611,
+      "full_name": "Elly Henriksen",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 613,
+      "full_name": "Joseph McCormick",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 614,
+      "full_name": "Adam Bullman",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 615,
+      "full_name": "Elliot Link",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 617,
+      "full_name": "Kevin Alster",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "New York",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 618,
+      "full_name": "Mayhul B",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 619,
+      "full_name": "Benjamin Bénard",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 620,
+      "full_name": "Oscar Szabo",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 621,
+      "full_name": "Brian Jambor",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Scottsdale",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 622,
+      "full_name": "Sarah Whyte (nee Beard)",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 623,
+      "full_name": "Cormac Keane",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 624,
+      "full_name": "David Pribil",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 625,
+      "full_name": "Carmen Romero García",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 626,
+      "full_name": "Clément Quesada",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 628,
+      "full_name": "Estelle Irving",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 629,
+      "full_name": "Ekaterina Kogan",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 630,
+      "full_name": "Deniz Gunsav",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 631,
+      "full_name": "Hannah Dorgan",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 635,
+      "full_name": "Cari Calhoun",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 636,
+      "full_name": "Bruno Broughton",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 637,
+      "full_name": "Grzegorz Heinrich",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 638,
+      "full_name": "Juliana Castellanos",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 640,
+      "full_name": "Mario Johannes Wolters",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 641,
+      "full_name": "Nick Taylor",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 644,
+      "full_name": "Dr. Daniela Chordia-Doll",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 645,
+      "full_name": "Will Eves",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 646,
+      "full_name": "Karina Pencarski",
+      "company": "Synthesia",
+      "location_found": true,
+      "location_raw": "Hamburg",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 647,
+      "full_name": "Justina Markuckyte",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 648,
+      "full_name": "Donna Balbini",
+      "company": "Synthesia",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 653,
+      "full_name": "Magdalena Sendal",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 654,
+      "full_name": "Aidan Kernan",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 656,
+      "full_name": "Vinayak Gholap",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 657,
+      "full_name": "Marina Snegirjova",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 658,
+      "full_name": "James Stubbs",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 666,
+      "full_name": "Will Scott",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Chester",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 667,
+      "full_name": "Livia Borza",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 670,
+      "full_name": "Eric Schnell",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 673,
+      "full_name": "David Murphy",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Dublin",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 674,
+      "full_name": "Georg Sander",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 675,
+      "full_name": "Johannes Lober",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Germany",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 676,
+      "full_name": "Mazen Al Fawaz",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 677,
+      "full_name": "Darach Lennon",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 678,
+      "full_name": "Abigail Tymon",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 679,
+      "full_name": "Albert Martorell",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 681,
+      "full_name": "Owen McConnell",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 683,
+      "full_name": "Emilie Robert",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 684,
+      "full_name": "Torrente Thaly",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 686,
+      "full_name": "Chara M",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 687,
+      "full_name": "Gavin Walsh",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "London Area, United Kingdom",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 688,
+      "full_name": "Tommaso Battistini",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 690,
+      "full_name": "Richard Moloney",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 691,
+      "full_name": "Maggie Mizdail",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 692,
+      "full_name": "Nicole Mcgrath",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 693,
+      "full_name": "Fiona Hayward",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Greater Reading Area",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 694,
+      "full_name": "Cathy MARTIN",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "France",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 695,
+      "full_name": "Rosa Pham",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 696,
+      "full_name": "Dominic Alvaro",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Melbourne",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 697,
+      "full_name": "Nate Holden",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Loughborough",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 698,
+      "full_name": "Jennie Byrne",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 699,
+      "full_name": "Ajay Joshi",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 700,
+      "full_name": "Sophie Glennon",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 701,
+      "full_name": "Vijay Puppala",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 702,
+      "full_name": "Thor Newman Andersen",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 703,
+      "full_name": "Spencer Stahl",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 705,
+      "full_name": "Steven Toal-Lennon",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 706,
+      "full_name": "Felix Nehren",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Berlin",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 707,
+      "full_name": "João Fernandes",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 708,
+      "full_name": "Jarmo Juhani Pitkänen",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Denmark",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 709,
+      "full_name": "Suzanne Hart",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 710,
+      "full_name": "Leo Mulrooney",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 711,
+      "full_name": "Conor Perry",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 712,
+      "full_name": "Julie Mathevet",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 713,
+      "full_name": "Aaron Dutch",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 714,
+      "full_name": "Jo Wright",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 715,
+      "full_name": "Ollie McAree",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 716,
+      "full_name": "Deborah Doherty",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 718,
+      "full_name": "Aryssah Stankevitsch ☁️",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 720,
+      "full_name": "Bernd Schreml",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 721,
+      "full_name": "Tasos Apostolakis, MBA",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 731,
+      "full_name": "Carolyn Siagatonu",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Salt Lake City",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 739,
+      "full_name": "Sam Arman",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 740,
+      "full_name": "Francesca Calamai",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 746,
+      "full_name": "Florin Pascu",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 749,
+      "full_name": "Andreas Ackermann",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 750,
+      "full_name": "James Forde",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 752,
+      "full_name": "Hector Cedeno",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 754,
+      "full_name": "Yann Daumas",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 755,
+      "full_name": "Nelson Oliveira",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 756,
+      "full_name": "Emily Freeland",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 757,
+      "full_name": "Pratul Sharma",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 758,
+      "full_name": "Matthew \"Skip\" Moore",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 759,
+      "full_name": "Oonagh Moeykens",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 760,
+      "full_name": "Joao A. Neves",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 761,
+      "full_name": "Sofyan Afqir",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 762,
+      "full_name": "Franz-Xaver Bauer",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 763,
+      "full_name": "Marshall Reiss",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 764,
+      "full_name": "Jodi Miller",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 766,
+      "full_name": "Elisa Buckley",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 767,
+      "full_name": "Agathe Coblence",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Paris",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 768,
+      "full_name": "Sergio GALVAN",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 769,
+      "full_name": "Dagmar Weiss",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Bavaria",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 770,
+      "full_name": "Anas Siddiqi",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 771,
+      "full_name": "Megan Sullivan",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 772,
+      "full_name": "Beth Friday",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 773,
+      "full_name": "Jeff Breen",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 774,
+      "full_name": "Ana Beatriz Rodrigues",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 775,
+      "full_name": "Louise Lassen",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Sanford",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 776,
+      "full_name": "Dave Gorman",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 777,
+      "full_name": "Cesaire Tchoudjuen",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 779,
+      "full_name": "Tara McDonald",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 781,
+      "full_name": "JT Charles",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 782,
+      "full_name": "Dermot Clerkin",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 784,
+      "full_name": "Diarmuid Aherne",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 788,
+      "full_name": "Camilla Brentari",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 792,
+      "full_name": "Maximilian Giehl",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 794,
+      "full_name": "Benedikt Lupper",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Berlin Metropolitan Area",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 795,
+      "full_name": "Andrey 🔒",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 796,
+      "full_name": "Arijana Delić",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 797,
+      "full_name": "Sasha Zakharenko",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 798,
+      "full_name": "Madhu Kalya",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Dallas",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 799,
+      "full_name": "Phuong Khanh NGUYEN",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Greater Paris Metropolitan Region",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 801,
+      "full_name": "Stephen Fuery",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 805,
+      "full_name": "Anika Behrens",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Berlin",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 807,
+      "full_name": "Björn Bauer",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 811,
+      "full_name": "Patrick Groene",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 812,
+      "full_name": "Sergiu Birca",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 813,
+      "full_name": "Jordan Phillippi",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 814,
+      "full_name": "Dan Muddiman PMP",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Northampton",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 815,
+      "full_name": "Linus Strasburger",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 817,
+      "full_name": "Lars Ranieri",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 818,
+      "full_name": "Christopher Harms",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 820,
+      "full_name": "Stephan Mey",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 821,
+      "full_name": "Jörg Vödisch",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 822,
+      "full_name": "Richard Kiernan",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 824,
+      "full_name": "Philippa Crane",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 825,
+      "full_name": "Stephen Ujfalussy",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 827,
+      "full_name": "Paolo Mologni",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 829,
+      "full_name": "Gitte Kjærgaard Jensen",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 830,
+      "full_name": "Cem Oz",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 831,
+      "full_name": "Rick Filius",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 832,
+      "full_name": "Pawel Wolak",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 833,
+      "full_name": "Niclas Cedermalm",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 834,
+      "full_name": "Toby Howard",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 836,
+      "full_name": "Christopher Baxter",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Berlin",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 837,
+      "full_name": "Rob Lucas",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 839,
+      "full_name": "Tica Domenech Romero",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 841,
+      "full_name": "Jacob Beetham",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Poole",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 842,
+      "full_name": "Alan Bennie",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 844,
+      "full_name": "Franziska Höppke",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 846,
+      "full_name": "Julie Minguez",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Paris",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 847,
+      "full_name": "Lena Springer",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 848,
+      "full_name": "Romain Bonnefille",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Bourg",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 849,
+      "full_name": "Clara (Müller) Weißenberger",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 850,
+      "full_name": "Daniel Mueller",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Bavaria",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 851,
+      "full_name": "Patrick Renger",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 852,
+      "full_name": "Brooke Standring",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 853,
+      "full_name": "Oran Sugrue ☁",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 854,
+      "full_name": "Gabriel Socarici, PMP",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Rosenheim",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 856,
+      "full_name": "Philipp Heinrich",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Greater Munich Metropolitan Area",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 857,
+      "full_name": "Hasham Ahmad",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Frankfurt Rhine",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 860,
+      "full_name": "Thibaud Belin",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 861,
+      "full_name": "Paul Pivet",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 862,
+      "full_name": "Luke Donnelly",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 863,
+      "full_name": "Denise Dullaghan",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 864,
+      "full_name": "Vanessa Rice",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 865,
+      "full_name": "Niall Diamond",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 866,
+      "full_name": "Théo Albrecht",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 867,
+      "full_name": "Peter Eshkeri",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 868,
+      "full_name": "Alex Robinson",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 870,
+      "full_name": "Stefano Tosi",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Florence",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 871,
+      "full_name": "David Patrick McCarthy",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 872,
+      "full_name": "Annabel Moody",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 873,
+      "full_name": "Alan Gibbons",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 874,
+      "full_name": "Maximilian Erlinghagen",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 875,
+      "full_name": "Sebastian Ciejak",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 876,
+      "full_name": "Adam McDonald",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 877,
+      "full_name": "Conor Donnellan",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 880,
+      "full_name": "Ola Idowu",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 893,
+      "full_name": "A M Masudul Haque",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Singapore",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 898,
+      "full_name": "Bence A. Tóth",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 899,
+      "full_name": "Will Oliveira",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Ascot",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 917,
+      "full_name": "Leonie Draper",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 922,
+      "full_name": "Liam Sexton",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 963,
+      "full_name": "Paul Reynolds",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Dublin",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1034,
+      "full_name": "Nelly Rutaganda",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1052,
+      "full_name": "Stephen Glennon",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1054,
+      "full_name": "Adam Smyth",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1070,
+      "full_name": "Alex Begley",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1213,
+      "full_name": "Niall Gleeson",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1214,
+      "full_name": "Alan McHugh",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Melbourne",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1230,
+      "full_name": "Dr. Sören Winkelmann",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1249,
+      "full_name": "Josefine Öhlén",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Greater Stockholm Metropolitan Area",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1255,
+      "full_name": "Sarah Martin (née Finlay)",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1256,
+      "full_name": "Daniel Bowyer",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1259,
+      "full_name": "Alexander Aiello",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Dublin",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1262,
+      "full_name": "Maurice Visscher",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1276,
+      "full_name": "Matt Brown",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1278,
+      "full_name": "Guillaume Duclos",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Greater Madrid Metropolitan Area",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1284,
+      "full_name": "Chris Sawkins",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1289,
+      "full_name": "Alexander Keast",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1293,
+      "full_name": "Jon McLoughlin",
+      "company": "Salesforce",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1297,
+      "full_name": "Niall Salmon",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1305,
+      "full_name": "Dan Weatherhead",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1314,
+      "full_name": "Simon Reck",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1317,
+      "full_name": "Sarthak Kaushal",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1319,
+      "full_name": "Susie Griffin",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1321,
+      "full_name": "Ciaran Buggy",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1323,
+      "full_name": "Chiara Migotto",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1350,
+      "full_name": "Alicia Campbell",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1351,
+      "full_name": "Ronan O'Neill",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1353,
+      "full_name": "Ryan O'Dea",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1358,
+      "full_name": "Soeren Sturm",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Greater Munich Metropolitan Area",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1368,
+      "full_name": "James Darrall",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "London",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1371,
+      "full_name": "Lee Fairhurst",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1380,
+      "full_name": "Louis Carlu",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Lille",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1387,
+      "full_name": "Alessandro Pirina",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1388,
+      "full_name": "Kevin Duffy",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1389,
+      "full_name": "Kimberly Donat (geb. Kappler-Dunaier)",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1412,
+      "full_name": "Deirdre Poole O’Neill",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1415,
+      "full_name": "Lone Thage-Jørgensen",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Rungsted",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1416,
+      "full_name": "Sandra Beamer",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1418,
+      "full_name": "Job Dams",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "Madrid",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1420,
+      "full_name": "Marcus Brydon",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1421,
+      "full_name": "Cameron Diamond",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1424,
+      "full_name": "Avsar Cetin",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1426,
+      "full_name": "Joseph Devine",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1429,
+      "full_name": "Elaine Lavery",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "United Kingdom",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1437,
+      "full_name": "Christopher Marra",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1447,
+      "full_name": "Caroline Poole",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1459,
+      "full_name": "Ana Medina González",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1463,
+      "full_name": "Johnny Hearns",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Dublin",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1467,
+      "full_name": "Edward McDonagh",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Dublin",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1471,
+      "full_name": "Marc Craig, MSc",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1478,
+      "full_name": "Nan Russell",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1479,
+      "full_name": "Carlos C. Garcia Fantini",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1490,
+      "full_name": "Iarfhlaith Ó Raghaill",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1496,
+      "full_name": "Stephen Dowling",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1523,
+      "full_name": "Giuseppe Bellino Roci",
+      "company": "Salesforce",
+      "location_found": true,
+      "location_raw": "Milan",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1532,
+      "full_name": "Kanzi Kamel",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1533,
+      "full_name": "James Gorman",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1538,
+      "full_name": "Burak Gurakan",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1539,
+      "full_name": "Tyne Mills",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1542,
+      "full_name": "Jos van Houten",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1546,
+      "full_name": "Derrick Feerick",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1548,
+      "full_name": "Peter Hayes",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1549,
+      "full_name": "Shannon Dilges",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1551,
+      "full_name": "Alexis Andreieff",
+      "company": "Salesforce",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1554,
+      "full_name": "Udo Petrawitz",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Greater Munich Metropolitan Area",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1576,
+      "full_name": "Raffaele Falcone",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Milan",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1597,
+      "full_name": "Rasa Cincyte-Balke",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Sweden",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1602,
+      "full_name": "Gianpasquale Marrone",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1610,
+      "full_name": "André Coutinho Pratapsinh",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1613,
+      "full_name": "Cinta V. Nielsen",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1620,
+      "full_name": "Kiri Fisher",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1623,
+      "full_name": "Thomas LALAIN",
+      "company": "Zendesk",
+      "location_found": true,
+      "location_raw": "France",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1625,
+      "full_name": "Sophie Burlion",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1642,
+      "full_name": "Patrick Mallon",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1643,
+      "full_name": "Gavin Murray",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1644,
+      "full_name": "Clare O'Connell",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1645,
+      "full_name": "Therese Morley",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1646,
+      "full_name": "Davide Viganò",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1647,
+      "full_name": "Agata Krysiak-Krawiecka",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1651,
+      "full_name": "Sam Guerins",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1653,
+      "full_name": "Esma Abraham (ACA)",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1673,
+      "full_name": "Virgil Hammond",
+      "company": "Qualtrics",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1676,
+      "full_name": "Kaya van Enckevort",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "The Randstad, Netherlands",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1678,
+      "full_name": "Danny Watkins",
+      "company": "Qualtrics",
+      "location_found": true,
+      "location_raw": "Dublin",
+      "confidence": 0.9,
+      "success": true
+    },
+    {
+      "row_number": 1718,
+      "full_name": "Luís Melo",
+      "company": "Zendesk",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1848,
+      "full_name": "Leanne Staveley",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 1928,
+      "full_name": "Gerard Murphy",
+      "company": "Salesforce",
+      "location_found": false,
+      "location_raw": null,
+      "success": false
+    },
+    {
+      "row_number": 2095,
+      "full_name": "Shane O'Toole",
+      "company": "Salesforce",
+      "location_found": true,
+      "location_raw": "Ireland",
+      "confidence": 0.9,
+      "success": true
+    }
+  ]
+}

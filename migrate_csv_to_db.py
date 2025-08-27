@@ -256,3 +256,4 @@ class DatabaseMigrator:
 if __name__ == "__main__":
     migrator = DatabaseMigrator()
     migrator.run_migration()
+

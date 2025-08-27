@@ -167,3 +167,4 @@ CREATE TRIGGER update_core_job_roles_updated_at BEFORE UPDATE ON core_job_roles 
 CREATE TRIGGER update_custom_job_roles_updated_at BEFORE UPDATE ON custom_job_roles FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_job_descriptions_updated_at BEFORE UPDATE ON job_descriptions FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_subscriptions_updated_at BEFORE UPDATE ON subscriptions FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+

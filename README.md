@@ -14,6 +14,10 @@ A multi-tenant referral system with adaptive role matching and location enrichme
 
 This project is automatically deployed to Render via GitHub Actions.
 
-**Last updated**: 2025-01-27 - Testing GitHub Actions deployment
+**Last updated**: 2025-01-27 - First automatic deployment test with GitHub Actions! 🚀
+
+## Live App
+
+Your app is live at: https://referral-system-web.onrender.com
 
 

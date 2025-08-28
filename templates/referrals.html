@@ -3,68 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Referrals - Referral MVP</title>
+    <title>My Referral Candidates - Referral Matching</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .referral-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .referral-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+        }
+        .referral-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+        }
+        .referral-body {
+            padding: 20px;
+        }
+        .candidate-card {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: white;
+            transition: all 0.2s ease;
+        }
+        .candidate-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+        }
+        .score-badge {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .location-badge {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+        }
+        .skill-tag {
+            background: #f8f9fa;
+            color: #495057;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 0.75em;
+            margin: 1px;
+            display: inline-block;
+        }
+        .job-section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .job-section h4 {
+            color: #495057;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .stats-number {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+        .empty-state i {
+            font-size: 4em;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        .contact-info {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        .contact-info a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+        .loading-spinner {
+            text-align: center;
+            padding: 40px;
+        }
+        .filter-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">Referral MVP</a>
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-users"></i> Referral Matching
+            </a>
             <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="/job-descriptions">Job Descriptions</a>
-                <a class="nav-link active" href="/referrals">My Referrals</a>
+                <a class="nav-link" href="/"><i class="fas fa-search"></i> Job Search</a>
+                <a class="nav-link" href="/job-descriptions"><i class="fas fa-briefcase"></i> Job Descriptions</a>
+                <a class="nav-link active" href="/referrals"><i class="fas fa-handshake"></i> My Referrals</a>
             </div>
         </div>
     </nav>
 
     <div class="container mt-4">
-        <h1>My Referral Candidates</h1>
-        
-        <!-- Stats Cards -->
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mb-3">
+                    <i class="fas fa-handshake"></i> My Referral Candidates
+                </h1>
+                <p class="text-muted">Here are your top referral candidates for all active job descriptions</p>
+            </div>
+        </div>
+
+        <!-- Statistics Row -->
         <div class="row mb-4">
             <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Total Jobs</h5>
-                        <p class="card-text display-6" id="totalJobs">0</p>
-                    </div>
+                <div class="stats-card">
+                    <div class="stats-number" id="totalJobs">0</div>
+                    <div>Active Jobs</div>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Total Candidates</h5>
-                        <p class="card-text display-6" id="totalCandidates">0</p>
-                    </div>
+                <div class="stats-card">
+                    <div class="stats-number" id="totalCandidates">0</div>
+                    <div>Total Candidates</div>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Top Matches</h5>
-                        <p class="card-text display-6" id="topMatches">0</p>
-                    </div>
+                <div class="stats-card">
+                    <div class="stats-number" id="exactMatches">0</div>
+                    <div>Exact Location Matches</div>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Avg Score</h5>
-                        <p class="card-text display-6" id="avgScore">0</p>
-                    </div>
+                <div class="stats-card">
+                    <div class="stats-number" id="otherMatches">0</div>
+                    <div>Other Location Matches</div>
                 </div>
             </div>
         </div>
 
-        <!-- Referrals List -->
-        <div class="card">
-            <div class="card-header">
-                <h5>Referral Candidates by Job</h5>
+        <!-- Filters -->
+        <div class="filter-section">
+            <h5 class="mb-3"><i class="fas fa-filter"></i> Filters</h5>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="jobFilter" class="form-label">Job Description</label>
+                    <select class="form-select" id="jobFilter">
+                        <option value="">All Jobs</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="locationFilter" class="form-label">Location</label>
+                    <select class="form-select" id="locationFilter">
+                        <option value="">All Locations</option>
+                        <option value="exact">Exact Location Matches</option>
+                        <option value="other">Other Locations</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="scoreFilter" class="form-label">Minimum Score</label>
+                    <select class="form-select" id="scoreFilter">
+                        <option value="0">Any Score</option>
+                        <option value="10">10+</option>
+                        <option value="15">15+</option>
+                        <option value="20">20+</option>
+                        <option value="25">25+</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">&nbsp;</label>
+                    <button class="btn btn-primary w-100" onclick="applyFilters()">
+                        <i class="fas fa-search"></i> Apply Filters
+                    </button>
+                </div>
             </div>
-            <div class="card-body">
-                <div id="referralsList">
-                    <p class="text-muted">Loading referrals...</p>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="loading-spinner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3 text-muted">Finding your best referral candidates...</p>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <i class="fas fa-users"></i>
+            <h3>No Referral Candidates Found</h3>
+            <p>It looks like there are no active job descriptions or your contacts don't match the current requirements.</p>
+            <p>Try uploading more contacts or check back later when new jobs are posted.</p>
+        </div>
+
+        <!-- Referrals Content -->
+        <div id="referralsContent" style="display: none;">
+            <!-- Job sections will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Candidate Detail Modal -->
+    <div class="modal fade" id="candidateModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Candidate Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="candidateModalBody">
+                    <!-- Candidate details will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="referCandidate">
+                        <i class="fas fa-paper-plane"></i> Send Referral
+                    </button>
                 </div>
             </div>
         </div>
@@ -72,72 +254,249 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Load referrals data
-        fetch('/api/referrals')
+        let allReferrals = [];
+        let currentFilters = {};
+
+        // Load referrals on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadReferrals();
+        });
+
+        function loadReferrals() {
+            showLoading();
+            
+            fetch('/api/referrals')
             .then(response => response.json())
-            .then(referrals => {
-                const referralsList = document.getElementById('referralsList');
+            .then(result => {
+                hideLoading();
                 
-                if (referrals.length === 0) {
-                    referralsList.innerHTML = '<p class="text-muted">No referrals found. Add some job descriptions first!</p>';
-                    return;
+                if (result.success) {
+                    allReferrals = result.referrals;
+                    updateStats(result.stats);
+                    populateJobFilter(result.referrals);
+                    displayReferrals(result.referrals);
+                } else {
+                    showEmptyState();
+                    showAlert('Error loading referrals: ' + result.error, 'danger');
                 }
-
-                let totalCandidates = 0;
-                let totalScore = 0;
-                let candidateCount = 0;
-
-                referralsList.innerHTML = referrals.map(job => {
-                    totalCandidates += job.candidates.length;
-                    job.candidates.forEach(candidate => {
-                        totalScore += candidate.score;
-                        candidateCount++;
-                    });
-
-                    return `
-                        <div class="card mb-3">
-                            <div class="card-header">
-                                <h6 class="mb-0">${job.job_title}</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    ${job.candidates.map(candidate => `
-                                        <div class="col-md-6 mb-3">
-                                            <div class="card border">
-                                                <div class="card-body">
-                                                    <h6 class="card-title">${candidate.name}</h6>
-                                                    <p class="card-text">
-                                                        <strong>Score:</strong> ${candidate.score}/100<br>
-                                                        <strong>Location:</strong> ${candidate.location}
-                                                    </p>
-                                                    <button class="btn btn-primary btn-sm" onclick="viewDetails('${candidate.name}')">View Details</button>
-                                                    <button class="btn btn-success btn-sm" onclick="contactCandidate('${candidate.name}')">Contact</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-
-                // Update stats
-                document.getElementById('totalJobs').textContent = referrals.length;
-                document.getElementById('totalCandidates').textContent = totalCandidates;
-                document.getElementById('topMatches').textContent = referrals.filter(job => job.candidates.some(c => c.score >= 80)).length;
-                document.getElementById('avgScore').textContent = candidateCount > 0 ? Math.round(totalScore / candidateCount) : 0;
             })
             .catch(error => {
-                document.getElementById('referralsList').innerHTML = '<p class="text-danger">Error loading referrals data.</p>';
+                hideLoading();
+                showEmptyState();
+                showAlert('Error loading referrals: ' + error, 'danger');
             });
-
-        function viewDetails(candidateName) {
-            alert(`Viewing details for ${candidateName} - This feature is coming soon!`);
         }
 
-        function contactCandidate(candidateName) {
-            alert(`Contacting ${candidateName} - This feature is coming soon!`);
+        function showLoading() {
+            document.getElementById('loadingState').style.display = 'block';
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('referralsContent').style.display = 'none';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingState').style.display = 'none';
+        }
+
+        function showEmptyState() {
+            document.getElementById('emptyState').style.display = 'block';
+            document.getElementById('referralsContent').style.display = 'none';
+        }
+
+        function updateStats(stats) {
+            document.getElementById('totalJobs').textContent = stats.total_jobs || 0;
+            document.getElementById('totalCandidates').textContent = stats.total_candidates || 0;
+            document.getElementById('exactMatches').textContent = stats.exact_matches || 0;
+            document.getElementById('otherMatches').textContent = stats.other_matches || 0;
+        }
+
+        function populateJobFilter(referrals) {
+            const jobFilter = document.getElementById('jobFilter');
+            const jobs = [...new Set(referrals.map(r => r.job_title))];
+            
+            jobFilter.innerHTML = '<option value="">All Jobs</option>';
+            jobs.forEach(job => {
+                const option = document.createElement('option');
+                option.value = job;
+                option.textContent = job;
+                jobFilter.appendChild(option);
+            });
+        }
+
+        function displayReferrals(referrals) {
+            if (referrals.length === 0) {
+                showEmptyState();
+                return;
+            }
+
+            const container = document.getElementById('referralsContent');
+            container.style.display = 'block';
+
+            // Group referrals by job
+            const jobGroups = {};
+            referrals.forEach(referral => {
+                if (!jobGroups[referral.job_title]) {
+                    jobGroups[referral.job_title] = [];
+                }
+                jobGroups[referral.job_title].push(referral);
+            });
+
+            // Display each job group
+            container.innerHTML = Object.entries(jobGroups).map(([jobTitle, candidates]) => `
+                <div class="job-section">
+                    <h4>
+                        <i class="fas fa-briefcase"></i> ${jobTitle}
+                        <span class="badge bg-primary ms-2">${candidates.length} candidates</span>
+                    </h4>
+                    
+                    <div class="row">
+                        ${candidates.map(candidate => `
+                            <div class="col-md-6 col-lg-4">
+                                <div class="candidate-card">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h6 class="mb-1">${candidate.name}</h6>
+                                        <span class="score-badge">${candidate.score.toFixed(1)}</span>
+                                    </div>
+                                    
+                                    <p class="text-muted mb-2">${candidate.position}</p>
+                                    <p class="text-muted mb-2">${candidate.company}</p>
+                                    
+                                    ${candidate.location ? `
+                                        <span class="location-badge">
+                                            <i class="fas fa-map-marker-alt"></i> ${candidate.location}
+                                        </span>
+                                    ` : ''}
+                                    
+                                    <div class="mt-3">
+                                        ${candidate.skill_matches && candidate.skill_matches.length > 0 ? 
+                                            candidate.skill_matches.slice(0, 3).map(skill => 
+                                                `<span class="skill-tag">${skill}</span>`
+                                            ).join('') : ''
+                                        }
+                                        ${candidate.skill_matches && candidate.skill_matches.length > 3 ? 
+                                            `<span class="skill-tag">+${candidate.skill_matches.length - 3} more</span>` : ''
+                                        }
+                                    </div>
+                                    
+                                    <div class="mt-3">
+                                        <button class="btn btn-sm btn-outline-primary" onclick="viewCandidateDetails('${candidate.name}', '${jobTitle}')">
+                                            <i class="fas fa-eye"></i> View Details
+                                        </button>
+                                        <button class="btn btn-sm btn-success" onclick="referCandidate('${candidate.name}', '${jobTitle}')">
+                                            <i class="fas fa-paper-plane"></i> Refer
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function applyFilters() {
+            const jobFilter = document.getElementById('jobFilter').value;
+            const locationFilter = document.getElementById('locationFilter').value;
+            const scoreFilter = parseInt(document.getElementById('scoreFilter').value);
+
+            let filteredReferrals = allReferrals;
+
+            // Apply job filter
+            if (jobFilter) {
+                filteredReferrals = filteredReferrals.filter(r => r.job_title === jobFilter);
+            }
+
+            // Apply location filter
+            if (locationFilter) {
+                if (locationFilter === 'exact') {
+                    filteredReferrals = filteredReferrals.filter(r => r.location_match_type === 'exact');
+                } else if (locationFilter === 'other') {
+                    filteredReferrals = filteredReferrals.filter(r => r.location_match_type === 'other');
+                }
+            }
+
+            // Apply score filter
+            if (scoreFilter > 0) {
+                filteredReferrals = filteredReferrals.filter(r => r.score >= scoreFilter);
+            }
+
+            displayReferrals(filteredReferrals);
+        }
+
+        function viewCandidateDetails(candidateName, jobTitle) {
+            const candidate = allReferrals.find(r => r.name === candidateName && r.job_title === jobTitle);
+            if (!candidate) return;
+
+            const modalBody = document.getElementById('candidateModalBody');
+            modalBody.innerHTML = `
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5>${candidate.name}</h5>
+                        <p class="text-muted">${candidate.position} at ${candidate.company}</p>
+                        
+                        ${candidate.location ? `
+                            <p><i class="fas fa-map-marker-alt"></i> ${candidate.location}</p>
+                        ` : ''}
+                        
+                        <div class="mb-3">
+                            <strong>Match Score:</strong> 
+                            <span class="score-badge">${candidate.score.toFixed(1)}</span>
+                        </div>
+                        
+                        ${candidate.skill_matches && candidate.skill_matches.length > 0 ? `
+                            <div class="mb-3">
+                                <strong>Skills:</strong><br>
+                                ${candidate.skill_matches.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                        
+                        <div class="mb-3">
+                            <strong>Score Breakdown:</strong>
+                            <ul class="list-unstyled">
+                                <li>Skills: ${candidate.score_breakdown.skill_score.toFixed(1)}</li>
+                                <li>Role Match: ${candidate.score_breakdown.role_score.toFixed(1)}</li>
+                                <li>Company: ${candidate.score_breakdown.company_score.toFixed(1)}</li>
+                                <li>Industry: ${candidate.score_breakdown.industry_score.toFixed(1)}</li>
+                                <li>Seniority: ${candidate.score_breakdown.seniority_bonus.toFixed(1)}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contact-info">
+                            ${candidate.email ? `
+                                <p><i class="fas fa-envelope"></i> <a href="mailto:${candidate.email}">${candidate.email}</a></p>
+                            ` : ''}
+                            ${candidate.linkedin ? `
+                                <p><i class="fab fa-linkedin"></i> <a href="${candidate.linkedin}" target="_blank">LinkedIn Profile</a></p>
+                            ` : ''}
+                            ${candidate.employee_connection ? `
+                                <p><i class="fas fa-user-friends"></i> Connected via: ${candidate.employee_connection}</p>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const modal = new bootstrap.Modal(document.getElementById('candidateModal'));
+            modal.show();
+        }
+
+        function referCandidate(candidateName, jobTitle) {
+            // This would integrate with your email system
+            showAlert(`Referral request sent for ${candidateName} for ${jobTitle} position!`, 'success');
+        }
+
+        function showAlert(message, type) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+            alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.querySelector('.container').insertBefore(alertDiv, document.querySelector('.container').firstChild);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
         }
     </script>
 </body>

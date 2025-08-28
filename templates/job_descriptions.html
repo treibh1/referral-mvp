@@ -3,72 +3,430 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Descriptions - Referral MVP</title>
+    <title>Job Descriptions Management - Referral Matching</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .job-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .job-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .job-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+        }
+        .job-body {
+            padding: 20px;
+        }
+        .tag {
+            background-color: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin: 2px;
+            display: inline-block;
+        }
+        .form-section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .form-section h5 {
+            color: #495057;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+        }
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            color: white;
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stats-number {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">Referral MVP</a>
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-users"></i> Referral Matching
+            </a>
             <div class="navbar-nav ms-auto">
-                <a class="nav-link active" href="/job-descriptions">Job Descriptions</a>
-                <a class="nav-link" href="/referrals">My Referrals</a>
+                <a class="nav-link" href="/"><i class="fas fa-search"></i> Job Search</a>
+                <a class="nav-link active" href="/job-descriptions"><i class="fas fa-briefcase"></i> Job Descriptions</a>
+                <a class="nav-link" href="/referrals"><i class="fas fa-handshake"></i> My Referrals</a>
             </div>
         </div>
     </nav>
 
     <div class="container mt-4">
-        <h1>Job Descriptions Management</h1>
-        
-        <!-- Add Job Description Form -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <h5>Add New Job Description</h5>
-            </div>
-            <div class="card-body">
-                <form id="jobForm">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="title" class="form-label">Job Title</label>
-                                <input type="text" class="form-control" id="title" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="company" class="form-label">Company</label>
-                                <input type="text" class="form-control" id="company" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="location" class="form-label">Location</label>
-                                <input type="text" class="form-control" id="location" placeholder="e.g., Remote, London, UK">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Job Description</label>
-                                <textarea class="form-control" id="description" rows="4" required placeholder="Paste the full job description here..."></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Add Job Description</button>
-                </form>
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mb-4">
+                    <i class="fas fa-briefcase"></i> Job Descriptions Management
+                </h1>
+                <p class="text-muted">Create and manage job descriptions for referral matching</p>
             </div>
         </div>
 
-        <!-- Job Descriptions List -->
-        <div class="card">
-            <div class="card-header">
-                <h5>Existing Job Descriptions</h5>
+        <!-- Statistics Row -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-number" id="totalJobs">0</div>
+                    <div>Total Jobs</div>
+                </div>
             </div>
-            <div class="card-body">
-                <div id="jobList">
-                    <p class="text-muted">No job descriptions yet. Add one above!</p>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-number" id="activeJobs">0</div>
+                    <div>Active Jobs</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-number" id="totalReferrals">0</div>
+                    <div>Total Referrals</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-number" id="avgCandidates">0</div>
+                    <div>Avg Candidates</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add New Job Description -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-plus"></i> Add New Job Description
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="jobDescriptionForm">
+                            <!-- Basic Information -->
+                            <div class="form-section">
+                                <h5><i class="fas fa-info-circle"></i> Basic Information</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="jobTitle" class="form-label">Job Title *</label>
+                                            <input type="text" class="form-control" id="jobTitle" name="jobTitle" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="jobLocation" class="form-label">Job Location *</label>
+                                            <input type="text" class="form-control" id="jobLocation" name="jobLocation" placeholder="e.g., Dublin, Ireland" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="company" class="form-label">Company</label>
+                                            <input type="text" class="form-control" id="company" name="company">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="seniority" class="form-label">Seniority Level</label>
+                                            <select class="form-select" id="seniority" name="seniority">
+                                                <option value="">Select Seniority</option>
+                                                <option value="entry">Entry Level</option>
+                                                <option value="junior">Junior</option>
+                                                <option value="mid">Mid-Level</option>
+                                                <option value="senior">Senior</option>
+                                                <option value="lead">Lead</option>
+                                                <option value="principal">Principal</option>
+                                                <option value="manager">Manager</option>
+                                                <option value="director">Director</option>
+                                                <option value="vp">VP</option>
+                                                <option value="c-level">C-Level</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Job Description -->
+                            <div class="form-section">
+                                <h5><i class="fas fa-file-alt"></i> Job Description</h5>
+                                <div class="mb-3">
+                                    <label for="jobDescription" class="form-label">Full Job Description *</label>
+                                    <textarea class="form-control" id="jobDescription" name="jobDescription" rows="8" required 
+                                              placeholder="Paste the complete job description here..."></textarea>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="alternativeTitles" class="form-label">Alternative Titles</label>
+                                            <input type="text" class="form-control" id="alternativeTitles" name="alternativeTitles" 
+                                                   placeholder="e.g., SDR, BDR, Sales Rep (comma-separated)">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="jobUrl" class="form-label">Job URL</label>
+                                            <input type="url" class="form-control" id="jobUrl" name="jobUrl" 
+                                                   placeholder="https://linkedin.com/jobs/...">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Preferences -->
+                            <div class="form-section">
+                                <h5><i class="fas fa-star"></i> Hiring Preferences</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="preferredCompanies" class="form-label">Preferred Companies</label>
+                                            <input type="text" class="form-control" id="preferredCompanies" name="preferredCompanies" 
+                                                   placeholder="e.g., Google, Microsoft, Apple (comma-separated)">
+                                            <div class="form-text">Candidates from these companies will get bonus points</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="preferredIndustries" class="form-label">Preferred Industries</label>
+                                            <input type="text" class="form-control" id="preferredIndustries" name="preferredIndustries" 
+                                                   placeholder="e.g., Technology, SaaS, FinTech (comma-separated)">
+                                            <div class="form-text">Candidates from these industries will get bonus points</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="acceptableLocations" class="form-label">Acceptable Locations</label>
+                                            <input type="text" class="form-control" id="acceptableLocations" name="acceptableLocations" 
+                                                   placeholder="e.g., Dublin, Cork, Galway (comma-separated)">
+                                            <div class="form-text">Additional locations beyond the primary job location</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="topN" class="form-label">Number of Candidates to Return</label>
+                                            <select class="form-select" id="topN" name="topN">
+                                                <option value="5">5 candidates</option>
+                                                <option value="10" selected>10 candidates</option>
+                                                <option value="15">15 candidates</option>
+                                                <option value="20">20 candidates</option>
+                                                <option value="25">25 candidates</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Settings -->
+                            <div class="form-section">
+                                <h5><i class="fas fa-cog"></i> Settings</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="enableLocationEnrichment" name="enableLocationEnrichment" checked>
+                                            <label class="form-check-label" for="enableLocationEnrichment">
+                                                Enable Location Enrichment
+                                            </label>
+                                            <div class="form-text">Automatically find missing location data for candidates</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="isActive" name="isActive" checked>
+                                            <label class="form-check-label" for="isActive">
+                                                Active Job
+                                            </label>
+                                            <div class="form-text">This job will appear in referral searches</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Role Intelligence (NEW SECTION) -->
+                            <div class="form-section">
+                                <h5><i class="fas fa-brain"></i> Role Intelligence</h5>
+                                <p class="text-muted mb-3">Help our system understand this role better for more accurate candidate matching</p>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="roleCategory" class="form-label">Role Category</label>
+                                            <select class="form-select" id="roleCategory" name="roleCategory">
+                                                <option value="">Select Category</option>
+                                                <option value="core">Core Role (Sales, CSM, Engineering, etc.)</option>
+                                                <option value="custom">Custom/Niche Role</option>
+                                                <option value="hybrid">Hybrid Role (e.g., Technical Sales)</option>
+                                            </select>
+                                            <div class="form-text">Choose how to treat this role in our matching system</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="industryContext" class="form-label">Industry Context</label>
+                                            <input type="text" class="form-control" id="industryContext" name="industryContext" 
+                                                   placeholder="e.g., Fashion, FinTech, Gaming, Healthcare">
+                                            <div class="form-text">Industry context helps refine matching criteria</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Custom Role Criteria (shown when "Custom/Niche Role" is selected) -->
+                                <div id="customRoleCriteria" style="display: none;">
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-lightbulb"></i> 
+                                        <strong>Custom Role Setup:</strong> Help us understand what makes a good candidate for this role.
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="targetJobTitles" class="form-label">Target Job Titles</label>
+                                                <textarea class="form-control" id="targetJobTitles" name="targetJobTitles" rows="3" 
+                                                          placeholder="e.g., Fashion Designer, Apparel Designer, Textile Designer&#10;Product Designer, Creative Director&#10;(One per line or comma-separated)"></textarea>
+                                                <div class="form-text">What job titles would be good fits for this role?</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="requiredSkills" class="form-label">Required Skills</label>
+                                                <textarea class="form-control" id="requiredSkills" name="requiredSkills" rows="3" 
+                                                          placeholder="e.g., Adobe Creative Suite, Fashion Design&#10;Pattern Making, Textile Design&#10;(One per line or comma-separated)"></textarea>
+                                                <div class="form-text">What skills are essential for this role?</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="preferredBackground" class="form-label">Preferred Background</label>
+                                                <textarea class="form-control" id="preferredBackground" name="preferredBackground" rows="3" 
+                                                          placeholder="e.g., Fashion companies, Design agencies&#10;Luxury brands, E-commerce&#10;(One per line or comma-separated)"></textarea>
+                                                <div class="form-text">What backgrounds/companies would be ideal?</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="roleExclusions" class="form-label">Exclude These Roles</label>
+                                                <textarea class="form-control" id="roleExclusions" name="roleExclusions" rows="3" 
+                                                          placeholder="e.g., CEO, CFO, VP Marketing&#10;Sales Manager, Account Executive&#10;(One per line or comma-separated)"></textarea>
+                                                <div class="form-text">What roles should we avoid matching?</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="mb-3">
+                                                <label for="roleDescription" class="form-label">Role Description</label>
+                                                <textarea class="form-control" id="roleDescription" name="roleDescription" rows="3" 
+                                                          placeholder="Describe what this role involves, what kind of person would be successful, and any unique requirements..."></textarea>
+                                                <div class="form-text">Help us understand the nuances of this role</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Core Role Enhancement (shown when "Core Role" is selected) -->
+                                <div id="coreRoleEnhancement" style="display: none;">
+                                    <div class="alert alert-success">
+                                        <i class="fas fa-check-circle"></i> 
+                                        <strong>Core Role Detected:</strong> We have strong matching patterns for this role type.
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="coreRoleVariations" class="form-label">Role Variations</label>
+                                                <textarea class="form-control" id="coreRoleVariations" name="coreRoleVariations" rows="3" 
+                                                          placeholder="e.g., SDR, BDR, Sales Development Representative&#10;Business Development Representative&#10;(One per line or comma-separated)"></textarea>
+                                                <div class="form-text">Any specific variations of this core role?</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="industrySpecificSkills" class="form-label">Industry-Specific Skills</label>
+                                                <textarea class="form-control" id="industrySpecificSkills" name="industrySpecificSkills" rows="3" 
+                                                          placeholder="e.g., SaaS, B2B, Enterprise Sales&#10;CRM, Salesforce, HubSpot&#10;(One per line or comma-separated)"></textarea>
+                                                <div class="form-text">Any industry-specific skills or tools?</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-end">
+                                <button type="button" class="btn btn-secondary me-2" onclick="clearForm()">
+                                    <i class="fas fa-times"></i> Clear
+                                </button>
+                                <button type="submit" class="btn btn-gradient">
+                                    <i class="fas fa-save"></i> Save Job Description
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Existing Job Descriptions -->
+        <div class="row">
+            <div class="col-12">
+                <h3 class="mb-3">
+                    <i class="fas fa-list"></i> Existing Job Descriptions
+                </h3>
+                <div id="jobDescriptionsList">
+                    <!-- Job descriptions will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this job description? This action cannot be undone.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
                 </div>
             </div>
         </div>
@@ -76,72 +434,268 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Load existing job descriptions
-        fetch('/api/job-descriptions')
-            .then(response => response.json())
-            .then(jobs => {
-                const jobList = document.getElementById('jobList');
-                if (jobs.length === 0) {
-                    jobList.innerHTML = '<p class="text-muted">No job descriptions yet. Add one above!</p>';
-                } else {
-                    jobList.innerHTML = jobs.map(job => `
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h6 class="card-title">${job.title}</h6>
-                                <p class="card-text"><strong>Company:</strong> ${job.company}</p>
-                                <p class="card-text"><strong>Location:</strong> ${job.location || 'Not specified'}</p>
-                                <p class="card-text">${job.description.substring(0, 200)}...</p>
-                                <button class="btn btn-success btn-sm" onclick="matchJob(${job.id})">Find Candidates</button>
-                                <button class="btn btn-danger btn-sm" onclick="deleteJob(${job.id})">Delete</button>
-                            </div>
-                        </div>
-                    `).join('');
-                }
-            });
+        let currentDeleteId = null;
 
-        // Add new job description
-        document.getElementById('jobForm').addEventListener('submit', function(e) {
+                            // Load job descriptions on page load
+                    document.addEventListener('DOMContentLoaded', function() {
+                        loadJobDescriptions();
+                        updateStats();
+                        setupRoleIntelligence();
+                    });
+
+        // Handle form submission
+        document.getElementById('jobDescriptionForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            saveJobDescription();
+        });
+
+        function saveJobDescription() {
+            const formData = new FormData(document.getElementById('jobDescriptionForm'));
+            const data = Object.fromEntries(formData);
             
-            const jobData = {
-                title: document.getElementById('title').value,
-                company: document.getElementById('company').value,
-                location: document.getElementById('location').value,
-                description: document.getElementById('description').value
-            };
+            // Convert string arrays to actual arrays
+            data.preferredCompanies = data.preferredCompanies ? data.preferredCompanies.split(',').map(s => s.trim()) : [];
+            data.preferredIndustries = data.preferredIndustries ? data.preferredIndustries.split(',').map(s => s.trim()) : [];
+            data.acceptableLocations = data.acceptableLocations ? data.acceptableLocations.split(',').map(s => s.trim()) : [];
+            data.alternativeTitles = data.alternativeTitles ? data.alternativeTitles.split(',').map(s => s.trim()) : [];
+            
+            // Convert checkboxes to boolean
+            data.enableLocationEnrichment = data.enableLocationEnrichment === 'on';
+            data.isActive = data.isActive === 'on';
+            
+            // Convert topN to number
+            data.topN = parseInt(data.topN);
 
             fetch('/api/job-descriptions', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(jobData)
+                body: JSON.stringify(data)
             })
             .then(response => response.json())
-            .then(job => {
-                alert('Job description added successfully!');
-                location.reload();
+            .then(result => {
+                if (result.success) {
+                    showAlert('Job description saved successfully!', 'success');
+                    clearForm();
+                    loadJobDescriptions();
+                    updateStats();
+                } else {
+                    showAlert('Error saving job description: ' + result.error, 'danger');
+                }
             })
             .catch(error => {
-                alert('Error adding job description');
+                showAlert('Error saving job description: ' + error, 'danger');
             });
-        });
+        }
 
-        function matchJob(jobId) {
-            // This would trigger the matching process
-            alert('Matching functionality coming soon!');
+        function loadJobDescriptions() {
+            fetch('/api/job-descriptions')
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    displayJobDescriptions(result.job_descriptions);
+                } else {
+                    showAlert('Error loading job descriptions: ' + result.error, 'danger');
+                }
+            })
+            .catch(error => {
+                showAlert('Error loading job descriptions: ' + error, 'danger');
+            });
+        }
+
+        function displayJobDescriptions(jobs) {
+            const container = document.getElementById('jobDescriptionsList');
+            
+            if (jobs.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-5">
+                        <i class="fas fa-briefcase fa-3x text-muted mb-3"></i>
+                        <h4 class="text-muted">No job descriptions yet</h4>
+                        <p class="text-muted">Create your first job description above to get started.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = jobs.map(job => `
+                <div class="job-card">
+                    <div class="job-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-1">${job.job_title}</h5>
+                                <p class="mb-0">${job.company || 'Company not specified'} • ${job.job_location}</p>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <span class="badge ${job.is_active ? 'bg-success' : 'bg-secondary'}">
+                                    ${job.is_active ? 'Active' : 'Inactive'}
+                                </span>
+                                <button class="btn btn-sm btn-outline-light" onclick="editJob(${job.id})">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteJob(${job.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="job-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p class="text-muted">${job.job_description.substring(0, 200)}${job.job_description.length > 200 ? '...' : ''}</p>
+                                
+                                <div class="mb-3">
+                                    ${job.seniority ? `<span class="tag"><i class="fas fa-level-up-alt"></i> ${job.seniority}</span>` : ''}
+                                    ${job.alternative_titles && job.alternative_titles.length > 0 ? 
+                                        job.alternative_titles.map(title => `<span class="tag">${title}</span>`).join('') : ''}
+                                </div>
+                                
+                                ${job.preferred_companies && job.preferred_companies.length > 0 ? `
+                                    <div class="mb-2">
+                                        <strong>Preferred Companies:</strong>
+                                        ${job.preferred_companies.map(company => `<span class="tag">${company}</span>`).join('')}
+                                    </div>
+                                ` : ''}
+                                
+                                ${job.preferred_industries && job.preferred_industries.length > 0 ? `
+                                    <div class="mb-2">
+                                        <strong>Preferred Industries:</strong>
+                                        ${job.preferred_industries.map(industry => `<span class="tag">${industry}</span>`).join('')}
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-end">
+                                    <small class="text-muted">Created: ${new Date(job.created_at).toLocaleDateString()}</small><br>
+                                    <small class="text-muted">Candidates: ${job.candidate_count || 0}</small><br>
+                                    <button class="btn btn-sm btn-primary mt-2" onclick="viewCandidates(${job.id})">
+                                        <i class="fas fa-users"></i> View Candidates
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
         }
 
         function deleteJob(jobId) {
-            if (confirm('Are you sure you want to delete this job description?')) {
-                fetch(`/api/job-descriptions/${jobId}`, {
+            currentDeleteId = jobId;
+            const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            deleteModal.show();
+        }
+
+        document.getElementById('confirmDelete').addEventListener('click', function() {
+            if (currentDeleteId) {
+                fetch(`/api/job-descriptions/${currentDeleteId}`, {
                     method: 'DELETE'
                 })
-                .then(() => {
-                    location.reload();
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        showAlert('Job description deleted successfully!', 'success');
+                        loadJobDescriptions();
+                        updateStats();
+                    } else {
+                        showAlert('Error deleting job description: ' + result.error, 'danger');
+                    }
+                })
+                .catch(error => {
+                    showAlert('Error deleting job description: ' + error, 'danger');
                 });
+                
+                const deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
+                deleteModal.hide();
+                currentDeleteId = null;
             }
+        });
+
+        function editJob(jobId) {
+            // Load job data into form for editing
+            fetch(`/api/job-descriptions/${jobId}`)
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    const job = result.job_description;
+                    document.getElementById('jobTitle').value = job.job_title;
+                    document.getElementById('jobLocation').value = job.job_location;
+                    document.getElementById('company').value = job.company || '';
+                    document.getElementById('seniority').value = job.seniority || '';
+                    document.getElementById('jobDescription').value = job.job_description;
+                    document.getElementById('alternativeTitles').value = job.alternative_titles ? job.alternative_titles.join(', ') : '';
+                    document.getElementById('jobUrl').value = job.job_url || '';
+                    document.getElementById('preferredCompanies').value = job.preferred_companies ? job.preferred_companies.join(', ') : '';
+                    document.getElementById('preferredIndustries').value = job.preferred_industries ? job.preferred_industries.join(', ') : '';
+                    document.getElementById('acceptableLocations').value = job.acceptable_locations ? job.acceptable_locations.join(', ') : '';
+                    document.getElementById('topN').value = job.top_n || 10;
+                    document.getElementById('enableLocationEnrichment').checked = job.enable_location_enrichment;
+                    document.getElementById('isActive').checked = job.is_active;
+                    
+                    // Change form to update mode
+                    document.querySelector('#jobDescriptionForm button[type="submit"]').innerHTML = '<i class="fas fa-save"></i> Update Job Description';
+                    document.getElementById('jobDescriptionForm').setAttribute('data-edit-id', jobId);
+                }
+            });
         }
+
+        function viewCandidates(jobId) {
+            // Redirect to job search page with this job pre-selected
+            window.location.href = `/?jobId=${jobId}`;
+        }
+
+        function clearForm() {
+            document.getElementById('jobDescriptionForm').reset();
+            document.querySelector('#jobDescriptionForm button[type="submit"]').innerHTML = '<i class="fas fa-save"></i> Save Job Description';
+            document.getElementById('jobDescriptionForm').removeAttribute('data-edit-id');
+        }
+
+        function updateStats() {
+            fetch('/api/job-descriptions/stats')
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    document.getElementById('totalJobs').textContent = result.stats.total_jobs;
+                    document.getElementById('activeJobs').textContent = result.stats.active_jobs;
+                    document.getElementById('totalReferrals').textContent = result.stats.total_referrals;
+                    document.getElementById('avgCandidates').textContent = result.stats.avg_candidates;
+                }
+            });
+        }
+
+                            function setupRoleIntelligence() {
+                        const roleCategory = document.getElementById('roleCategory');
+                        const customCriteria = document.getElementById('customRoleCriteria');
+                        const coreEnhancement = document.getElementById('coreRoleEnhancement');
+                        
+                        roleCategory.addEventListener('change', function() {
+                            const value = this.value;
+                            
+                            // Hide both sections initially
+                            customCriteria.style.display = 'none';
+                            coreEnhancement.style.display = 'none';
+                            
+                            // Show appropriate section based on selection
+                            if (value === 'custom') {
+                                customCriteria.style.display = 'block';
+                            } else if (value === 'core') {
+                                coreEnhancement.style.display = 'block';
+                            }
+                        });
+                    }
+                    
+                    function showAlert(message, type) {
+                        const alertDiv = document.createElement('div');
+                        alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+                        alertDiv.innerHTML = `
+                            ${message}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        `;
+                        document.querySelector('.container').insertBefore(alertDiv, document.querySelector('.container').firstChild);
+                        
+                        setTimeout(() => {
+                            alertDiv.remove();
+                        }, 5000);
+                    }
     </script>
 </body>
 </html>

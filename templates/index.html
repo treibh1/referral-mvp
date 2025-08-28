@@ -3,88 +3,1400 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Referral MVP System</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Referral MVP - Job Matching v1.1</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .loading {
+            display: none;
+        }
+        .result-card {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: white;
+        }
+        .score-breakdown {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 8px;
+        }
+        .skill-tags {
+            margin-top: 8px;
+        }
+        .skill-tag {
+            display: inline-block;
+            background-color: #e9ecef;
+            color: #495057;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin: 2px;
+        }
+        .job-analysis {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        /* Location-based sections */
+        .location-section {
+            margin-bottom: 30px;
+        }
+        
+        .location-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-weight: 600;
             color: white;
-            padding: 80px 0;
         }
-        .feature-card {
+        
+        .location-header.exact-match {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+        
+        .location-header.nearby-match {
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+        }
+        
+        .location-header.other-match {
+            background: linear-gradient(135deg, #6c757d, #495057);
+        }
+        
+        .location-icon {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+        
+        .location-description {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            padding-left: 4px;
+        }
+        
+        /* Enhanced result cards */
+        .result-card {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: white;
+            transition: box-shadow 0.2s ease;
+        }
+        
+        .result-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* Employee connection styling */
+        .employee-badge {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        /* Referral action buttons */
+        .referral-actions {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        .referral-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
             border: none;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            cursor: pointer;
+            margin-right: 8px;
+            transition: all 0.2s ease;
         }
-        .feature-card:hover {
-            transform: translateY(-5px);
+        
+        .referral-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .referral-btn.secondary {
+            background: linear-gradient(135deg, #6c757d, #495057);
+        }
+        
+        .referral-btn.secondary:hover {
+            background: linear-gradient(135deg, #5a6268, #343a40);
+        }
+        
+
+        
+        /* Collapsible details */
+        .card-header {
+            margin-bottom: 10px;
+        }
+        
+        .card-details {
+            border-top: 1px solid #dee2e6;
+            padding-top: 10px;
+        }
+        
+        .details-toggle {
+            background: none;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+            font-size: 0.9em;
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .details-toggle:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+        
+        .toggle-icon {
+            font-size: 0.8em;
+            transition: transform 0.2s ease;
+        }
+        
+        .details-content {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #f8f9fa;
+        }
+        
+        /* Job title autocomplete */
+        .title-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .title-suggestion {
+            padding: 8px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #f8f9fa;
+        }
+        
+        .title-suggestion:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .title-suggestion.selected {
+            background-color: #e9ecef;
+        }
+        
+        .title-suggestion:last-child {
+            border-bottom: none;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
-            <a class="navbar-brand" href="/">Referral MVP</a>
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-users"></i> Referral Matching
+            </a>
             <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="/job-descriptions">Job Descriptions</a>
-                <a class="nav-link" href="/referrals">My Referrals</a>
+                <a class="nav-link active" href="/"><i class="fas fa-search"></i> Job Search</a>
+                <a class="nav-link" href="/job-descriptions"><i class="fas fa-briefcase"></i> Job Descriptions</a>
+                <a class="nav-link" href="/referrals"><i class="fas fa-handshake"></i> My Referrals</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container text-center">
-            <h1 class="display-4 mb-4">Referral Matching System</h1>
-            <p class="lead mb-4">Find the perfect candidates for your job openings using AI-powered matching</p>
-            <a href="/job-descriptions" class="btn btn-light btn-lg">Get Started</a>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="card feature-card h-100">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Job Descriptions</h5>
-                            <p class="card-text">Create and manage job descriptions with detailed requirements and preferences.</p>
-                            <a href="/job-descriptions" class="btn btn-primary">Manage Jobs</a>
-                        </div>
+    <div class="container">
+        <h1 class="mb-4">Referral MVP - Job Matching</h1>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Job Description</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="jobForm" onsubmit="handleFormSubmit(event)">
+                            <div class="mb-3">
+                                <label for="jobDescriptionSelect" class="form-label">Select Stored Job Description (Optional)</label>
+                                <select class="form-control" id="jobDescriptionSelect" onchange="loadStoredJobDescription()">
+                                    <option value="">-- Choose a stored job description --</option>
+                                </select>
+                                <small class="form-text text-muted">
+                                    Select from previously saved job descriptions, or use the URL below for a new search.
+                                </small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="jobUrl" class="form-label">Job Listing URL (Optional)</label>
+                                <div class="input-group">
+                                    <input type="url" class="form-control" id="jobUrl" 
+                                           placeholder="https://www.linkedin.com/jobs/view/... or company career page URL">
+                                    <button type="button" class="btn btn-primary" id="searchNowBtn" onclick="executeFullSearch()">
+                                        🔍 Find Candidates
+                                    </button>
+                                </div>
+                                <small class="form-text text-muted">
+                                    Paste a job listing URL and click "Find Candidates" to automatically fetch and search. 
+                                    Works with LinkedIn, most company career pages, and major job boards.
+                                </small>
+                            </div>
+                            
+                            <!-- Collapsible Job Description Section -->
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <label for="jobDescription" class="form-label mb-0">Job Description *</label>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="toggleJobDescription()">
+                                        <span id="jobDescToggleIcon">▼</span> Show/Hide
+                                    </button>
+                                </div>
+                                <div id="jobDescriptionSection" class="mt-2" style="display: none;">
+                                    <textarea class="form-control" id="jobDescription" rows="6" required 
+                                        placeholder="Enter the full job description here, or use the URL above to fetch it automatically..."></textarea>
+                                    <div id="fetchStatus" class="mt-2" style="display: none;"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Role Details Section -->
+                            <div class="card mb-3">
+                                <div class="card-header" style="cursor: pointer;" onclick="toggleSection('roleDetails')">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="mb-0">🎯 Role Details</h6>
+                                        <span id="roleDetailsIcon">▼</span>
+                                    </div>
+                                </div>
+                                <div class="card-body" id="roleDetails" style="display: none;">
+                                    <div class="mb-3">
+                                        <label for="jobTitle" class="form-label">Job Title</label>
+                                        <div class="position-relative">
+                                            <input type="text" class="form-control" id="jobTitle" 
+                                                placeholder="e.g., Sales Engineer, Solutions Architect" autocomplete="off">
+                                            <div id="titleSuggestions" class="title-suggestions" style="display: none;"></div>
+                                        </div>
+                                        <small class="form-text text-muted">
+                                            Start typing to see suggested job titles. Leave empty to auto-detect from description.
+                                        </small>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="jobLocation" class="form-label">Job Location</label>
+                                        <input type="text" class="form-control" id="jobLocation" 
+                                            placeholder="e.g., London, UK">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="alternativeTitles" class="form-label">Alternative Titles (Optional)</label>
+                                        <input type="text" class="form-control" id="alternativeTitles" 
+                                            placeholder="e.g., Technical Sales, Pre-Sales Engineer (comma-separated)">
+                                        <small class="form-text text-muted">
+                                            Related job titles you'd also like to consider for this role.
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Search Details Section -->
+                            <div class="card mb-3">
+                                <div class="card-header" style="cursor: pointer;" onclick="toggleSection('searchDetails')">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="mb-0">🔍 Search Details</h6>
+                                        <span id="searchDetailsIcon">▼</span>
+                                    </div>
+                                </div>
+                                <div class="card-body" id="searchDetails" style="display: none;">
+                                    <div class="mb-3">
+                                        <label for="preferredCompanies" class="form-label">Preferred Companies</label>
+                                        <input type="text" class="form-control" id="preferredCompanies" 
+                                            placeholder="e.g., Google, Microsoft, Amazon (comma-separated)">
+                                        <small class="form-text text-muted">
+                                            Contacts from these companies will receive bonus scoring. Separate multiple companies with commas.
+                                        </small>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="preferredIndustries" class="form-label">Preferred Industries</label>
+                                        <input type="text" class="form-control" id="preferredIndustries" 
+                                            placeholder="e.g., SaaS, Fintech, Healthcare (comma-separated)">
+                                        <small class="form-text text-muted">
+                                            Contacts from these industries will receive bonus scoring. Separate multiple industries with commas.
+                                        </small>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="topN" class="form-label">Number of Results</label>
+                                        <select class="form-control" id="topN">
+                                            <option value="5">5 results</option>
+                                            <option value="10" selected>10 results</option>
+                                            <option value="20">20 results</option>
+                                            <option value="50">50 results</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Find Candidates Button (Full Width) -->
+                            <div class="text-center mt-4">
+                                <button type="button" class="btn btn-primary btn-lg w-100" onclick="executeFullSearch()">
+                                    <span class="loading" id="loadingSpinner">
+                                        <span class="spinner-border spinner-border-sm" role="status"></span>
+                                        Processing...
+                                    </span>
+                                    <span id="submitText">Find Candidates</span>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card feature-card h-100">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Smart Matching</h5>
-                            <p class="card-text">AI-powered matching algorithm finds the best candidates for your roles.</p>
-                            <a href="/job-descriptions" class="btn btn-primary">Start Matching</a>
-                        </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div id="results" style="display: none;">
+                    <h4>Results</h4>
+                    
+                    <!-- Job Analysis -->
+                    <div id="jobAnalysis" class="job-analysis" style="display: none;">
+                        <h6>Job Analysis</h6>
+                        <div id="jobAnalysisContent"></div>
                     </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card feature-card h-100">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Referral Tracking</h5>
-                            <p class="card-text">Track and manage your referral candidates across all job openings.</p>
-                            <a href="/referrals" class="btn btn-primary">View Referrals</a>
+                    
+                    <!-- Smart Search Feedback -->
+                    <div id="searchFeedback" class="alert alert-warning" role="alert" style="display: none;">
+                        <h5>🔍 Search Optimization Suggestions</h5>
+                        <p><strong>Limited results detected.</strong> Try these alternative job titles for better matches:</p>
+                        <div id="alternativeTitles" class="mb-3"></div>
+                        <p><strong>Tip:</strong> Use the "Job Title" field above to manually specify the exact role you're hiring for.</p>
+                    </div>
+                    
+                    <!-- Location-Based Matches -->
+                    <div id="regularResults">
+                        <h5>Location-Based Matches</h5>
+                        <div id="referral-summary" style="display: none;">
+                            <div class="alert alert-info">
+                                <strong>📧 Referral Summary:</strong> 
+                                <span id="referral-count">0</span> contacts have employee connections available for referral requests.
+                                <button class="referral-btn" onclick="requestAllReferrals()" style="margin-left: 10px;">
+                                    📧 Request All Referrals
+                                </button>
+                            </div>
                         </div>
+                        <div id="matchesContent"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
-        <div class="container text-center">
-            <p>&copy; 2025 Referral MVP System. All rights reserved.</p>
-        </div>
-    </footer>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Job title suggestions
+        const jobTitles = [
+            'Sales Engineer', 'Solutions Architect', 'Customer Success Manager', 'Account Executive',
+            'Product Manager', 'Software Engineer', 'DevOps Engineer', 'Data Engineer', 'Data Scientist',
+            'Marketing Manager', 'Business Development Representative', 'Sales Development Representative',
+            'Technical Account Manager', 'Implementation Manager', 'Professional Services Engineer',
+            'Pre-Sales Engineer', 'Technical Sales', 'Sales Operations Manager', 'Revenue Operations Manager',
+            'Customer Experience Manager', 'Support Engineer', 'Technical Support Engineer', 'QA Engineer',
+            'Frontend Engineer', 'Backend Engineer', 'Full Stack Engineer', 'Mobile Engineer', 'UI/UX Designer',
+            'Product Marketing Manager', 'Growth Marketing Manager', 'Content Marketing Manager',
+            'Digital Marketing Manager', 'SEO Specialist', 'PPC Specialist', 'Social Media Manager',
+            'Brand Manager', 'Event Marketing Manager', 'Channel Marketing Manager', 'Field Marketing Manager',
+            'Marketing Operations Manager', 'Marketing Analytics Manager', 'Marketing Technology Manager',
+            'Customer Marketing Manager', 'Partner Marketing Manager', 'International Marketing Manager',
+            'Demand Generation Manager', 'Lead Generation Manager', 'Inbound Marketing Manager',
+            'Outbound Marketing Manager', 'Email Marketing Manager', 'Marketing Automation Manager',
+            'Marketing Data Analyst', 'Marketing Research Analyst', 'Marketing Strategy Manager',
+            'Marketing Communications Manager', 'Public Relations Manager', 'Corporate Communications Manager',
+            'Internal Communications Manager', 'External Communications Manager', 'Stakeholder Communications Manager',
+            'Crisis Communications Manager', 'Media Relations Manager', 'Investor Relations Manager',
+            'Government Relations Manager', 'Community Relations Manager', 'Employee Communications Manager',
+            'Change Communications Manager', 'Digital Communications Manager', 'Social Media Communications Manager',
+            'Content Communications Manager', 'Brand Communications Manager', 'Product Communications Manager',
+            'Technical Communications Manager', 'Marketing Communications Specialist', 'Communications Coordinator',
+            'Communications Assistant', 'Communications Intern', 'Communications Director', 'Communications VP',
+            'Chief Communications Officer', 'Head of Communications', 'Communications Lead', 'Communications Manager',
+            'Senior Communications Manager', 'Principal Communications Manager', 'Lead Communications Manager',
+            'Communications Team Lead', 'Communications Project Manager', 'Communications Program Manager',
+            'Communications Strategy Director', 'Communications Operations Manager', 'Communications Technology Manager',
+            'Communications Analytics Manager', 'Communications Research Manager', 'Communications Planning Manager',
+            'Communications Execution Manager', 'Communications Measurement Manager', 'Communications Optimization Manager',
+            'Communications Innovation Manager', 'Communications Transformation Manager', 'Communications Excellence Manager',
+            'Communications Quality Manager', 'Communications Process Manager', 'Communications Governance Manager',
+            'Communications Risk Manager', 'Communications Compliance Manager', 'Communications Audit Manager',
+            'Communications Training Manager', 'Communications Development Manager', 'Communications Talent Manager',
+            'Communications Performance Manager', 'Communications Success Manager', 'Communications Growth Manager',
+            'Communications Scale Manager', 'Communications Expansion Manager', 'Communications International Manager',
+            'Communications Global Manager', 'Communications Regional Manager', 'Communications Territory Manager',
+            'Communications Market Manager', 'Communications Segment Manager', 'Communications Customer Manager',
+            'Communications Partner Manager', 'Communications Vendor Manager', 'Communications Supplier Manager',
+            'Communications Agency Manager', 'Communications Consultant Manager', 'Communications Contractor Manager',
+            'Communications Freelancer Manager', 'Communications Outsourcing Manager', 'Communications Insourcing Manager',
+            'Communications Co-Sourcing Manager', 'Communications Shared Services Manager', 'Communications Center of Excellence Manager',
+            'Communications Hub Manager', 'Communications Spoke Manager', 'Communications Network Manager',
+            'Communications Ecosystem Manager', 'Communications Platform Manager', 'Communications Tool Manager',
+            'Communications System Manager', 'Communications Application Manager', 'Communications Software Manager',
+            'Communications Hardware Manager', 'Communications Infrastructure Manager', 'Communications Architecture Manager',
+            'Communications Design Manager', 'Communications Development Manager', 'Communications Testing Manager',
+            'Communications Deployment Manager', 'Communications Implementation Manager', 'Communications Integration Manager',
+            'Communications Migration Manager', 'Communications Upgrade Manager', 'Communications Maintenance Manager',
+            'Communications Support Manager', 'Communications Help Desk Manager', 'Communications Service Desk Manager',
+            'Communications Technical Support Manager', 'Communications Customer Support Manager', 'Communications User Support Manager',
+            'Communications End User Support Manager', 'Communications Desktop Support Manager', 'Communications Mobile Support Manager',
+            'Communications Remote Support Manager', 'Communications On-Site Support Manager', 'Communications Field Support Manager',
+            'Communications Travel Support Manager', 'Communications Virtual Support Manager', 'Communications Digital Support Manager',
+            'Communications Online Support Manager', 'Communications Offline Support Manager', 'Communications 24/7 Support Manager',
+            'Communications Round-the-Clock Support Manager', 'Communications Always-On Support Manager', 'Communications Continuous Support Manager',
+            'Communications Uninterrupted Support Manager', 'Communications Seamless Support Manager', 'Communications Smooth Support Manager',
+            'Communications Efficient Support Manager', 'Communications Effective Support Manager', 'Communications Productive Support Manager',
+            'Communications Proactive Support Manager', 'Communications Reactive Support Manager', 'Communications Preventive Support Manager',
+            'Communications Predictive Support Manager', 'Communications Prescriptive Support Manager', 'Communications Diagnostic Support Manager',
+            'Communications Prognostic Support Manager', 'Communications Therapeutic Support Manager', 'Communications Curative Support Manager',
+            'Communications Palliative Support Manager', 'Communications Preventive Support Manager', 'Communications Protective Support Manager',
+            'Communications Defensive Support Manager', 'Communications Offensive Support Manager', 'Communications Strategic Support Manager',
+            'Communications Tactical Support Manager', 'Communications Operational Support Manager', 'Communications Functional Support Manager',
+            'Communications Cross-Functional Support Manager', 'Communications Multi-Functional Support Manager', 'Communications Inter-Functional Support Manager',
+            'Communications Intra-Functional Support Manager', 'Communications Extra-Functional Support Manager', 'Communications Ultra-Functional Support Manager',
+            'Communications Super-Functional Support Manager', 'Communications Hyper-Functional Support Manager', 'Communications Mega-Functional Support Manager',
+            'Communications Giga-Functional Support Manager', 'Communications Tera-Functional Support Manager', 'Communications Peta-Functional Support Manager',
+            'Communications Exa-Functional Support Manager', 'Communications Zetta-Functional Support Manager', 'Communications Yotta-Functional Support Manager'
+        ];
+
+        // Load stored job descriptions on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStoredJobDescriptions();
+        });
+
+        // Initialize autocomplete
+        const jobTitleInput = document.getElementById('jobTitle');
+        const titleSuggestions = document.getElementById('titleSuggestions');
+        let selectedIndex = -1;
+
+        jobTitleInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            if (query.length < 2) {
+                titleSuggestions.style.display = 'none';
+                return;
+            }
+
+            const matches = jobTitles.filter(title => 
+                title.toLowerCase().includes(query)
+            ).slice(0, 8);
+
+            if (matches.length > 0) {
+                titleSuggestions.innerHTML = matches.map(title => 
+                    `<div class="title-suggestion">${title}</div>`
+                ).join('');
+                titleSuggestions.style.display = 'block';
+                selectedIndex = -1;
+            } else {
+                titleSuggestions.style.display = 'none';
+            }
+        });
+
+        jobTitleInput.addEventListener('keydown', function(e) {
+            const suggestions = titleSuggestions.querySelectorAll('.title-suggestion');
+            
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedIndex = Math.min(selectedIndex + 1, suggestions.length - 1);
+                updateSelection();
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedIndex = Math.max(selectedIndex - 1, -1);
+                updateSelection();
+            } else if (e.key === 'Enter' && selectedIndex >= 0) {
+                e.preventDefault();
+                selectSuggestion(suggestions[selectedIndex]);
+            } else if (e.key === 'Escape') {
+                titleSuggestions.style.display = 'none';
+                selectedIndex = -1;
+            }
+        });
+
+        titleSuggestions.addEventListener('click', function(e) {
+            if (e.target.classList.contains('title-suggestion')) {
+                selectSuggestion(e.target);
+            }
+        });
+
+        function updateSelection() {
+            const suggestions = titleSuggestions.querySelectorAll('.title-suggestion');
+            suggestions.forEach((suggestion, index) => {
+                suggestion.classList.toggle('selected', index === selectedIndex);
+            });
+        }
+
+        function selectSuggestion(element) {
+            jobTitleInput.value = element.textContent;
+            titleSuggestions.style.display = 'none';
+            selectedIndex = -1;
+        }
+
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!jobTitleInput.contains(e.target) && !titleSuggestions.contains(e.target)) {
+                titleSuggestions.style.display = 'none';
+                selectedIndex = -1;
+            }
+        });
+        
+        // URL fetching functionality
+
+        
+        function showFetchStatus(message, type) {
+            const fetchStatus = document.getElementById('fetchStatus');
+            fetchStatus.innerHTML = `<div class="alert alert-${type} alert-sm">${message}</div>`;
+            fetchStatus.style.display = 'block';
+            
+            // Auto-hide success messages after 5 seconds
+            if (type === 'success') {
+                setTimeout(() => {
+                    fetchStatus.style.display = 'none';
+                }, 5000);
+            }
+        }
+        
+        // Toggle collapsible sections
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const icon = document.getElementById(sectionId + 'Icon');
+            
+            if (section.style.display === 'none') {
+                section.style.display = 'block';
+                icon.textContent = '▲';
+            } else {
+                section.style.display = 'none';
+                icon.textContent = '▼';
+            }
+        }
+        
+        // Toggle job description section
+        function toggleJobDescription() {
+            const section = document.getElementById('jobDescriptionSection');
+            const icon = document.getElementById('jobDescToggleIcon');
+            
+            if (section.style.display === 'none') {
+                section.style.display = 'block';
+                icon.textContent = '▲';
+            } else {
+                section.style.display = 'none';
+                icon.textContent = '▼';
+            }
+        }
+        
+        // Handle form submission to prevent page refresh
+        function handleFormSubmit(event) {
+            event.preventDefault(); // Prevent default form submission
+            performSearch(); // Call the actual search function
+        }
+        
+        // Unified function that both buttons use - fetches from URL if provided, then searches
+        async function executeFullSearch() {
+            const urlInput = document.getElementById('jobUrl');
+            const jobDescription = document.getElementById('jobDescription');
+            const url = urlInput.value.trim();
+            
+            // Show loading state on both buttons
+            const searchBtn = document.getElementById('searchNowBtn');
+            const mainBtn = document.querySelector('button[onclick="executeFullSearch()"]');
+            
+            if (searchBtn) {
+                searchBtn.disabled = true;
+                searchBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> Finding Candidates...';
+            }
+            if (mainBtn) {
+                mainBtn.disabled = true;
+                mainBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> Finding Candidates...';
+            }
+            
+            try {
+                // Step 1: If URL is provided, fetch job description
+                if (url) {
+                    // Validate URL format
+                    try {
+                        new URL(url);
+                    } catch {
+                        showFetchStatus('Please enter a valid URL', 'warning');
+                        return;
+                    }
+                    
+                    showFetchStatus('🔍 Fetching job description from URL...', 'info');
+                    
+                    const response = await fetch('/api/fetch-job', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ url: url })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (response.ok && result.success) {
+                        // Populate the job description field (required for search)
+                        jobDescription.value = result.job_description;
+                        
+                        // Auto-populate job title if found
+                        if (result.job_title) {
+                            document.getElementById('jobTitle').value = result.job_title;
+                        }
+                        
+                        // Debug: check if content was actually populated
+                        if (!result.job_description || result.job_description.trim().length < 50) {
+                            showFetchStatus('⚠️ Job description seems too short. Please check the content or paste manually.', 'warning');
+                            toggleJobDescription();
+                        } else {
+                            showFetchStatus('✅ Job description fetched successfully!', 'success');
+                        }
+                    } else {
+                        showFetchStatus(`❌ Could not retrieve job description: ${result.error || 'Unknown error'}`, 'danger');
+                        showFetchStatus('Please paste the full job description into the text box below.', 'info');
+                        // Clear the URL field so the form submission works
+                        urlInput.value = '';
+                        // Show the job description section so user can paste manually
+                        toggleJobDescription();
+                        return;
+                    }
+                } else {
+                    // No URL provided, check if job description is filled
+                    if (!jobDescription.value.trim()) {
+                        showFetchStatus('Please provide either a job URL or paste the job description', 'warning');
+                        return;
+                    }
+                }
+                
+                // Step 2: Execute the search (both URL and manual methods)
+                showFetchStatus('🎯 Finding candidates...', 'info');
+                
+                // Call the search function directly instead of submitting form
+                setTimeout(() => {
+                    performSearch();
+                }, 1000);
+                
+            } catch (error) {
+                console.error('Error in executeFullSearch:', error);
+                showFetchStatus('❌ An error occurred while processing your request', 'danger');
+            } finally {
+                // Reset button states
+                if (searchBtn) {
+                    searchBtn.disabled = false;
+                    searchBtn.innerHTML = '🔍 Find Candidates';
+                }
+                if (mainBtn) {
+                    mainBtn.disabled = false;
+                    mainBtn.innerHTML = '🔍 Find Candidates';
+                }
+            }
+        }
+
+        // Main search function that performs the actual API call
+        async function performSearch() {
+            const submitBtn = document.querySelector('button[onclick="executeFullSearch()"]');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const submitText = document.getElementById('submitText');
+            
+            // Show loading state
+            if (submitBtn) {
+                submitBtn.disabled = true;
+            }
+            if (loadingSpinner) {
+                loadingSpinner.style.display = 'inline';
+            }
+            if (submitText) {
+                submitText.style.display = 'none';
+            }
+            
+            try {
+                const formData = {
+                    jobDescription: document.getElementById('jobDescription').value,
+                    jobTitle: document.getElementById('jobTitle').value.trim(),
+                    alternativeTitles: document.getElementById('alternativeTitles').value.split(',').map(title => title.trim()).filter(title => title),
+                    jobLocation: document.getElementById('jobLocation').value,
+                    preferredCompanies: document.getElementById('preferredCompanies').value.split(',').map(company => company.trim()).filter(company => company),
+                    preferredIndustries: document.getElementById('preferredIndustries').value.split(',').map(industry => industry.trim()).filter(industry => industry),
+                    topN: parseInt(document.getElementById('topN').value),
+                    desiredLocation: document.getElementById('jobLocation').value, // Use jobLocation for location matching
+                    acceptableLocations: [], // Simplified - no separate acceptable locations
+                    enableLocationEnrichment: false, // Disabled for now
+                    braveApiKey: '', // Not needed
+                    serpapiKey: '' // Not needed
+                };
+                
+                const response = await fetch('/api/match', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    displayResults(result);
+                } else {
+                    alert('Error: ' + (result.error || 'Unknown error occurred'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error: ' + error.message);
+            } finally {
+                // Hide loading state
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                }
+                if (loadingSpinner) {
+                    loadingSpinner.style.display = 'none';
+                }
+                if (submitText) {
+                    submitText.style.display = 'inline';
+                }
+            }
+        }
+        
+        function displayResults(result) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.style.display = 'block';
+            
+            // Display job analysis if available
+            if (result.job_analysis) {
+                displayJobAnalysis(result.job_analysis, result.processing_time);
+            }
+            
+            // Display regular matches
+            displayMatches(result.matches || result);
+        }
+        
+        function displayJobAnalysis(analysis, processingTime) {
+            const analysisDiv = document.getElementById('jobAnalysis');
+            const contentDiv = document.getElementById('jobAnalysisContent');
+            
+            contentDiv.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Role Detected:</strong> ${analysis.role_detected || 'N/A'} (${Math.round((analysis.role_confidence || 0) * 100)}% confidence)<br>
+                        <strong>Company Detected:</strong> ${analysis.company_detected || 'N/A'}<br>
+                        <strong>Seniority:</strong> ${analysis.seniority_detected || 'N/A'}
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Skills Found:</strong> ${analysis.skills_found ? analysis.skills_found.length : 0}<br>
+                        <strong>Platforms Found:</strong> ${analysis.platforms_found ? analysis.platforms_found.length : 0}<br>
+                        <strong>Processing Time:</strong> ${processingTime || 'N/A'}s
+                    </div>
+                </div>
+            `;
+            
+            analysisDiv.style.display = 'block';
+            
+            // Check for poor search results and show suggestions
+            checkSearchQuality(analysis);
+        }
+        
+        function checkSearchQuality(analysis) {
+            const searchFeedback = document.getElementById('searchFeedback');
+            const alternativeTitles = document.getElementById('alternativeTitles');
+            
+            // Criteria for poor search results
+            const lowConfidence = (analysis.role_confidence || 0) < 0.3;
+            const fewSkills = (analysis.skills_found || []).length < 5;
+            
+            // Known roles that we have good data for - don't show suggestions for these
+            const knownRoles = [
+                'customer success manager', 'csm',
+                'account executive', 'ae',
+                'sales representative', 'sales rep',
+                'software engineer', 'developer',
+                'product manager', 'pm',
+                'data scientist', 'ml engineer', 'machine learning engineer',
+                'marketing manager',
+                'financial planning & analysis manager', 'fp&a manager',
+                'revenue operations manager', 'revops manager',
+                'gtm finance manager', 'go-to-market finance manager',
+                'strategic finance manager',
+                'business finance manager',
+                'financial operations manager',
+                'revenue strategy manager',
+                'business intelligence manager', 'bi manager',
+                'data analytics manager', 'analytics manager',
+                'corporate finance manager',
+                'strategy manager',
+                'business strategy manager',
+                'strategic planning manager',
+                'corporate strategy manager',
+                'business development manager',
+                'strategic initiatives manager',
+                'business operations manager',
+                'strategic partnerships manager',
+                'operations manager',
+                'process improvement manager',
+                'operational excellence manager',
+                'business process manager',
+                'operations strategy manager',
+                'operational analytics manager',
+                'solution architect', 'solutions architect',
+                'solution consultant', 'solutions consultant',
+                'data engineer',
+                'devops engineer',
+                'engineering manager',
+                'business analyst',
+                'data analyst',
+                'quality assurance', 'qa engineer',
+                'research scientist'
+            ];
+            
+            const detectedRole = (analysis.role_detected || '').toLowerCase();
+            const isKnownRole = knownRoles.some(role => detectedRole.includes(role) || role.includes(detectedRole));
+            
+            // Only show suggestions if we have low confidence AND it's not a known role, OR very few skills
+            if ((lowConfidence && !isKnownRole) || fewSkills) {
+                // Generate alternative titles based on detected role and skills
+                const suggestions = generateAlternativeTitles(analysis);
+                
+                alternativeTitles.innerHTML = suggestions.map(title => 
+                    `<span class="badge bg-primary me-2 mb-2" style="cursor: pointer;" onclick="setJobTitle('${title}')">${title}</span>`
+                ).join('');
+                
+                searchFeedback.style.display = 'block';
+            } else {
+                searchFeedback.style.display = 'none';
+            }
+        }
+        
+        function generateAlternativeTitles(analysis) {
+            const detectedRole = (analysis.role_detected || '').toLowerCase();
+            const skills = (analysis.skills_found || []).map(s => s.toLowerCase());
+            const seniority = (analysis.seniority_detected || '').toLowerCase();
+            
+            let suggestions = [];
+            
+            // Finance/GTM related suggestions
+            if (detectedRole.includes('finance') || detectedRole.includes('gtm') || 
+                skills.some(s => s.includes('finance') || s.includes('revenue') || s.includes('budget'))) {
+                suggestions = suggestions.concat([
+                    'Revenue Operations Manager',
+                    'Financial Planning & Analysis Manager',
+                    'Business Finance Manager',
+                    'GTM Finance Manager',
+                    'Revenue Strategy Manager',
+                    'Financial Operations Manager',
+                    'Business Intelligence Manager',
+                    'Data Analytics Manager',
+                    'Strategic Finance Manager',
+                    'Corporate Finance Manager'
+                ]);
+            }
+            
+            // Strategy related suggestions
+            if (detectedRole.includes('strategy') || detectedRole.includes('strategic') ||
+                skills.some(s => s.includes('strategy') || s.includes('planning') || s.includes('analysis'))) {
+                suggestions = suggestions.concat([
+                    'Strategy Manager',
+                    'Business Strategy Manager',
+                    'Strategic Planning Manager',
+                    'Corporate Strategy Manager',
+                    'Business Development Manager',
+                    'Strategic Initiatives Manager',
+                    'Business Operations Manager',
+                    'Strategic Partnerships Manager'
+                ]);
+            }
+            
+            // Operations related suggestions
+            if (detectedRole.includes('operations') || detectedRole.includes('operational') ||
+                skills.some(s => s.includes('operations') || s.includes('process') || s.includes('optimization'))) {
+                suggestions = suggestions.concat([
+                    'Operations Manager',
+                    'Business Operations Manager',
+                    'Process Improvement Manager',
+                    'Operational Excellence Manager',
+                    'Business Process Manager',
+                    'Operations Strategy Manager',
+                    'Operational Analytics Manager'
+                ]);
+            }
+            
+            // Default suggestions for low confidence
+            if (suggestions.length === 0) {
+                suggestions = [
+                    'Business Manager',
+                    'Strategy Manager',
+                    'Operations Manager',
+                    'Analytics Manager',
+                    'Business Intelligence Manager',
+                    'Data Strategy Manager',
+                    'Business Development Manager',
+                    'Strategic Planning Manager'
+                ];
+            }
+            
+            // Add seniority prefix if detected
+            if (seniority && seniority !== 'n/a') {
+                suggestions = suggestions.map(title => `${seniority.charAt(0).toUpperCase() + seniority.slice(1)} ${title}`);
+            }
+            
+            return suggestions.slice(0, 8); // Limit to 8 suggestions
+        }
+        
+        function setJobTitle(title) {
+            document.getElementById('jobTitle').value = title;
+            // Trigger a new search with the suggested title
+            performSearch();
+        }
+        
+        function displayMatches(matches) {
+            const contentDiv = document.getElementById('matchesContent');
+            const referralSummary = document.getElementById('referral-summary');
+            const referralCount = document.getElementById('referral-count');
+            
+            if (matches && matches.length > 0) {
+                // Count contacts with employee connections
+                const contactsWithConnections = matches.filter(match => match.employee_connection).length;
+                if (contactsWithConnections > 0) {
+                    referralCount.textContent = contactsWithConnections;
+                    referralSummary.style.display = 'block';
+                } else {
+                    referralSummary.style.display = 'none';
+                }
+                // Categorize matches by location match type
+                const exactMatches = [];
+                const nearbyMatches = [];
+                const otherMatches = [];
+                
+                matches.forEach(match => {
+                    const locationType = match.location_match_type || '';
+                    const locationScore = match.score_breakdown?.location_score || 0;
+                    
+                    // Cities in the same country should be exact matches, not nearby
+                    if (locationType === 'exact' || locationType === 'city_in_country' || locationScore >= 3.0) {
+                        exactMatches.push(match);
+                    } else if (locationType === 'city_in_state' || locationType === 'state_in_country' || locationScore >= 2.0) {
+                        nearbyMatches.push(match);
+                    } else {
+                        otherMatches.push(match);
+                    }
+                });
+                
+                let html = '';
+                
+                // Display exact location matches
+                if (exactMatches.length > 0) {
+                    html += `
+                        <div class="location-section">
+                            <h5 class="location-header exact-match">
+                                <span class="location-icon">📍</span>
+                                Exact Location Matches (${exactMatches.length})
+                            </h5>
+                            <div class="location-description">
+                                Candidates in the exact location you specified
+                            </div>
+                            ${exactMatches.map(match => createMatchCard(match)).join('')}
+                        </div>
+                    `;
+                }
+                
+                // Display nearby/same country matches
+                if (nearbyMatches.length > 0) {
+                    html += `
+                        <div class="location-section">
+                            <h5 class="location-header nearby-match">
+                                <span class="location-icon">🌍</span>
+                                Nearby/Same Country Matches (${nearbyMatches.length})
+                            </h5>
+                            <div class="location-description">
+                                Candidates in nearby cities or the same country
+                            </div>
+                            ${nearbyMatches.map(match => createMatchCard(match)).join('')}
+                        </div>
+                    `;
+                }
+                
+                // Display other candidates
+                if (otherMatches.length > 0) {
+                    html += `
+                        <div class="location-section">
+                            <h5 class="location-header other-match">
+                                <span class="location-icon">🌐</span>
+                                Other Candidates (${otherMatches.length})
+                            </h5>
+                            <div class="location-description">
+                                Candidates with strong skills match but different location
+                            </div>
+                            ${otherMatches.map(match => createMatchCard(match)).join('')}
+                        </div>
+                    `;
+                }
+                
+                contentDiv.innerHTML = html;
+                // Store matches globally for referral functionality
+                window.currentMatches = matches;
+            } else {
+                contentDiv.innerHTML = '<p>No matches found.</p>';
+                window.currentMatches = [];
+            }
+        }
+        
+        function createMatchCard(match) {
+            const cardId = 'card-' + Math.random().toString(36).substr(2, 9);
+            
+            return `
+                <div class="result-card">
+                    <div class="card-header">
+                        <h6>${match.name}</h6>
+                        <p><strong>Company:</strong> ${match.company}</p>
+                        <p><strong>Position:</strong> ${match.position || 'N/A'}</p>
+                        <p><strong>Score:</strong> ${match.score ? match.score.toFixed(2) : 'N/A'}</p>
+                        ${match.location ? `<p><strong>Location:</strong> ${match.location}</p>` : ''}
+                        ${match.location_match_details ? `<p><strong>Location Match:</strong> ${match.location_match_details}</p>` : ''}
+                        ${match.employee_connection ? `<p><strong>Employee Connection:</strong> <span class="employee-badge">${match.employee_connection}</span></p>` : ''}
+                        ${match.score_breakdown && match.score_breakdown.tagged_boost > 0 ? `<p><strong>🏆 Tagged Contact:</strong> <span class="badge badge-success">+${match.score_breakdown.tagged_boost} boost</span></p>` : ''}
+                    </div>
+                    
+                    ${(match.skill_matches && match.skill_matches.length > 0) || (match.score_breakdown) ? `
+                        <div class="card-details">
+                            <button class="details-toggle" onclick="toggleDetails('${cardId}')">
+                                <span class="toggle-text">Show Details</span>
+                                <span class="toggle-icon">▼</span>
+                            </button>
+                            <div class="details-content" id="${cardId}" style="display: none;">
+                                ${match.skill_matches ? `
+                                    <div class="skill-tags">
+                                        <strong>Skill Matches:</strong>
+                                        ${match.skill_matches.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                                    </div>
+                                ` : ''}
+                                ${match.score_breakdown ? `
+                                    <div class="score-breakdown">
+                                        <strong>Score Breakdown:</strong><br>
+                                        Skills: ${match.score_breakdown.skill_score?.toFixed(2) || 'N/A'} | 
+                                        Role: ${match.score_breakdown.role_score?.toFixed(2) || 'N/A'} | 
+                                        Company: ${match.score_breakdown.company_score?.toFixed(2) || 'N/A'} | 
+                                        Industry: ${match.score_breakdown.industry_score?.toFixed(2) || 'N/A'} | 
+                                        Seniority: ${match.score_breakdown.seniority_bonus?.toFixed(2) || 'N/A'} | 
+                                        Location: ${match.score_breakdown.location_score?.toFixed(2) || 'N/A'}
+                                        ${match.score_breakdown.tagged_boost > 0 ? ` | 🏆 Tagged: +${match.score_breakdown.tagged_boost?.toFixed(2) || 'N/A'}` : ''}<br>
+                                        <strong>Calculated Total:</strong> ${((match.score_breakdown.skill_score || 0) + (match.score_breakdown.role_score || 0) + (match.score_breakdown.company_score || 0) + (match.score_breakdown.industry_score || 0) + (match.score_breakdown.seniority_bonus || 0) + (match.score_breakdown.location_score || 0) + (match.score_breakdown.tagged_boost || 0)).toFixed(2)}
+                                    </div>
+                                ` : ''}
+                                                         </div>
+                         </div>
+                     ` : ''}
+                     
+                     ${match.employee_connection ? `
+                         <div class="referral-actions">
+                             <button class="referral-btn" onclick="requestReferral('${match.name}', '${match.employee_connection}', '${match.position}', '${match.company}')">
+                                 📧 Request Referral
+                             </button>
+                             <button class="referral-btn secondary" onclick="viewEmployeeDetails('${match.employee_connection}')">
+                                 👤 View Employee
+                             </button>
+                         </div>
+                     ` : ''}
+                 </div>
+             `;
+         }
+        
+                 function toggleDetails(cardId) {
+             const content = document.getElementById(cardId);
+             const button = content.previousElementSibling;
+             const toggleText = button.querySelector('.toggle-text');
+             const toggleIcon = button.querySelector('.toggle-icon');
+             
+             if (content.style.display === 'none') {
+                 content.style.display = 'block';
+                 toggleText.textContent = 'Hide Details';
+                 toggleIcon.textContent = '▲';
+             } else {
+                 content.style.display = 'none';
+                 toggleText.textContent = 'Show Details';
+                 toggleIcon.textContent = '▼';
+             }
+         }
+         
+         function requestReferral(contactName, employeeName, position, company) {
+             const jobTitle = document.getElementById('jobTitle').value || 'this role';
+             const jobLocation = document.getElementById('jobLocation').value || 'this location';
+             
+             // Find the contact in current matches
+             const matches = window.currentMatches || [];
+             const contact = matches.find(match => 
+                 match.name === contactName && 
+                 match.employee_connection === employeeName
+             );
+             
+             if (!contact) {
+                 alert('Contact not found in current results.');
+                 return;
+             }
+             
+             // Show confirmation dialog
+             const confirmed = confirm(
+                 `📧 Send Referral Email?\n\n` +
+                 `Send referral request to ${employeeName} for:\n\n` +
+                 `• Contact: ${contactName} (${position} at ${company})\n` +
+                 `• Job Title: ${jobTitle}\n` +
+                 `• Location: ${jobLocation}\n\n` +
+                 `Email will be sent automatically. Continue?`
+             );
+             
+             if (!confirmed) {
+                 return;
+             }
+             
+             // Send email via API
+             fetch('/api/send-referral-emails', {
+                 method: 'POST',
+                 headers: {
+                     'Content-Type': 'application/json',
+                 },
+                 body: JSON.stringify({
+                     contacts: [contact],
+                     jobTitle: jobTitle,
+                     jobLocation: jobLocation
+                 })
+             })
+             .then(response => response.json())
+             .then(data => {
+                 if (data.success) {
+                     alert(
+                         `✅ Referral Email Sent Successfully!\n\n` +
+                         `📧 Email sent to ${employeeName}\n` +
+                         `👤 Contact: ${contactName}\n` +
+                         `💼 Position: ${position} at ${company}\n\n` +
+                         `The employee has been notified!`
+                     );
+                 } else {
+                     alert(`❌ Error sending email: ${data.error || 'Unknown error'}`);
+                 }
+             })
+             .catch(error => {
+                 console.error('Error:', error);
+                 alert(`❌ Error sending email: ${error.message}`);
+             });
+         }
+         
+         function viewEmployeeDetails(employeeName) {
+             const employeeInfo = {
+                 'Aaron Adams': {
+                     email: 'aaron.adams@company.com',
+                     phone: '+1 (555) 123-4567',
+                     department: 'Engineering',
+                     title: 'Senior Software Engineer',
+                     location: 'San Francisco, CA'
+                 },
+                 'Belinda Bell': {
+                     email: 'belinda.bell@company.com',
+                     phone: '+1 (555) 234-5678',
+                     department: 'Sales',
+                     title: 'Sales Director',
+                     location: 'New York, NY'
+                 },
+                 'Charles Cole': {
+                     email: 'charles.cole@company.com',
+                     phone: '+1 (555) 345-6789',
+                     department: 'Marketing',
+                     title: 'Marketing Manager',
+                     location: 'Austin, TX'
+                 },
+                 'Debbie Doyle': {
+                     email: 'debbie.doyle@company.com',
+                     phone: '+1 (555) 456-7890',
+                     department: 'Product',
+                     title: 'Product Manager',
+                     location: 'Seattle, WA'
+                 }
+             };
+             
+             const employee = employeeInfo[employeeName];
+             if (employee) {
+                 const details = `
+Employee Details: ${employeeName}
+
+📧 Email: ${employee.email}
+📞 Phone: ${employee.phone}
+🏢 Department: ${employee.department}
+💼 Title: ${employee.title}
+📍 Location: ${employee.location}
+
+You can reach out to ${employeeName} directly to discuss the referral request.
+                 `;
+                 alert(details);
+             } else {
+                 alert(`Employee details not found for ${employeeName}`);
+             }
+         }
+         
+         function requestAllReferrals() {
+             const matches = window.currentMatches || [];
+             const contactsWithConnections = matches.filter(match => match.employee_connection);
+             
+             if (contactsWithConnections.length === 0) {
+                 alert('No contacts with employee connections found.');
+                 return;
+             }
+             
+             const jobTitle = document.getElementById('jobTitle').value || 'this role';
+             const jobLocation = document.getElementById('jobLocation').value || 'this location';
+             
+             // Show confirmation dialog
+             const employeeCount = new Set(contactsWithConnections.map(c => c.employee_connection)).size;
+             const contactCount = contactsWithConnections.length;
+             
+             const confirmed = confirm(
+                 `📧 Send Referral Emails?\n\n` +
+                 `This will send ${contactCount} contacts to ${employeeCount} employees:\n\n` +
+                 `• Job Title: ${jobTitle}\n` +
+                 `• Location: ${jobLocation}\n\n` +
+                 `All emails will be sent automatically. Continue?`
+             );
+             
+             if (!confirmed) {
+                 return;
+             }
+             
+             // Show loading state
+             const button = document.querySelector('button[onclick="requestAllReferrals()"]');
+             const originalText = button.innerHTML;
+             button.innerHTML = '📧 Sending...';
+             button.disabled = true;
+             
+             // Send bulk emails via API
+             fetch('/api/send-referral-emails', {
+                 method: 'POST',
+                 headers: {
+                     'Content-Type': 'application/json',
+                 },
+                 body: JSON.stringify({
+                     contacts: contactsWithConnections,
+                     jobTitle: jobTitle,
+                     jobLocation: jobLocation
+                 })
+             })
+             .then(response => response.json())
+             .then(data => {
+                 if (data.success) {
+                     alert(
+                         `✅ Referral Emails Sent Successfully!\n\n` +
+                         `📧 ${data.successful_emails}/${data.total_emails} emails sent\n` +
+                         `👥 ${employeeCount} employees notified\n` +
+                         `📋 ${contactCount} contacts included\n\n` +
+                         `All employees have been notified about their contacts!`
+                     );
+                 } else {
+                     alert(`❌ Error sending emails: ${data.error || 'Unknown error'}`);
+                 }
+             })
+             .catch(error => {
+                 console.error('Error:', error);
+                 alert(`❌ Error sending emails: ${error.message}`);
+             })
+             .finally(() => {
+                 // Restore button state
+                 button.innerHTML = originalText;
+                 button.disabled = false;
+             });
+         }
+
+        // Store current matches for referral functionality
+        window.currentMatches = [];
+
+        // Load stored job descriptions
+        function loadStoredJobDescriptions() {
+            fetch('/api/job-descriptions')
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    const select = document.getElementById('jobDescriptionSelect');
+                    select.innerHTML = '<option value="">-- Choose a stored job description --</option>';
+                    
+                    result.job_descriptions.forEach(job => {
+                        if (job.is_active) {
+                            const option = document.createElement('option');
+                            option.value = job.id;
+                            option.textContent = `${job.job_title} - ${job.company || 'Company not specified'} (${job.job_location})`;
+                            select.appendChild(option);
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error loading job descriptions:', error);
+            });
+        }
+
+        // Load selected stored job description
+        function loadStoredJobDescription() {
+            const select = document.getElementById('jobDescriptionSelect');
+            const jobId = select.value;
+            
+            if (!jobId) {
+                clearForm();
+                return;
+            }
+
+            fetch(`/api/job-descriptions/${jobId}`)
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    const job = result.job_description;
+                    
+                    // Populate form fields
+                    document.getElementById('jobTitle').value = job.job_title;
+                    document.getElementById('jobLocation').value = job.job_location;
+                    document.getElementById('jobDescription').value = job.job_description;
+                    document.getElementById('alternativeTitles').value = job.alternative_titles ? job.alternative_titles.join(', ') : '';
+                    document.getElementById('jobUrl').value = job.job_url || '';
+                    
+                    // Show job description section
+                    document.getElementById('jobDescriptionSection').style.display = 'block';
+                    document.getElementById('jobDescToggleIcon').textContent = '▲';
+                    
+                    // Update form to show it's loaded from stored job
+                    const form = document.getElementById('jobForm');
+                    form.setAttribute('data-loaded-job-id', jobId);
+                    
+                    console.log('Loaded stored job description:', job);
+                }
+            })
+            .catch(error => {
+                console.error('Error loading job description:', error);
+                alert('Error loading job description. Please try again.');
+            });
+        }
+
+        // Clear form when no stored job is selected
+        function clearForm() {
+            document.getElementById('jobTitle').value = '';
+            document.getElementById('jobLocation').value = '';
+            document.getElementById('jobDescription').value = '';
+            document.getElementById('alternativeTitles').value = '';
+            document.getElementById('jobUrl').value = '';
+            
+            const form = document.getElementById('jobForm');
+            form.removeAttribute('data-loaded-job-id');
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

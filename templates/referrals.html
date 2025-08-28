@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Referrals - Referral MVP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Referral MVP</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/job-descriptions">Job Descriptions</a>
+                <a class="nav-link active" href="/referrals">My Referrals</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1>My Referral Candidates</h1>
+        
+        <!-- Stats Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Jobs</h5>
+                        <p class="card-text display-6" id="totalJobs">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Candidates</h5>
+                        <p class="card-text display-6" id="totalCandidates">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Top Matches</h5>
+                        <p class="card-text display-6" id="topMatches">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Avg Score</h5>
+                        <p class="card-text display-6" id="avgScore">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Referrals List -->
+        <div class="card">
+            <div class="card-header">
+                <h5>Referral Candidates by Job</h5>
+            </div>
+            <div class="card-body">
+                <div id="referralsList">
+                    <p class="text-muted">Loading referrals...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Load referrals data
+        fetch('/api/referrals')
+            .then(response => response.json())
+            .then(referrals => {
+                const referralsList = document.getElementById('referralsList');
+                
+                if (referrals.length === 0) {
+                    referralsList.innerHTML = '<p class="text-muted">No referrals found. Add some job descriptions first!</p>';
+                    return;
+                }
+
+                let totalCandidates = 0;
+                let totalScore = 0;
+                let candidateCount = 0;
+
+                referralsList.innerHTML = referrals.map(job => {
+                    totalCandidates += job.candidates.length;
+                    job.candidates.forEach(candidate => {
+                        totalScore += candidate.score;
+                        candidateCount++;
+                    });
+
+                    return `
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h6 class="mb-0">${job.job_title}</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    ${job.candidates.map(candidate => `
+                                        <div class="col-md-6 mb-3">
+                                            <div class="card border">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">${candidate.name}</h6>
+                                                    <p class="card-text">
+                                                        <strong>Score:</strong> ${candidate.score}/100<br>
+                                                        <strong>Location:</strong> ${candidate.location}
+                                                    </p>
+                                                    <button class="btn btn-primary btn-sm" onclick="viewDetails('${candidate.name}')">View Details</button>
+                                                    <button class="btn btn-success btn-sm" onclick="contactCandidate('${candidate.name}')">Contact</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                // Update stats
+                document.getElementById('totalJobs').textContent = referrals.length;
+                document.getElementById('totalCandidates').textContent = totalCandidates;
+                document.getElementById('topMatches').textContent = referrals.filter(job => job.candidates.some(c => c.score >= 80)).length;
+                document.getElementById('avgScore').textContent = candidateCount > 0 ? Math.round(totalScore / candidateCount) : 0;
+            })
+            .catch(error => {
+                document.getElementById('referralsList').innerHTML = '<p class="text-danger">Error loading referrals data.</p>';
+            });
+
+        function viewDetails(candidateName) {
+            alert(`Viewing details for ${candidateName} - This feature is coming soon!`);
+        }
+
+        function contactCandidate(candidateName) {
+            alert(`Contacting ${candidateName} - This feature is coming soon!`);
+        }
+    </script>
+</body>
+</html>

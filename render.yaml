@@ -2,8 +2,13 @@ services:
   - type: web
     name: referral-system-web
     env: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      export PYTHON_VERSION=3.11.7
+      export PIP_USE_PEP517=0
+      pip install -r requirements.txt
     startCommand: gunicorn app:app
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.7
+      - key: PIP_USE_PEP517
+        value: "0"

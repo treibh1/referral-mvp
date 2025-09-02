@@ -871,12 +871,32 @@ def match_to_known_role(job_title):
     # If no match found, return the cleaned title as-is
     return job_title
 
+@app.route('/health')
+def simple_health():
+    """Simple health check endpoint."""
+    return jsonify({
+        'status': 'healthy',
+        'timestamp': time.time(),
+        'message': 'Referral system is running'
+    })
+
 @app.route('/api/contacts')
 def get_contacts():
     """Get all contacts for the gamification page."""
     try:
+        # Check if CSV file exists
+        csv_file = 'enhanced_tagged_contacts.csv'
+        if not os.path.exists(csv_file):
+            # Return empty contacts if file doesn't exist
+            return jsonify({
+                'success': True,
+                'contacts': [],
+                'total': 0,
+                'message': 'No contacts file found - returning empty list'
+            })
+        
         # Load contacts from the CSV file
-        df = pd.read_csv('enhanced_tagged_contacts.csv')
+        df = pd.read_csv(csv_file)
         
         # Clean NaN values
         df = df.fillna('')
@@ -891,10 +911,13 @@ def get_contacts():
         })
     except Exception as e:
         print(f"Error in /api/contacts: {e}")
+        # Return empty contacts on error instead of 500
         return jsonify({
-            'success': False,
-            'error': str(e)
-        }), 500
+            'success': True,
+            'contacts': [],
+            'total': 0,
+            'message': f'Error loading contacts: {str(e)}'
+        })
 
 # Job Descriptions API endpoints
 @app.route('/api/job-descriptions', methods=['GET'])

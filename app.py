@@ -1365,6 +1365,39 @@ def dashboard():
         return redirect(url_for('login'))
     return render_template('dashboard.html')
 
+@app.route('/api/init-database', methods=['POST'])
+def init_database_endpoint():
+    """Manually initialize database with demo organization."""
+    try:
+        # Check if demo organization already exists
+        demo_org = Organisation.query.filter_by(name="Demo Company").first()
+        
+        if demo_org:
+            return jsonify({
+                'success': True,
+                'message': 'Demo organization already exists',
+                'organisation_id': str(demo_org.id)
+            })
+        
+        # Create demo organization
+        from database import create_demo_organisation
+        create_demo_organisation()
+        
+        # Get the created organization
+        demo_org = Organisation.query.filter_by(name="Demo Company").first()
+        
+        return jsonify({
+            'success': True,
+            'message': 'Database initialized successfully',
+            'organisation_id': str(demo_org.id)
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
 @app.route('/logout')
 def logout():
     """User logout."""

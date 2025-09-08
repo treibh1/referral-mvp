@@ -752,6 +752,11 @@
                 
                 const result = await response.json();
                 
+                // Debug: Log the result
+                console.log('API Response:', result);
+                console.log('Matches:', result.matches);
+                console.log('Matches length:', result.matches ? result.matches.length : 'undefined');
+                
                 if (response.ok) {
                     displayResults(result);
                 } else {

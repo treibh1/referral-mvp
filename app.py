@@ -133,15 +133,27 @@ def match_job():
             import glob
             import os
             upload_files = glob.glob('uploads/enhanced_tagged_contacts_*.csv')
+            contacts_df = None
+            
             if upload_files:
-                # Use the most recent upload
+                # Try to use the most recent upload
                 latest_file = max(upload_files, key=os.path.getctime)
-                contacts_df = pd.read_csv(latest_file)
-                print(f"📊 Using {len(contacts_df)} contacts from uploaded file: {latest_file}")
-            else:
-                # Fallback to demo data
+                try:
+                    contacts_df = pd.read_csv(latest_file)
+                    if len(contacts_df) > 0:
+                        print(f"📊 Using {len(contacts_df)} contacts from uploaded file: {latest_file}")
+                    else:
+                        print(f"⚠️ Uploaded file is empty, falling back to demo data")
+                        contacts_df = None
+                except Exception as e:
+                    print(f"⚠️ Error reading uploaded file {latest_file}: {e}, falling back to demo data")
+                    contacts_df = None
+            
+            # Fallback to demo data if no valid uploads
+            if contacts_df is None:
                 contacts_df = pd.read_csv('enhanced_tagged_contacts.csv')
                 print(f"📊 Using {len(contacts_df)} contacts from demo data: enhanced_tagged_contacts.csv")
+                
         except Exception as e:
             print(f"❌ Error loading contacts: {e}")
             return jsonify({'error': 'Could not load contacts'}), 500
@@ -899,13 +911,24 @@ def contacts_info():
         
         # Check for uploaded contacts
         upload_files = glob.glob('uploads/enhanced_tagged_contacts_*.csv')
+        contacts_df = None
+        source = "Demo data: enhanced_tagged_contacts.csv"
+        
         if upload_files:
             latest_file = max(upload_files, key=os.path.getctime)
-            contacts_df = pd.read_csv(latest_file)
-            source = f"Uploaded file: {os.path.basename(latest_file)}"
-        else:
+            try:
+                contacts_df = pd.read_csv(latest_file)
+                if len(contacts_df) > 0:
+                    source = f"Uploaded file: {os.path.basename(latest_file)}"
+                else:
+                    contacts_df = None
+            except Exception as e:
+                print(f"Error reading uploaded file: {e}")
+                contacts_df = None
+        
+        # Fallback to demo data
+        if contacts_df is None:
             contacts_df = pd.read_csv('enhanced_tagged_contacts.csv')
-            source = "Demo data: enhanced_tagged_contacts.csv"
         
         return jsonify({
             'total_contacts': len(contacts_df),

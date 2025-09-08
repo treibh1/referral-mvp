@@ -438,7 +438,7 @@ def import_contacts():
             'success': True,
             'message': f'Successfully stored {stored_count} contacts in database',
             'contacts_processed': stored_count,
-            'organisation': demo_org.name,
+            'organisation': user_org.name,
             'summary': {
                 'roles': tagged_df['role_tag'].value_counts().to_dict(),
                 'functions': tagged_df['function_tag'].value_counts().to_dict(),
@@ -559,57 +559,7 @@ def get_stats():
     """Get system statistics."""
     return jsonify(api.get_system_stats())
 
-@app.route('/api/request-referral', methods=['POST'])
-def request_referral():
-    """Request referral for selected candidates."""
-    try:
-        data = request.get_json()
-        contact_ids = data.get('contact_ids', [])
-        job_description = data.get('job_description', '')
-        company = data.get('company', '')
-        
-        # Get user ID from session
-        if 'user_id' not in session:
-            return jsonify({'success': False, 'error': 'User not authenticated'}), 401
-        
-        user_id = session['user_id']
-        user = user_manager.get_user(user_id)
-        
-        # Record referral request
-        referral_id = user_manager.record_referral_request(
-            user_id, contact_ids, job_description, company
-        )
-        
-        # Get contact details for email
-        contact_details = []
-        for contact_id in contact_ids:
-            # This would need to be implemented to get contact details from the database
-            # For now, we'll use placeholder data
-            contact_details.append({
-                'First Name': 'Contact',
-                'Last Name': 'Name',
-                'Position': 'Position',
-                'Company': 'Company',
-                'match_score': 85.0
-            })
-        
-        # Send email notification
-        email_notifier.send_referral_notification(
-            user['email'], user['name'], contact_details, 
-            job_description, company, referral_id
-        )
-        
-        # Mark as notified
-        user_manager.mark_referral_notified(referral_id)
-        
-        return jsonify({
-            'success': True,
-            'referral_id': referral_id,
-            'message': f'Referral request sent to {user["email"]}'
-        })
-        
-    except Exception as e:
-        return jsonify({'success': False, 'error': str(e)}), 500
+# REMOVED: Duplicate /api/request-referral route - using the database-integrated version below
 
 @app.route('/referrals/<referral_id>')
 def view_referral(referral_id):
@@ -1040,7 +990,7 @@ def contacts_info():
         
         return jsonify({
             'total_contacts': stats['total_contacts'],
-            'source': f"Database: {demo_org.name}",
+            'source': f"Database: {current_user.organisation.name}",
             'sample_contacts': sample_contacts,
             'organisation_stats': stats
         })

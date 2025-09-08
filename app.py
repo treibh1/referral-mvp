@@ -5,6 +5,7 @@ Demonstrates how to integrate the unified matcher into a web interface.
 """
 
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
+from flask_wtf.csrf import CSRFProtect
 from referral_api import ReferralAPI
 from enhanced_contact_tagger import EnhancedContactTagger
 from email_service import ReferralEmailService
@@ -16,8 +17,11 @@ import pandas as pd
 import os
 import json
 import time
+import re
+import secrets
 from datetime import datetime
 from werkzeug.utils import secure_filename
+from functools import wraps
 
 # Location enrichment temporarily disabled
 # from smart_geo_enricher import SmartGeoEnricher
@@ -25,56 +29,138 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 app.config['UPLOAD_FOLDER'] = 'uploads'
-app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-change-this')
+app.secret_key = os.environ.get('SECRET_KEY')
+if not app.secret_key:
+    raise ValueError("SECRET_KEY environment variable must be set for security")
+
+# Security configurations
+app.config['WTF_CSRF_ENABLED'] = True
+app.config['WTF_CSRF_TIME_LIMIT'] = 3600  # 1 hour
+app.config['PERMANENT_SESSION_LIFETIME'] = 3600  # 1 hour session timeout
+
+# Initialize CSRF protection
+csrf = CSRFProtect(app)
+
+# Security headers
+@app.after_request
+def add_security_headers(response):
+    """Add security headers to all responses."""
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'DENY'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:;"
+    return response
 
 # Ensure upload directory exists
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
+# Security utility functions
+def validate_email(email):
+    """Validate email format."""
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(pattern, email) is not None
+
+def validate_input(text, max_length=1000, allowed_chars=None):
+    """Validate and sanitize user input."""
+    if not text or not isinstance(text, str):
+        return ""
+    
+    # Remove potentially dangerous characters
+    if allowed_chars:
+        text = ''.join(c for c in text if c in allowed_chars)
+    else:
+        # Remove script tags and other potentially dangerous content
+        text = re.sub(r'<script.*?</script>', '', text, flags=re.IGNORECASE | re.DOTALL)
+        text = re.sub(r'javascript:', '', text, flags=re.IGNORECASE)
+        text = re.sub(r'on\w+\s*=', '', text, flags=re.IGNORECASE)
+    
+    # Limit length
+    return text[:max_length].strip()
+
+def secure_log(message, level="INFO"):
+    """Secure logging that doesn't expose sensitive information."""
+    # Remove sensitive patterns from logs
+    sensitive_patterns = [
+        r'password["\']?\s*[:=]\s*["\']?[^"\']+["\']?',
+        r'api_key["\']?\s*[:=]\s*["\']?[^"\']+["\']?',
+        r'token["\']?\s*[:=]\s*["\']?[^"\']+["\']?',
+        r'secret["\']?\s*[:=]\s*["\']?[^"\']+["\']?'
+    ]
+    
+    for pattern in sensitive_patterns:
+        message = re.sub(pattern, '[REDACTED]', message, flags=re.IGNORECASE)
+    
+    print(f"[{level}] {message}")
+
+def require_auth(f):
+    """Decorator to require authentication."""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return jsonify({'error': 'Authentication required'}), 401
+        return f(*args, **kwargs)
+    return decorated_function
+
+def require_admin(f):
+    """Decorator to require admin role."""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return jsonify({'error': 'Authentication required'}), 401
+        
+        user = User.query.get(session['user_id'])
+        if not user or user.role != 'admin':
+            return jsonify({'error': 'Admin access required'}), 403
+        
+        return f(*args, **kwargs)
+    return decorated_function
+
 # Initialize database
 try:
     init_database(app)
-    print("✅ Database initialized successfully")
+    secure_log("Database initialized successfully")
 except Exception as e:
-    print(f"❌ Database initialization failed: {e}")
+    secure_log(f"Database initialization failed: {str(e)}", "ERROR")
     import traceback
-    print(f"❌ Traceback: {traceback.format_exc()}")
+    secure_log(f"Database init traceback: {traceback.format_exc()}", "ERROR")
     # Don't crash the app, just log the error
     pass
 
 # Initialize services with error handling
 try:
     api = ReferralAPI()
-    print("✅ ReferralAPI initialized")
+    secure_log("ReferralAPI initialized")
 except Exception as e:
-    print(f"⚠️ ReferralAPI initialization failed: {e}")
+    secure_log(f"ReferralAPI initialization failed: {str(e)}", "WARNING")
     api = None
 
 try:
     tagger = EnhancedContactTagger()
-    print("✅ EnhancedContactTagger initialized")
+    secure_log("EnhancedContactTagger initialized")
 except Exception as e:
-    print(f"⚠️ EnhancedContactTagger initialization failed: {e}")
+    secure_log(f"EnhancedContactTagger initialization failed: {str(e)}", "WARNING")
     tagger = None
 
 try:
     user_manager = UserManager()
-    print("✅ UserManager initialized")
+    secure_log("UserManager initialized")
 except Exception as e:
-    print(f"⚠️ UserManager initialization failed: {e}")
+    secure_log(f"UserManager initialization failed: {str(e)}", "WARNING")
     user_manager = None
 
 try:
     email_notifier = EmailNotifier()
-    print("✅ EmailNotifier initialized")
+    secure_log("EmailNotifier initialized")
 except Exception as e:
-    print(f"⚠️ EmailNotifier initialization failed: {e}")
+    secure_log(f"EmailNotifier initialization failed: {str(e)}", "WARNING")
     email_notifier = None
 
 try:
     email_service = ReferralEmailService()
-    print("✅ ReferralEmailService initialized")
+    secure_log("ReferralEmailService initialized")
 except Exception as e:
-    print(f"⚠️ ReferralEmailService initialization failed: {e}")
+    secure_log(f"ReferralEmailService initialization failed: {str(e)}", "WARNING")
     email_service = None
 
 @app.route('/')
@@ -89,11 +175,19 @@ def gamification():
 def login():
     """User login page."""
     if request.method == 'POST':
-        email = request.form.get('email')
-        name = request.form.get('name')
+        email = request.form.get('email', '').strip()
+        name = request.form.get('name', '').strip()
         
+        # Validate input
         if not email:
             return render_template('login.html', error='Email is required')
+        
+        if not validate_email(email):
+            return render_template('login.html', error='Invalid email format')
+        
+        # Sanitize inputs
+        email = validate_input(email, max_length=255)
+        name = validate_input(name, max_length=100)
         
         # Find user in database
         user = User.query.filter_by(email=email).first()
@@ -105,11 +199,13 @@ def login():
             session['user_name'] = user.name
             session['organisation_id'] = str(user.organisation_id)
             session['user_role'] = user.role
+            session.permanent = True  # Enable session timeout
             
-            print(f"User logged in: {user.name} ({user.email}) from {user.organisation.name}")
+            secure_log(f"User logged in: {user.name} from {user.organisation.name}")
             return redirect(url_for('dashboard'))
         else:
             # User doesn't exist, show error
+            secure_log(f"Login attempt with unknown email: {email}", "WARNING")
             return render_template('login.html', error='User not found. Please register your company first.')
     
     return render_template('login.html')
@@ -1138,10 +1234,37 @@ def register_company():
         admin_name = data.get('adminName', '').strip()
         company_domain = data.get('companyDomain', '').strip()
         
+        # Validate required fields
         if not all([company_name, admin_email, admin_name]):
             return jsonify({
                 'success': False,
                 'error': 'Company name, admin email, and admin name are required'
+            }), 400
+        
+        # Validate email format
+        if not validate_email(admin_email):
+            return jsonify({
+                'success': False,
+                'error': 'Invalid email format'
+            }), 400
+        
+        # Sanitize inputs
+        company_name = validate_input(company_name, max_length=100)
+        admin_email = validate_input(admin_email, max_length=255)
+        admin_name = validate_input(admin_name, max_length=100)
+        company_domain = validate_input(company_domain, max_length=100)
+        
+        # Validate input lengths
+        if len(company_name) < 2:
+            return jsonify({
+                'success': False,
+                'error': 'Company name must be at least 2 characters'
+            }), 400
+        
+        if len(admin_name) < 2:
+            return jsonify({
+                'success': False,
+                'error': 'Admin name must be at least 2 characters'
             }), 400
         
         # Check if company already exists
@@ -1179,6 +1302,8 @@ def register_company():
         db.session.add(admin_user)
         db.session.commit()
         
+        secure_log(f"New company registered: {company_name} with admin {admin_name}")
+        
         return jsonify({
             'success': True,
             'message': 'Company registered successfully',
@@ -1188,9 +1313,10 @@ def register_company():
         
     except Exception as e:
         db.session.rollback()
+        secure_log(f"Company registration failed: {str(e)}", "ERROR")
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': 'Registration failed. Please try again.'
         }), 500
 
 @app.route('/api/invite-employee', methods=['POST'])

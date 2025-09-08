@@ -8,7 +8,9 @@ import json
 from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = 'minimal_key_for_deployment'
+app.secret_key = os.environ.get('SECRET_KEY')
+if not app.secret_key:
+    raise ValueError("SECRET_KEY environment variable must be set for security")
 
 # Mock data for minimal version
 mock_job_descriptions = [

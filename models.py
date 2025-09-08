@@ -18,6 +18,8 @@ class Organisation(db.Model):
     name = db.Column(db.String(255), nullable=False)
     domain = db.Column(db.String(255), unique=True, nullable=True)
     plan = db.Column(db.String(50), default='free')  # free, premium, enterprise
+    from_email = db.Column(db.String(255), nullable=True)  # Company's email for referrals
+    from_name = db.Column(db.String(255), nullable=True)   # Company's name for referrals
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     

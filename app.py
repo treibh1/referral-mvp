@@ -165,7 +165,9 @@ except Exception as e:
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # Get user role for role-based UI
+    user_role = session.get('user_role', 'employee')
+    return render_template('index.html', user_role=user_role)
 
 @app.route('/gamification')
 def gamification():
@@ -1233,19 +1235,27 @@ def register_company():
         admin_email = data.get('adminEmail', '').strip()
         admin_name = data.get('adminName', '').strip()
         company_domain = data.get('companyDomain', '').strip()
+        from_email = data.get('fromEmail', '').strip()
+        from_name = data.get('fromName', '').strip()
         
         # Validate required fields
-        if not all([company_name, admin_email, admin_name]):
+        if not all([company_name, admin_email, admin_name, from_email, from_name]):
             return jsonify({
                 'success': False,
-                'error': 'Company name, admin email, and admin name are required'
+                'error': 'Company name, admin email, admin name, referral email, and referral name are required'
             }), 400
         
         # Validate email format
         if not validate_email(admin_email):
             return jsonify({
                 'success': False,
-                'error': 'Invalid email format'
+                'error': 'Invalid admin email format'
+            }), 400
+            
+        if not validate_email(from_email):
+            return jsonify({
+                'success': False,
+                'error': 'Invalid referral email format'
             }), 400
         
         # Sanitize inputs
@@ -1253,6 +1263,8 @@ def register_company():
         admin_email = validate_input(admin_email, max_length=255)
         admin_name = validate_input(admin_name, max_length=100)
         company_domain = validate_input(company_domain, max_length=100)
+        from_email = validate_input(from_email, max_length=255)
+        from_name = validate_input(from_name, max_length=100)
         
         # Validate input lengths
         if len(company_name) < 2:
@@ -1287,7 +1299,9 @@ def register_company():
         new_org = Organisation(
             name=company_name,
             domain=company_domain,
-            plan='free'  # Start with free plan
+            plan='free',  # Start with free plan
+            from_email=from_email,
+            from_name=from_name
         )
         db.session.add(new_org)
         db.session.flush()
@@ -1568,6 +1582,12 @@ def request_referral():
         # Send email notification to employee via SendGrid
         if email_service:
             try:
+                # Update email service with organization's email settings
+                if current_user.organisation.from_email:
+                    email_service.from_email = current_user.organisation.from_email
+                if current_user.organisation.from_name:
+                    email_service.from_name = current_user.organisation.from_name
+                
                 # Create contact data for email
                 contact_data = [{
                     'name': f"{contact.first_name} {contact.last_name}",
@@ -1683,6 +1703,12 @@ def send_bulk_referral_emails():
         
         # Send emails to each employee
         if email_service and contacts_by_employee:
+            # Update email service with organization's email settings
+            if current_user.organisation.from_email:
+                email_service.from_email = current_user.organisation.from_email
+            if current_user.organisation.from_name:
+                email_service.from_name = current_user.organisation.from_name
+                
             email_results = email_service.send_bulk_referral_emails(
                 contacts_by_employee=contacts_by_employee,
                 job_title=job_title,

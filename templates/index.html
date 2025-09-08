@@ -393,7 +393,8 @@
                     <div id="regularResults">
                         <h5>Location-Based Matches</h5>
                         
-                        <!-- Bulk Selection Controls -->
+                        <!-- Bulk Selection Controls (Admin/Recruiter only) -->
+                        {% if user_role == 'admin' %}
                         <div id="bulk-selection-controls" class="mb-3" style="display: none;">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
@@ -412,6 +413,7 @@
                                 </button>
                             </div>
                         </div>
+                        {% endif %}
                         
                         <div id="referral-summary" style="display: none;">
                             <div class="alert alert-info">
@@ -1109,7 +1111,8 @@
                                    data-contact-name="${match.name}"
                                    data-contact-position="${match.position || ''}"
                                    data-contact-company="${match.company}"
-                                   onchange="updateBulkSelection()">
+                                   onchange="updateBulkSelection()"
+                                   style="display: ${window.userRole === 'admin' ? 'block' : 'none'};">
                         </div>
                     </div>
                     
@@ -1346,8 +1349,16 @@ You can reach out to ${employeeName} directly to discuss the referral request.
         // Store current matches for referral functionality
         window.currentMatches = [];
         
-        // Bulk selection functionality
+        // Store user role for role-based UI
+        window.userRole = '{{ user_role }}';
+        
+        // Bulk selection functionality (Admin only)
         function updateBulkSelection() {
+            // Only show bulk controls for admins
+            if (window.userRole !== 'admin') {
+                return;
+            }
+            
             const checkboxes = document.querySelectorAll('.contact-checkbox');
             const selectedCount = document.querySelectorAll('.contact-checkbox:checked').length;
             const bulkControls = document.getElementById('bulk-selection-controls');

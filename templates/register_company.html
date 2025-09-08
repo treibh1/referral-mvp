@@ -164,6 +164,18 @@
                 <input type="email" id="adminEmail" name="adminEmail" required>
             </div>
             
+            <div class="form-group">
+                <label for="fromEmail">Referral Email Address *</label>
+                <input type="email" id="fromEmail" name="fromEmail" placeholder="recruiting@yourcompany.com" required>
+                <small class="form-text">This email will be used to send referral requests to your employees</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="fromName">Referral Email Name *</label>
+                <input type="text" id="fromName" name="fromName" placeholder="Your Company Recruiting" required>
+                <small class="form-text">This name will appear as the sender of referral emails</small>
+            </div>
+            
             <button type="submit" class="btn" id="submit-btn">
                 Register Company
             </button>
@@ -201,7 +213,9 @@
                     companyName: formData.get('companyName'),
                     companyDomain: formData.get('companyDomain'),
                     adminName: formData.get('adminName'),
-                    adminEmail: formData.get('adminEmail')
+                    adminEmail: formData.get('adminEmail'),
+                    fromEmail: formData.get('fromEmail'),
+                    fromName: formData.get('fromName')
                 };
                 
                 const response = await fetch('/api/register-company', {

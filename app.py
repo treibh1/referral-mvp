@@ -714,7 +714,20 @@ def view_referral(referral_id):
 def fetch_job_description():
     """Fetch job description from a URL."""
     try:
-        data = request.get_json()
+        # Ensure we return JSON even on errors
+        try:
+            data = request.get_json()
+            if not data:
+                return jsonify({
+                    'success': False,
+                    'error': 'Invalid JSON data'
+                }), 400
+        except Exception as e:
+            return jsonify({
+                'success': False,
+                'error': f'JSON parsing error: {str(e)}'
+            }), 400
+            
         url = data.get('url', '').strip()
         
         if not url:
@@ -1089,6 +1102,13 @@ def match_to_known_role(job_title):
     
     # If no match found, return the cleaned title as-is
     return job_title
+
+    except Exception as e:
+        # Ensure we always return JSON, never HTML
+        return jsonify({
+            'success': False,
+            'error': f'Failed to fetch job description: {str(e)}'
+        }), 500
 
 @app.route('/health')
 def simple_health():

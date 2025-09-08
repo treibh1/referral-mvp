@@ -654,15 +654,48 @@
             }
             
             try {
-                // Step 1: If URL is provided, skip fetching (temporarily disabled)
+                // Step 1: If URL is provided, fetch job description
                 if (url) {
-                    showFetchStatus('⚠️ URL fetching temporarily disabled. Please paste the job description manually.', 'warning');
-                    showFetchStatus('Please paste the full job description into the text box below.', 'info');
-                    // Clear the URL field so the form submission works
-                    urlInput.value = '';
-                    // Show the job description section so user can paste manually
-                    toggleJobDescription();
-                    return;
+                    // Validate URL format
+                    try {
+                        new URL(url);
+                    } catch {
+                        showFetchStatus('Please enter a valid URL', 'warning');
+                        return;
+                    }
+                    
+                    showFetchStatus('🔍 Fetching job description from URL...', 'info');
+                    
+                    const response = await fetch('/api/fetch-job', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ url: url })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (response.ok && result.success) {
+                        // Successfully fetched job description
+                        jobDescription.value = result.job_description;
+                        showFetchStatus('✅ Job description fetched successfully!', 'success');
+                        
+                        // Clear the URL field and show the job description section
+                        urlInput.value = '';
+                        // Show the job description section so user can paste manually
+                        toggleJobDescription();
+                        
+                        return;
+                    } else {
+                        showFetchStatus(`❌ Could not retrieve job description: ${result.error || 'Unknown error'}`, 'danger');
+                        showFetchStatus('Please paste the full job description into the text box below.', 'info');
+                        // Clear the URL field so the form submission works
+                        urlInput.value = '';
+                        // Show the job description section so user can paste manually
+                        toggleJobDescription();
+                        return;
+                    }
                 } else {
                     // No URL provided, check if job description is filled
                     if (!jobDescription.value.trim()) {

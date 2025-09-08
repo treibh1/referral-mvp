@@ -30,7 +30,15 @@ app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-change-this')
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 # Initialize database
-init_database(app)
+try:
+    init_database(app)
+    print("✅ Database initialized successfully")
+except Exception as e:
+    print(f"❌ Database initialization failed: {e}")
+    import traceback
+    print(f"❌ Traceback: {traceback.format_exc()}")
+    # Don't crash the app, just log the error
+    pass
 
 api = ReferralAPI()
 tagger = EnhancedContactTagger()

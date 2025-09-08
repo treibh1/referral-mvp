@@ -41,6 +41,32 @@ app.config['PERMANENT_SESSION_LIFETIME'] = 3600  # 1 hour session timeout
 # Initialize CSRF protection
 csrf = CSRFProtect(app)
 
+def load_contacts_from_csv_demo():
+    """Load demo contacts from CSV for demo mode."""
+    try:
+        import pandas as pd
+        csv_file = 'enhanced_tagged_contacts.csv'
+        if os.path.exists(csv_file):
+            df = pd.read_csv(csv_file)
+            # Convert to Contact objects for compatibility
+            contacts = []
+            for _, row in df.iterrows():
+                contact = Contact(
+                    first_name=row.get('First Name', ''),
+                    last_name=row.get('Last Name', ''),
+                    position=row.get('Position', ''),
+                    company=row.get('Company', ''),
+                    location=row.get('Location', ''),
+                    linkedin_url=row.get('LinkedIn URL', '')
+                )
+                contacts.append(contact)
+            return contacts
+        else:
+            return []
+    except Exception as e:
+        print(f"Error loading demo contacts: {e}")
+        return []
+
 # Security headers
 @app.after_request
 def add_security_headers(response):
@@ -263,20 +289,35 @@ def match_job():
         if not job_description:
             return jsonify({'error': 'Job description is required'}), 400
         
-        # Get current user's organization
+        # Get current user's organization (allow demo mode)
         user_id = session.get('user_id')
         if not user_id:
-            return jsonify({'error': 'Not authenticated'}), 401
-        
-        current_user = User.query.get(user_id)
-        if not current_user:
-            return jsonify({'error': 'User not found'}), 404
+            # Demo mode - use demo organization
+            current_user = None
+            demo_mode = True
+        else:
+            current_user = User.query.get(user_id)
+            if not current_user:
+                return jsonify({'error': 'User not found'}), 404
+            demo_mode = False
         
         # SECURE: Get contacts from database for this organisation only
         try:
-            # Get contacts for this organisation only - NO DIRECTORY ACCESS
-            contacts = get_organisation_contacts_for_job(current_user.organisation_id, job_description)
-            print(f"📊 Using {len(contacts)} contacts from database for organisation: {current_user.organisation.name}")
+            if demo_mode:
+                # Demo mode - use demo organization
+                demo_org = Organisation.query.filter_by(name='Demo Company').first()
+                if demo_org:
+                    contacts = get_organisation_contacts_for_job(demo_org.id, job_description)
+                else:
+                    # Fallback to CSV if no demo org
+                    contacts = load_contacts_from_csv_demo()
+            else:
+                # Get contacts for this organisation only - NO DIRECTORY ACCESS
+                contacts = get_organisation_contacts_for_job(current_user.organisation_id, job_description)
+            if demo_mode:
+                print(f"📊 Using {len(contacts)} contacts in demo mode")
+            else:
+                print(f"📊 Using {len(contacts)} contacts from database for organisation: {current_user.organisation.name}")
             
             # Convert to DataFrame for compatibility with existing matching logic
             contacts_data = []

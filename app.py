@@ -127,10 +127,21 @@ def match_job():
         # For MVP, skip authentication check
         user_id = session.get('user_id', 'demo_user_123')
         
-        # For now, use all contacts from the main CSV file
+        # Use the most recently uploaded contacts, fallback to demo data
         try:
-            contacts_df = pd.read_csv('enhanced_tagged_contacts.csv')
-            print(f"📊 Using {len(contacts_df)} contacts from enhanced_tagged_contacts.csv")
+            # Look for uploaded contacts first
+            import glob
+            import os
+            upload_files = glob.glob('uploads/enhanced_tagged_contacts_*.csv')
+            if upload_files:
+                # Use the most recent upload
+                latest_file = max(upload_files, key=os.path.getctime)
+                contacts_df = pd.read_csv(latest_file)
+                print(f"📊 Using {len(contacts_df)} contacts from uploaded file: {latest_file}")
+            else:
+                # Fallback to demo data
+                contacts_df = pd.read_csv('enhanced_tagged_contacts.csv')
+                print(f"📊 Using {len(contacts_df)} contacts from demo data: enhanced_tagged_contacts.csv")
         except Exception as e:
             print(f"❌ Error loading contacts: {e}")
             return jsonify({'error': 'Could not load contacts'}), 500
@@ -878,6 +889,31 @@ def simple_health():
         'timestamp': time.time(),
         'message': 'Referral system is running'
     })
+
+@app.route('/api/contacts-info')
+def contacts_info():
+    """Get information about currently loaded contacts."""
+    try:
+        import glob
+        import os
+        
+        # Check for uploaded contacts
+        upload_files = glob.glob('uploads/enhanced_tagged_contacts_*.csv')
+        if upload_files:
+            latest_file = max(upload_files, key=os.path.getctime)
+            contacts_df = pd.read_csv(latest_file)
+            source = f"Uploaded file: {os.path.basename(latest_file)}"
+        else:
+            contacts_df = pd.read_csv('enhanced_tagged_contacts.csv')
+            source = "Demo data: enhanced_tagged_contacts.csv"
+        
+        return jsonify({
+            'total_contacts': len(contacts_df),
+            'source': source,
+            'sample_contacts': contacts_df[['First Name', 'Last Name', 'Company', 'Position']].head(5).to_dict('records') if len(contacts_df) > 0 else []
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/api/contacts')
 def get_contacts():

@@ -72,6 +72,11 @@ def dashboard():
     
     return render_template('dashboard.html', user=user, pending_referrals=pending_referrals)
 
+@app.route('/upload')
+def upload_page():
+    """Contact upload page."""
+    return render_template('upload.html')
+
 @app.route('/import')
 def import_page():
     """Contact import page."""
@@ -289,11 +294,8 @@ def import_contacts():
         output_path = os.path.join(app.config['UPLOAD_FOLDER'], output_filename)
         tagged_df.to_csv(output_path, index=False)
         
-        # Assign contacts to user
-        if 'user_id' in session:
-            user_id = session['user_id']
-            contact_ids = tagged_df['contact_id'].tolist()
-            user_manager.assign_contacts_to_user(user_id, contact_ids, filename)
+        # For MVP, skip user assignment (will be added back with proper multi-tenant system)
+        print(f"📊 Processed {len(tagged_df)} contacts for organization")
         
         # Get summary statistics
         summary = tagger._print_tagging_summary(tagged_df)
@@ -304,8 +306,8 @@ def import_contacts():
         return jsonify({
             'success': True,
             'message': f'Successfully imported and tagged {len(tagged_df)} contacts',
+            'contacts_processed': len(tagged_df),
             'filename': output_filename,
-            'total_contacts': len(tagged_df),
             'summary': {
                 'roles': tagged_df['role_tag'].value_counts().to_dict(),
                 'functions': tagged_df['function_tag'].value_counts().to_dict(),

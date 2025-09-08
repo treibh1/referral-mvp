@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Contacts - Referral MVP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .upload-area {
+            border: 2px dashed #dee2e6;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .upload-area:hover {
+            border-color: #007bff;
+            background-color: #e3f2fd;
+        }
+        .upload-area.dragover {
+            border-color: #007bff;
+            background-color: #e3f2fd;
+        }
+        .file-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            display: none;
+        }
+        .progress {
+            margin-top: 20px;
+            display: none;
+        }
+        .upload-success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none;
+        }
+        .upload-error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-users"></i> Referral Matching
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/"><i class="fas fa-search"></i> Job Search</a>
+                <a class="nav-link active" href="/upload"><i class="fas fa-upload"></i> Upload Contacts</a>
+                <a class="nav-link" href="/job-descriptions"><i class="fas fa-briefcase"></i> Job Descriptions</a>
+                <a class="nav-link" href="/referrals"><i class="fas fa-handshake"></i> My Referrals</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <h1 class="mb-4"><i class="fas fa-upload"></i> Upload LinkedIn Contacts</h1>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-file-csv"></i> CSV File Upload</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted mb-4">
+                            Upload your LinkedIn connections CSV file to add them to your referral network. 
+                            This will allow the system to find potential candidates from your network for job openings.
+                        </p>
+                        
+                        <div class="upload-area" id="uploadArea">
+                            <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                            <h5>Drop your CSV file here or click to browse</h5>
+                            <p class="text-muted">Supported formats: CSV files from LinkedIn</p>
+                            <input type="file" id="fileInput" accept=".csv" style="display: none;">
+                        </div>
+                        
+                        <div class="file-info" id="fileInfo">
+                            <h6><i class="fas fa-file"></i> Selected File:</h6>
+                            <p id="fileName" class="mb-2"></p>
+                            <p id="fileSize" class="text-muted mb-3"></p>
+                            <button class="btn btn-primary" id="uploadBtn">
+                                <i class="fas fa-upload"></i> Upload Contacts
+                            </button>
+                            <button class="btn btn-secondary ms-2" id="cancelBtn">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                        </div>
+                        
+                        <div class="progress" id="progressBar">
+                            <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                        </div>
+                        
+                        <div class="upload-success" id="uploadSuccess">
+                            <i class="fas fa-check-circle"></i>
+                            <strong>Upload Successful!</strong>
+                            <p class="mb-0" id="successMessage"></p>
+                        </div>
+                        
+                        <div class="upload-error" id="uploadError">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>Upload Failed!</strong>
+                            <p class="mb-0" id="errorMessage"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5><i class="fas fa-info-circle"></i> How to Export LinkedIn Contacts</h5>
+                    </div>
+                    <div class="card-body">
+                        <ol>
+                            <li>Go to <a href="https://www.linkedin.com/mynetwork/invite-connect/connections/" target="_blank">LinkedIn Connections</a></li>
+                            <li>Click the "Export connections" link</li>
+                            <li>Choose "CSV" format</li>
+                            <li>Download the file</li>
+                            <li>Upload it here</li>
+                        </ol>
+                        <div class="alert alert-info">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>Tip:</strong> The system will automatically analyze and tag your contacts with skills, 
+                            roles, and other relevant information to improve job matching.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const progressBar = document.getElementById('progressBar');
+        const uploadSuccess = document.getElementById('uploadSuccess');
+        const uploadError = document.getElementById('uploadError');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+
+        let selectedFile = null;
+
+        // Click to upload
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        // File selection
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            if (!file.name.toLowerCase().endsWith('.csv')) {
+                showError('Please select a CSV file.');
+                return;
+            }
+
+            selectedFile = file;
+            fileName.textContent = file.name;
+            fileSize.textContent = `Size: ${(file.size / 1024 / 1024).toFixed(2)} MB`;
+            fileInfo.style.display = 'block';
+            hideMessages();
+        }
+
+        // Upload button
+        uploadBtn.addEventListener('click', async () => {
+            if (!selectedFile) return;
+
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+
+            // Show progress
+            progressBar.style.display = 'block';
+            uploadBtn.disabled = true;
+            uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+
+            try {
+                const response = await fetch('/api/import-contacts', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    showSuccess(`Successfully uploaded ${result.contacts_processed} contacts!`);
+                } else {
+                    showError(result.error || 'Upload failed. Please try again.');
+                }
+            } catch (error) {
+                showError('Network error. Please check your connection and try again.');
+            } finally {
+                progressBar.style.display = 'none';
+                uploadBtn.disabled = false;
+                uploadBtn.innerHTML = '<i class="fas fa-upload"></i> Upload Contacts';
+            }
+        });
+
+        // Cancel button
+        cancelBtn.addEventListener('click', () => {
+            selectedFile = null;
+            fileInput.value = '';
+            fileInfo.style.display = 'none';
+            hideMessages();
+        });
+
+        function showSuccess(message) {
+            successMessage.textContent = message;
+            uploadSuccess.style.display = 'block';
+            uploadError.style.display = 'none';
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            uploadError.style.display = 'block';
+            uploadSuccess.style.display = 'none';
+        }
+
+        function hideMessages() {
+            uploadSuccess.style.display = 'none';
+            uploadError.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

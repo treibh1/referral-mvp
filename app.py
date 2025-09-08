@@ -1559,6 +1559,95 @@ def init_database_endpoint():
             'error': str(e)
         }), 500
 
+@app.route('/api/create-demo-users', methods=['POST', 'GET'])
+@csrf.exempt
+def create_demo_users_endpoint():
+    """Create demo users for the organization with the most contacts."""
+    try:
+        from models import EmployeeContact
+        
+        # Find the organization with the most contacts
+        org_contact_counts = db.session.query(
+            EmployeeContact.organisation_id,
+            db.func.count(EmployeeContact.id).label('contact_count')
+        ).group_by(EmployeeContact.organisation_id).all()
+        
+        if not org_contact_counts:
+            return jsonify({
+                'success': False,
+                'error': 'No organizations with contacts found'
+            }), 404
+        
+        # Find organization with most contacts
+        max_contacts = max(org_contact_counts, key=lambda x: x.contact_count)
+        target_org_id = max_contacts.organisation_id
+        contact_count = max_contacts.contact_count
+        
+        # Get the organization
+        target_org = Organisation.query.get(target_org_id)
+        if not target_org:
+            return jsonify({
+                'success': False,
+                'error': 'Target organization not found'
+            }), 404
+        
+        # Check if demo users already exist
+        existing_admin = User.query.filter_by(
+            organisation_id=target_org_id,
+            email="admin@demo.com"
+        ).first()
+        
+        existing_employee = User.query.filter_by(
+            organisation_id=target_org_id,
+            email="employee@demo.com"
+        ).first()
+        
+        created_users = []
+        
+        # Create demo admin user
+        if not existing_admin:
+            demo_admin = User(
+                organisation_id=target_org_id,
+                email="admin@demo.com",
+                name="Demo Admin",
+                role="admin"
+            )
+            db.session.add(demo_admin)
+            created_users.append("admin@demo.com")
+        
+        # Create demo employee user
+        if not existing_employee:
+            demo_employee = User(
+                organisation_id=target_org_id,
+                email="employee@demo.com",
+                name="Demo Employee",
+                role="employee"
+            )
+            db.session.add(demo_employee)
+            created_users.append("employee@demo.com")
+        
+        # Commit changes
+        db.session.commit()
+        
+        return jsonify({
+            'success': True,
+            'message': f'Demo users created for {target_org.name}',
+            'organisation_name': target_org.name,
+            'contact_count': contact_count,
+            'created_users': created_users,
+            'existing_users': {
+                'admin': existing_admin.email if existing_admin else None,
+                'employee': existing_employee.email if existing_employee else None
+            }
+        })
+        
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
 # ===== REFERRAL WORKFLOW ROUTES =====
 
 @app.route('/api/request-referral', methods=['POST'])

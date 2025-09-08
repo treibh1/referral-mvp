@@ -13,8 +13,8 @@ import json
 def init_database(app):
     """Initialize the database with Flask app."""
     try:
-        # Database configuration
-        database_url = os.environ.get('DATABASE_URL')
+        # Database configuration - prefer public URL for Railway
+        database_url = os.environ.get('DATABASE_PUBLIC_URL') or os.environ.get('DATABASE_URL')
         print(f"🔍 DATABASE_URL found: {bool(database_url)}")
         
         if database_url:
@@ -25,13 +25,19 @@ def init_database(app):
             # Fix Railway internal hostname issue
             if 'postgres.railway.internal' in database_url:
                 print("⚠️ Detected internal Railway hostname, attempting to fix...")
-                # Try to get the external hostname from Railway
-                railway_host = os.environ.get('RAILWAY_DATABASE_HOST')
-                if railway_host:
-                    database_url = database_url.replace('postgres.railway.internal', railway_host)
-                    print(f"✅ Updated hostname to: {railway_host}")
+                # Try to get the public URL first
+                public_url = os.environ.get('DATABASE_PUBLIC_URL')
+                if public_url:
+                    database_url = public_url
+                    print("✅ Using DATABASE_PUBLIC_URL instead")
                 else:
-                    print("❌ No RAILWAY_DATABASE_HOST found, connection may fail")
+                    # Try to get the external hostname from Railway
+                    railway_host = os.environ.get('RAILWAY_DATABASE_HOST')
+                    if railway_host:
+                        database_url = database_url.replace('postgres.railway.internal', railway_host)
+                        print(f"✅ Updated hostname to: {railway_host}")
+                    else:
+                        print("❌ No RAILWAY_DATABASE_HOST found, connection may fail")
             
             app.config['SQLALCHEMY_DATABASE_URI'] = database_url
             print("✅ Using PostgreSQL database")

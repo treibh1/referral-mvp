@@ -271,6 +271,7 @@ def job_descriptions_page():
 
 
 @app.route('/api/match', methods=['POST'])
+@csrf.exempt
 def match_job():
     """Match job description to contacts with full feature set."""
     try:
@@ -387,6 +388,7 @@ def match_job():
         return jsonify({'error': 'Internal server error'}), 500
 
 @app.route('/api/import-contacts', methods=['POST'])
+@csrf.exempt
 def import_contacts():
     """API endpoint for importing and tagging LinkedIn contacts."""
     try:
@@ -615,6 +617,7 @@ def get_contacts_for_enrichment():
         }), 500
 
 @app.route('/api/save-enrichment', methods=['POST'])
+@csrf.exempt
 def save_enrichment():
     """Save enrichment data for a contact."""
     try:
@@ -654,6 +657,7 @@ def save_enrichment():
         }), 500
 
 @app.route('/api/send-referral-emails', methods=['POST'])
+@csrf.exempt
 def send_referral_emails():
     """Send bulk referral emails to employees."""
     try:
@@ -711,6 +715,7 @@ def view_referral(referral_id):
     return render_template('referral_detail.html', referral_id=referral_id)
 
 @app.route('/api/fetch-job', methods=['POST'])
+@csrf.exempt
 def fetch_job_description():
     """Fetch job description from a URL."""
     try:
@@ -1281,6 +1286,7 @@ def register_company_page():
     return render_template('register_company.html')
 
 @app.route('/api/register-company', methods=['POST'])
+@csrf.exempt
 def register_company():
     """Register a new company."""
     try:
@@ -1388,6 +1394,7 @@ def register_company():
         }), 500
 
 @app.route('/api/invite-employee', methods=['POST'])
+@csrf.exempt
 def invite_employee():
     """Invite a new employee to the company."""
     try:
@@ -1561,6 +1568,7 @@ def init_database_endpoint():
 # ===== REFERRAL WORKFLOW ROUTES =====
 
 @app.route('/api/request-referral', methods=['POST'])
+@csrf.exempt
 def request_referral():
     """Request a referral from an employee for a specific contact."""
     try:
@@ -1685,6 +1693,7 @@ def request_referral():
         }), 500
 
 @app.route('/api/send-bulk-referral-emails', methods=['POST'])
+@csrf.exempt
 def send_bulk_referral_emails():
     """Send bulk referral emails to employees for multiple contacts."""
     try:
@@ -1850,6 +1859,7 @@ def get_my_referrals():
         }), 500
 
 @app.route('/api/update-referral-status', methods=['POST'])
+@csrf.exempt
 def update_referral_status():
     """Update the status of a referral (employee response)."""
     try:

@@ -1005,16 +1005,20 @@ def simple_health():
 def contacts_info():
     """Get information about currently loaded contacts - SECURE VERSION."""
     try:
-        # Get demo organisation
-        demo_org = Organisation.query.filter_by(name="Demo Company").first()
-        if not demo_org:
-            return jsonify({'error': 'No organisation found'}), 500
+        # Get current user's organization
+        user_id = session.get('user_id')
+        if not user_id:
+            return jsonify({'error': 'Not authenticated'}), 401
+        
+        current_user = User.query.get(user_id)
+        if not current_user:
+            return jsonify({'error': 'User not found'}), 404
         
         # Get organisation stats
-        stats = get_organisation_stats(demo_org.id)
+        stats = get_organisation_stats(current_user.organisation_id)
         
         # Get sample contacts (limited to 5 for security)
-        contacts = get_organisation_contacts_for_job(demo_org.id)
+        contacts = get_organisation_contacts_for_job(current_user.organisation_id)
         sample_contacts = []
         
         for contact in contacts[:5]:  # Limit to 5 for security

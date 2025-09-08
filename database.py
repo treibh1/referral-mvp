@@ -139,18 +139,25 @@ def migrate_csv_to_database(organisation_id, employee_id):
         migrated_count = 0
         for _, row in df.iterrows():
             try:
-                # Extract contact data
+                # Extract contact data - handle NaN values properly
+                def safe_get(row, key, default=''):
+                    value = row.get(key, default)
+                    # Convert NaN to empty string
+                    if pd.isna(value):
+                        return default
+                    return str(value) if value is not None else default
+                
                 contact_data = {
-                    'linkedin_url': row.get('LinkedIn', ''),
-                    'first_name': row.get('First Name', ''),
-                    'last_name': row.get('Last Name', ''),
-                    'email': row.get('Email', ''),
-                    'company': row.get('Company', ''),
-                    'position': row.get('Position', '')
+                    'linkedin_url': safe_get(row, 'LinkedIn', ''),
+                    'first_name': safe_get(row, 'First Name', ''),
+                    'last_name': safe_get(row, 'Last Name', ''),
+                    'email': safe_get(row, 'Email', ''),
+                    'company': safe_get(row, 'Company', ''),
+                    'position': safe_get(row, 'Position', '')
                 }
                 
                 # Skip if no LinkedIn URL
-                if not contact_data['linkedin_url']:
+                if not contact_data['linkedin_url'] or contact_data['linkedin_url'].strip() == '':
                     continue
                 
                 # Find or create contact

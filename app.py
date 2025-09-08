@@ -10,6 +10,8 @@ from enhanced_contact_tagger import EnhancedContactTagger
 from email_service import ReferralEmailService
 from user_management import UserManager
 from email_notifications import EmailNotifier
+from database import init_database, get_organisation_contacts_for_job, get_organisation_stats
+from models import db, Organisation, User, Contact, EmployeeContact, JobDescription, Referral
 import pandas as pd
 import os
 import json
@@ -26,6 +28,9 @@ app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-change-this')
 
 # Ensure upload directory exists
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
+# Initialize database
+init_database(app)
 
 api = ReferralAPI()
 tagger = EnhancedContactTagger()
@@ -127,35 +132,36 @@ def match_job():
         # For MVP, skip authentication check
         user_id = session.get('user_id', 'demo_user_123')
         
-        # Use the most recently uploaded contacts, fallback to demo data
+        # SECURE: Get contacts from database for this organisation only
         try:
-            # Look for uploaded contacts first
-            import glob
-            import os
-            upload_files = glob.glob('uploads/enhanced_tagged_contacts_*.csv')
-            contacts_df = None
+            # Get organisation ID (for MVP, use demo organisation)
+            demo_org = Organisation.query.filter_by(name="Demo Company").first()
+            if not demo_org:
+                return jsonify({'error': 'No organisation found'}), 500
             
-            if upload_files:
-                # Try to use the most recent upload
-                latest_file = max(upload_files, key=os.path.getctime)
-                try:
-                    contacts_df = pd.read_csv(latest_file)
-                    if len(contacts_df) > 0:
-                        print(f"📊 Using {len(contacts_df)} contacts from uploaded file: {latest_file}")
-                    else:
-                        print(f"⚠️ Uploaded file is empty, falling back to demo data")
-                        contacts_df = None
-                except Exception as e:
-                    print(f"⚠️ Error reading uploaded file {latest_file}: {e}, falling back to demo data")
-                    contacts_df = None
+            # Get contacts for this organisation only - NO DIRECTORY ACCESS
+            contacts = get_organisation_contacts_for_job(demo_org.id, job_description)
+            print(f"📊 Using {len(contacts)} contacts from database for organisation: {demo_org.name}")
             
-            # Fallback to demo data if no valid uploads
-            if contacts_df is None:
-                contacts_df = pd.read_csv('enhanced_tagged_contacts.csv')
-                print(f"📊 Using {len(contacts_df)} contacts from demo data: enhanced_tagged_contacts.csv")
+            # Convert to DataFrame for compatibility with existing matching logic
+            contacts_data = []
+            for contact in contacts:
+                contacts_data.append({
+                    'First Name': contact.first_name,
+                    'Last Name': contact.last_name,
+                    'Email': contact.email or '',
+                    'Company': contact.company or '',
+                    'Position': contact.position or '',
+                    'LinkedIn': contact.linkedin_url or '',
+                    'location_raw': contact.location or '',
+                    'skills_tag': contact.skills or '[]',
+                    'employee_connection': 'Demo Employee'  # For MVP
+                })
+            
+            contacts_df = pd.DataFrame(contacts_data)
                 
         except Exception as e:
-            print(f"❌ Error loading contacts: {e}")
+            print(f"❌ Error loading contacts from database: {e}")
             return jsonify({'error': 'Could not load contacts'}), 500
         
         if len(contacts_df) == 0:
@@ -309,16 +315,62 @@ def import_contacts():
         # Tag contacts
         tagged_df = tagger.tag_contacts(contacts_df)
         
-        # Add contact IDs for tracking
-        tagged_df['contact_id'] = [f"contact_{int(time.time())}_{i}" for i in range(len(tagged_df))]
+        # Get demo organisation and employee for MVP
+        demo_org = Organisation.query.filter_by(name="Demo Company").first()
+        if not demo_org:
+            return jsonify({'error': 'No organisation found'}), 500
         
-        # Save tagged contacts
-        output_filename = f"enhanced_tagged_contacts_{int(time.time())}.csv"
-        output_path = os.path.join(app.config['UPLOAD_FOLDER'], output_filename)
-        tagged_df.to_csv(output_path, index=False)
+        demo_employee = User.query.filter_by(organisation_id=demo_org.id, role='employee').first()
+        if not demo_employee:
+            return jsonify({'error': 'No employee found'}), 500
         
-        # For MVP, skip user assignment (will be added back with proper multi-tenant system)
-        print(f"📊 Processed {len(tagged_df)} contacts for organization")
+        # Store contacts in database
+        stored_count = 0
+        for _, row in tagged_df.iterrows():
+            try:
+                contact_data = {
+                    'linkedin_url': row.get('LinkedIn', ''),
+                    'first_name': row.get('First Name', ''),
+                    'last_name': row.get('Last Name', ''),
+                    'email': row.get('Email', ''),
+                    'company': row.get('Company', ''),
+                    'position': row.get('Position', '')
+                }
+                
+                # Skip if no LinkedIn URL
+                if not contact_data['linkedin_url']:
+                    continue
+                
+                # Find or create contact
+                contact = Contact.query.filter_by(linkedin_url=contact_data['linkedin_url']).first()
+                
+                if not contact:
+                    contact = Contact(
+                        linkedin_url=contact_data['linkedin_url'],
+                        first_name=contact_data['first_name'],
+                        last_name=contact_data['last_name'],
+                        email=contact_data['email'],
+                        company=contact_data['company'],
+                        position=contact_data['position']
+                    )
+                    db.session.add(contact)
+                    db.session.flush()
+                
+                # Link to this employee at this organisation
+                employee_contact = EmployeeContact(
+                    employee_id=demo_employee.id,
+                    contact_id=contact.id,
+                    organisation_id=demo_org.id,
+                    relationship_type='linkedin_connection'
+                )
+                db.session.add(employee_contact)
+                stored_count += 1
+                
+            except Exception as e:
+                print(f"Error storing contact {row.get('First Name', 'Unknown')}: {e}")
+                continue
+        
+        db.session.commit()
         
         # Get summary statistics
         summary = tagger._print_tagging_summary(tagged_df)
@@ -328,9 +380,9 @@ def import_contacts():
         
         return jsonify({
             'success': True,
-            'message': f'Successfully imported and tagged {len(tagged_df)} contacts',
-            'contacts_processed': len(tagged_df),
-            'filename': output_filename,
+            'message': f'Successfully stored {stored_count} contacts in database',
+            'contacts_processed': stored_count,
+            'organisation': demo_org.name,
             'summary': {
                 'roles': tagged_df['role_tag'].value_counts().to_dict(),
                 'functions': tagged_df['function_tag'].value_counts().to_dict(),
@@ -904,78 +956,39 @@ def simple_health():
 
 @app.route('/api/contacts-info')
 def contacts_info():
-    """Get information about currently loaded contacts."""
+    """Get information about currently loaded contacts - SECURE VERSION."""
     try:
-        import glob
-        import os
+        # Get demo organisation
+        demo_org = Organisation.query.filter_by(name="Demo Company").first()
+        if not demo_org:
+            return jsonify({'error': 'No organisation found'}), 500
         
-        # Check for uploaded contacts
-        upload_files = glob.glob('uploads/enhanced_tagged_contacts_*.csv')
-        contacts_df = None
-        source = "Demo data: enhanced_tagged_contacts.csv"
+        # Get organisation stats
+        stats = get_organisation_stats(demo_org.id)
         
-        if upload_files:
-            latest_file = max(upload_files, key=os.path.getctime)
-            try:
-                contacts_df = pd.read_csv(latest_file)
-                if len(contacts_df) > 0:
-                    source = f"Uploaded file: {os.path.basename(latest_file)}"
-                else:
-                    contacts_df = None
-            except Exception as e:
-                print(f"Error reading uploaded file: {e}")
-                contacts_df = None
+        # Get sample contacts (limited to 5 for security)
+        contacts = get_organisation_contacts_for_job(demo_org.id)
+        sample_contacts = []
         
-        # Fallback to demo data
-        if contacts_df is None:
-            contacts_df = pd.read_csv('enhanced_tagged_contacts.csv')
+        for contact in contacts[:5]:  # Limit to 5 for security
+            sample_contacts.append({
+                'First Name': contact.first_name,
+                'Last Name': contact.last_name,
+                'Company': contact.company or '',
+                'Position': contact.position or ''
+            })
         
         return jsonify({
-            'total_contacts': len(contacts_df),
-            'source': source,
-            'sample_contacts': contacts_df[['First Name', 'Last Name', 'Company', 'Position']].head(5).to_dict('records') if len(contacts_df) > 0 else []
+            'total_contacts': stats['total_contacts'],
+            'source': f"Database: {demo_org.name}",
+            'sample_contacts': sample_contacts,
+            'organisation_stats': stats
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/api/contacts')
-def get_contacts():
-    """Get all contacts for the gamification page."""
-    try:
-        # Check if CSV file exists
-        csv_file = 'enhanced_tagged_contacts.csv'
-        if not os.path.exists(csv_file):
-            # Return empty contacts if file doesn't exist
-            return jsonify({
-                'success': True,
-                'contacts': [],
-                'total': 0,
-                'message': 'No contacts file found - returning empty list'
-            })
-        
-        # Load contacts from the CSV file
-        df = pd.read_csv(csv_file)
-        
-        # Clean NaN values
-        df = df.fillna('')
-        
-        # Convert to list of dictionaries
-        contacts = df.to_dict('records')
-        
-        return jsonify({
-            'success': True,
-            'contacts': contacts,
-            'total': len(contacts)
-        })
-    except Exception as e:
-        print(f"Error in /api/contacts: {e}")
-        # Return empty contacts on error instead of 500
-        return jsonify({
-            'success': True,
-            'contacts': [],
-            'total': 0,
-            'message': f'Error loading contacts: {str(e)}'
-        })
+# SECURITY: Removed /api/contacts endpoint to prevent directory access
+# Users can only access contacts through job-specific matching
 
 # Job Descriptions API endpoints
 @app.route('/api/job-descriptions', methods=['GET'])

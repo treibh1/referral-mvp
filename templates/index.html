@@ -1107,13 +1107,10 @@
                          </div>
                      ` : ''}
                      
-                     ${match.employee_connection ? `
+                     ${match.contact_id ? `
                          <div class="referral-actions">
-                             <button class="referral-btn" onclick="requestReferral('${match.name}', '${match.employee_connection}', '${match.position}', '${match.company}')">
-                                 📧 Request Referral
-                             </button>
-                             <button class="referral-btn secondary" onclick="viewEmployeeDetails('${match.employee_connection}')">
-                                 👤 View Employee
+                             <button class="btn btn-primary btn-sm" onclick="requestReferral('${match.contact_id}', '${match.name}', '${match.position}', '${match.company}')">
+                                 <i class="fas fa-handshake"></i> Request Referral
                              </button>
                          </div>
                      ` : ''}
@@ -1138,66 +1135,54 @@
              }
          }
          
-         function requestReferral(contactName, employeeName, position, company) {
+         async function requestReferral(contactId, contactName, position, company) {
              const jobTitle = document.getElementById('jobTitle').value || 'this role';
-             const jobLocation = document.getElementById('jobLocation').value || 'this location';
+             const jobDescription = document.getElementById('jobDescription').value || '';
              
-             // Find the contact in current matches
-             const matches = window.currentMatches || [];
-             const contact = matches.find(match => 
-                 match.name === contactName && 
-                 match.employee_connection === employeeName
+             // Get requester message
+             const requesterMessage = prompt(
+                 `📧 Request Referral\n\n` +
+                 `Contact: ${contactName} (${position} at ${company})\n` +
+                 `Job: ${jobTitle}\n\n` +
+                 `Add a personal message (optional):`,
+                 `Hi! I found a great candidate for our ${jobTitle} role. Could you help with a referral?`
              );
              
-             if (!contact) {
-                 alert('Contact not found in current results.');
-                 return;
+             if (requesterMessage === null) {
+                 return; // User cancelled
              }
              
-             // Show confirmation dialog
-             const confirmed = confirm(
-                 `📧 Send Referral Email?\n\n` +
-                 `Send referral request to ${employeeName} for:\n\n` +
-                 `• Contact: ${contactName} (${position} at ${company})\n` +
-                 `• Job Title: ${jobTitle}\n` +
-                 `• Location: ${jobLocation}\n\n` +
-                 `Email will be sent automatically. Continue?`
-             );
-             
-             if (!confirmed) {
-                 return;
-             }
-             
-             // Send email via API
-             fetch('/api/send-referral-emails', {
-                 method: 'POST',
-                 headers: {
-                     'Content-Type': 'application/json',
-                 },
-                 body: JSON.stringify({
-                     contacts: [contact],
-                     jobTitle: jobTitle,
-                     jobLocation: jobLocation
-                 })
-             })
-             .then(response => response.json())
-             .then(data => {
+             try {
+                 const response = await fetch('/api/request-referral', {
+                     method: 'POST',
+                     headers: {
+                         'Content-Type': 'application/json',
+                     },
+                     body: JSON.stringify({
+                         contactId: contactId,
+                         jobTitle: jobTitle,
+                         jobDescription: jobDescription,
+                         requesterMessage: requesterMessage
+                     })
+                 });
+                 
+                 const data = await response.json();
+                 
                  if (data.success) {
                      alert(
-                         `✅ Referral Email Sent Successfully!\n\n` +
-                         `📧 Email sent to ${employeeName}\n` +
+                         `✅ Referral Request Sent!\n\n` +
+                         `📧 Sent to: ${data.employee_name}\n` +
                          `👤 Contact: ${contactName}\n` +
                          `💼 Position: ${position} at ${company}\n\n` +
-                         `The employee has been notified!`
+                         `The employee will be notified and can respond via the referrals page.`
                      );
                  } else {
-                     alert(`❌ Error sending email: ${data.error || 'Unknown error'}`);
+                     alert(`❌ Error: ${data.error || 'Unknown error'}`);
                  }
-             })
-             .catch(error => {
+             } catch (error) {
                  console.error('Error:', error);
-                 alert(`❌ Error sending email: ${error.message}`);
-             });
+                 alert(`❌ Error sending referral request: ${error.message}`);
+             }
          }
          
          function viewEmployeeDetails(employeeName) {

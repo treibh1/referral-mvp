@@ -16,6 +16,7 @@ import pandas as pd
 import os
 import json
 import time
+from datetime import datetime
 from werkzeug.utils import secure_filename
 
 # Location enrichment temporarily disabled
@@ -232,6 +233,20 @@ def match_job():
             enable_location_enrichment=enable_location_enrichment,
             serpapi_key=serpapi_key
         )
+        
+        # Add contact IDs to the results for referral functionality
+        if results.get('success') and 'candidates' in results:
+            # Create a mapping from contact details to contact IDs
+            contact_id_map = {}
+            for contact in contacts:
+                key = f"{contact.first_name}_{contact.last_name}_{contact.company}"
+                contact_id_map[key] = contact.id
+            
+            # Add contact IDs to candidates
+            for candidate in results['candidates']:
+                candidate_key = f"{candidate.get('First Name', '')}_{candidate.get('Last Name', '')}_{candidate.get('Company', '')}"
+                candidate['contact_id'] = contact_id_map.get(candidate_key, None)
+        
         return jsonify(results)
             
     except Exception as e:
@@ -1365,6 +1380,13 @@ def dashboard():
         return redirect(url_for('login'))
     return render_template('dashboard.html')
 
+@app.route('/referrals')
+def referrals_page():
+    """Referrals management page."""
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    return render_template('referrals.html')
+
 @app.route('/api/init-database', methods=['POST'])
 def init_database_endpoint():
     """Manually initialize database with demo organization."""
@@ -1393,6 +1415,228 @@ def init_database_endpoint():
         })
         
     except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+# ===== REFERRAL WORKFLOW ROUTES =====
+
+@app.route('/api/request-referral', methods=['POST'])
+def request_referral():
+    """Request a referral from an employee for a specific contact."""
+    try:
+        data = request.get_json()
+        contact_id = data.get('contactId')
+        job_description = data.get('jobDescription', '')
+        job_title = data.get('jobTitle', '')
+        requester_message = data.get('requesterMessage', '')
+        
+        if not contact_id:
+            return jsonify({
+                'success': False,
+                'error': 'Contact ID is required'
+            }), 400
+        
+        # Get current user
+        user_id = session.get('user_id')
+        if not user_id:
+            return jsonify({
+                'success': False,
+                'error': 'Not authenticated'
+            }), 401
+        
+        current_user = User.query.get(user_id)
+        if not current_user:
+            return jsonify({
+                'success': False,
+                'error': 'User not found'
+            }), 404
+        
+        # Get the contact
+        contact = Contact.query.get(contact_id)
+        if not contact:
+            return jsonify({
+                'success': False,
+                'error': 'Contact not found'
+            }), 404
+        
+        # Find which employee in the organization knows this contact
+        employee_contact = EmployeeContact.query.filter_by(
+            contact_id=contact_id,
+            organisation_id=current_user.organisation_id
+        ).first()
+        
+        if not employee_contact:
+            return jsonify({
+                'success': False,
+                'error': 'No employee in your organization knows this contact'
+            }), 404
+        
+        # Get the employee who knows this contact
+        employee = User.query.get(employee_contact.employee_id)
+        if not employee:
+            return jsonify({
+                'success': False,
+                'error': 'Employee not found'
+            }), 404
+        
+        # Create referral request
+        referral = Referral(
+            organisation_id=current_user.organisation_id,
+            requester_id=current_user.id,
+            employee_id=employee.id,
+            contact_id=contact_id,
+            job_title=job_title,
+            job_description=job_description,
+            requester_message=requester_message,
+            status='pending'
+        )
+        db.session.add(referral)
+        db.session.commit()
+        
+        # Send email notification to employee (for MVP, just log it)
+        print(f"📧 Referral request sent to {employee.name} ({employee.email}) for {contact.first_name} {contact.last_name}")
+        print(f"   Job: {job_title}")
+        print(f"   Message: {requester_message}")
+        
+        return jsonify({
+            'success': True,
+            'message': f'Referral request sent to {employee.name}',
+            'referral_id': referral.id,
+            'employee_name': employee.name,
+            'employee_email': employee.email
+        })
+        
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/my-referrals', methods=['GET'])
+def get_my_referrals():
+    """Get all referrals for the current user."""
+    try:
+        user_id = session.get('user_id')
+        if not user_id:
+            return jsonify({
+                'success': False,
+                'error': 'Not authenticated'
+            }), 401
+        
+        current_user = User.query.get(user_id)
+        if not current_user:
+            return jsonify({
+                'success': False,
+                'error': 'User not found'
+            }), 404
+        
+        # Get referrals where user is either requester or employee
+        referrals = Referral.query.filter(
+            (Referral.requester_id == current_user.id) | 
+            (Referral.employee_id == current_user.id)
+        ).filter_by(organisation_id=current_user.organisation_id).all()
+        
+        referral_data = []
+        for referral in referrals:
+            # Get contact details
+            contact = Contact.query.get(referral.contact_id)
+            requester = User.query.get(referral.requester_id)
+            employee = User.query.get(referral.employee_id)
+            
+            referral_data.append({
+                'id': referral.id,
+                'contact_name': f"{contact.first_name} {contact.last_name}" if contact else "Unknown",
+                'contact_company': contact.company if contact else "",
+                'contact_position': contact.position if contact else "",
+                'job_title': referral.job_title,
+                'requester_name': requester.name if requester else "Unknown",
+                'employee_name': employee.name if employee else "Unknown",
+                'status': referral.status,
+                'requester_message': referral.requester_message,
+                'created_at': referral.created_at.isoformat() if referral.created_at else None,
+                'is_my_request': referral.requester_id == current_user.id,
+                'is_my_referral': referral.employee_id == current_user.id
+            })
+        
+        return jsonify({
+            'success': True,
+            'referrals': referral_data
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/update-referral-status', methods=['POST'])
+def update_referral_status():
+    """Update the status of a referral (employee response)."""
+    try:
+        data = request.get_json()
+        referral_id = data.get('referralId')
+        new_status = data.get('status')  # 'accepted', 'declined', 'completed'
+        employee_message = data.get('employeeMessage', '')
+        
+        if not referral_id or not new_status:
+            return jsonify({
+                'success': False,
+                'error': 'Referral ID and status are required'
+            }), 400
+        
+        # Get current user
+        user_id = session.get('user_id')
+        if not user_id:
+            return jsonify({
+                'success': False,
+                'error': 'Not authenticated'
+            }), 401
+        
+        current_user = User.query.get(user_id)
+        if not current_user:
+            return jsonify({
+                'success': False,
+                'error': 'User not found'
+            }), 404
+        
+        # Get the referral
+        referral = Referral.query.get(referral_id)
+        if not referral:
+            return jsonify({
+                'success': False,
+                'error': 'Referral not found'
+            }), 404
+        
+        # Check if user is the employee for this referral
+        if referral.employee_id != current_user.id:
+            return jsonify({
+                'success': False,
+                'error': 'You can only update referrals assigned to you'
+            }), 403
+        
+        # Update referral status
+        referral.status = new_status
+        if employee_message:
+            referral.employee_message = employee_message
+        referral.updated_at = datetime.utcnow()
+        
+        db.session.commit()
+        
+        # Log the update
+        print(f"📝 Referral {referral_id} status updated to {new_status} by {current_user.name}")
+        if employee_message:
+            print(f"   Message: {employee_message}")
+        
+        return jsonify({
+            'success': True,
+            'message': f'Referral status updated to {new_status}'
+        })
+        
+    except Exception as e:
+        db.session.rollback()
         return jsonify({
             'success': False,
             'error': str(e)

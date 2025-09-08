@@ -12,35 +12,66 @@ import json
 
 def init_database(app):
     """Initialize the database with Flask app."""
-    # Database configuration
-    database_url = os.environ.get('DATABASE_URL')
-    if database_url:
-        # Railway PostgreSQL
-        if database_url.startswith('postgres://'):
-            database_url = database_url.replace('postgres://', 'postgresql://', 1)
-        app.config['SQLALCHEMY_DATABASE_URI'] = database_url
-    else:
-        # Local development
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///referral_system.db'
-    
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-        'pool_pre_ping': True,
-        'pool_recycle': 300,
-    }
-    
-    # Initialize database
-    db.init_app(app)
-    
-    with app.app_context():
-        # Create tables
-        db.create_all()
+    try:
+        # Database configuration
+        database_url = os.environ.get('DATABASE_URL')
+        print(f"🔍 DATABASE_URL found: {bool(database_url)}")
         
-        # Create demo organisation if none exists
-        if not Organisation.query.first():
-            create_demo_organisation()
+        if database_url:
+            # Railway PostgreSQL - fix internal hostname issue
+            if database_url.startswith('postgres://'):
+                database_url = database_url.replace('postgres://', 'postgresql://', 1)
+            
+            # Fix Railway internal hostname issue
+            if 'postgres.railway.internal' in database_url:
+                print("⚠️ Detected internal Railway hostname, attempting to fix...")
+                # Try to get the external hostname from Railway
+                railway_host = os.environ.get('RAILWAY_DATABASE_HOST')
+                if railway_host:
+                    database_url = database_url.replace('postgres.railway.internal', railway_host)
+                    print(f"✅ Updated hostname to: {railway_host}")
+                else:
+                    print("❌ No RAILWAY_DATABASE_HOST found, connection may fail")
+            
+            app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+            print("✅ Using PostgreSQL database")
+        else:
+            # Local development
+            app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///referral_system.db'
+            print("⚠️ Using SQLite for local development")
         
-        print("✅ Database initialized successfully")
+        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+        app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+            'pool_pre_ping': True,
+            'pool_recycle': 300,
+            'pool_timeout': 20,
+            'max_overflow': 0,
+        }
+        
+        # Initialize database
+        db.init_app(app)
+        
+        with app.app_context():
+            print("🔄 Creating database tables...")
+            # Create tables
+            db.create_all()
+            print("✅ Database tables created")
+            
+            # Create demo organisation if none exists
+            if not Organisation.query.first():
+                print("🏢 Creating demo organisation...")
+                create_demo_organisation()
+            else:
+                print("✅ Demo organisation already exists")
+            
+            print("✅ Database initialized successfully")
+            
+    except Exception as e:
+        print(f"❌ Database initialization failed: {e}")
+        print(f"❌ Error type: {type(e).__name__}")
+        import traceback
+        print(f"❌ Traceback: {traceback.format_exc()}")
+        raise
 
 def create_demo_organisation():
     """Create a demo organisation for testing."""
@@ -85,9 +116,19 @@ def migrate_csv_to_database(organisation_id, employee_id):
     try:
         print("📊 Migrating CSV data to database...")
         
+        # Check if CSV file exists
+        csv_file = 'enhanced_tagged_contacts.csv'
+        if not os.path.exists(csv_file):
+            print("⚠️ No CSV file found, skipping migration")
+            return
+        
         # Load existing CSV
-        df = pd.read_csv('enhanced_tagged_contacts.csv')
+        df = pd.read_csv(csv_file)
         print(f"📄 Found {len(df)} contacts in CSV")
+        
+        if len(df) == 0:
+            print("⚠️ CSV file is empty, skipping migration")
+            return
         
         migrated_count = 0
         for _, row in df.iterrows():
@@ -142,6 +183,9 @@ def migrate_csv_to_database(organisation_id, employee_id):
         print("⚠️ No CSV file found, skipping migration")
     except Exception as e:
         print(f"❌ Error during migration: {e}")
+        import traceback
+        print(f"❌ Migration traceback: {traceback.format_exc()}")
+        db.session.rollback()
 
 def get_organisation_contacts_for_job(organisation_id, job_description=None):
     """

@@ -3,119 +3,460 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Referral Network</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Company Dashboard - Referral System</title>
     <style>
-        .sidebar {
-            background: #2c3e50;
-            min-height: 100vh;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #333;
+        }
+        
+        .header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
+            font-weight: 600;
         }
-        .main-content {
-            background: #f8f9fa;
-            min-height: 100vh;
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
         }
+        
+        .welcome {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .welcome h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .welcome p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
         .stat-card {
             background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .section h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+        
+        .btn-secondary:hover {
+            background: #cbd5e0;
+        }
+        
+        .employee-list {
+            list-style: none;
+        }
+        
+        .employee-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .employee-item:last-child {
+            border-bottom: none;
+        }
+        
+        .employee-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .employee-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4a5568;
+            font-weight: 600;
+        }
+        
+        .employee-details h3 {
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+        
+        .employee-details p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .role-badge {
+            background: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .role-badge.employee {
+            background: #48bb78;
+        }
+        
+        .invite-form {
+            display: flex;
+            gap: 15px;
             margin-bottom: 20px;
         }
-        .referral-card {
-            background: white;
-            border-radius: 10px;
+        
+        .invite-form input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .invite-form input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #c33;
+        }
+        
+        .success {
+            background: #efe;
+            color: #363;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #363;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            color: #666;
             padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 15px;
-            border-left: 4px solid #3498db;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .nav-links a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
-            <div class="col-md-3 sidebar p-4">
-                <h3 class="mb-4">🎯 Referral Network</h3>
-                <nav class="nav flex-column">
-                    <a class="nav-link text-white active" href="/dashboard">Dashboard</a>
-                    <a class="nav-link text-white" href="/import">Import Contacts</a>
-                    <a class="nav-link text-white" href="/enrichment">🎯 Enrich Contacts</a>
-                    <a class="nav-link text-white" href="/">Find Jobs</a>
-                    <a class="nav-link text-white" href="/logout">Logout</a>
-                </nav>
-            </div>
-            
-            <!-- Main Content -->
-            <div class="col-md-9 main-content p-4">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2>Welcome back, {{ user.name }}!</h2>
-                    <span class="badge bg-primary">{{ user.email }}</span>
-                </div>
-                
-                <!-- Stats Row -->
-                <div class="row mb-4">
-                    <div class="col-md-4">
-                        <div class="stat-card">
-                            <h4>{{ user.total_contacts }}</h4>
-                            <p class="text-muted mb-0">Total Contacts</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="stat-card">
-                            <h4>{{ user.total_referrals }}</h4>
-                            <p class="text-muted mb-0">Total Referrals</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="stat-card">
-                            <h4>{{ pending_referrals|length }}</h4>
-                            <p class="text-muted mb-0">Pending Requests</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Pending Referrals -->
-                <div class="row">
-                    <div class="col-12">
-                        <h4 class="mb-3">Pending Referral Requests</h4>
-                        
-                        {% if pending_referrals %}
-                            {% for referral in pending_referrals %}
-                            <div class="referral-card">
-                                <div class="d-flex justify-content-between align-items-start">
-                                    <div>
-                                        <h5>{{ referral.company }}</h5>
-                                        <p class="text-muted mb-2">{{ referral.requested_at[:10] }}</p>
-                                        <p class="mb-2">{{ referral.job_description[:100] }}...</p>
-                                        <span class="badge bg-warning">{{ referral.contact_ids|length }} candidates selected</span>
-                                    </div>
-                                    <a href="/referrals/{{ referral.referral_id }}" class="btn btn-primary btn-sm">Review</a>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        {% else %}
-                            <div class="text-center py-5">
-                                <h5 class="text-muted">No pending referral requests</h5>
-                                <p class="text-muted">Your contacts will appear here when they're selected for job opportunities.</p>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-                
-                <!-- Quick Actions -->
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <h4 class="mb-3">Quick Actions</h4>
-                        <div class="d-flex gap-3">
-                            <a href="/import" class="btn btn-success">📥 Import New Contacts</a>
-                            <a href="/" class="btn btn-primary">🔍 Find Job Opportunities</a>
-                        </div>
-                    </div>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">Referral System</div>
+            <div class="user-info">
+                <div class="user-avatar" id="user-avatar">A</div>
+                <div>
+                    <div id="user-name">Loading...</div>
+                    <div style="font-size: 12px; color: #666;" id="user-role">Loading...</div>
                 </div>
             </div>
         </div>
     </div>
+    
+    <div class="container">
+        <div class="welcome">
+            <h1 id="welcome-title">Welcome to Your Dashboard</h1>
+            <p id="welcome-subtitle">Manage your company's referral system</p>
+        </div>
+        
+        <div class="nav-links">
+            <a href="/">Job Matching</a>
+            <a href="/upload">Upload Contacts</a>
+            <a href="/dashboard">Dashboard</a>
+        </div>
+        
+        <div id="error-message" class="error" style="display: none;"></div>
+        <div id="success-message" class="success" style="display: none;"></div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="total-contacts">-</div>
+                <div class="stat-label">Total Contacts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="total-employees">-</div>
+                <div class="stat-label">Employees</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="total-jobs">-</div>
+                <div class="stat-label">Job Postings</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Invite Employees</h2>
+            <form id="invite-form" class="invite-form">
+                <input type="text" id="employee-name" placeholder="Employee Name" required>
+                <input type="email" id="employee-email" placeholder="Employee Email" required>
+                <button type="submit" class="btn">Invite Employee</button>
+            </form>
+        </div>
+        
+        <div class="section">
+            <h2>Team Members</h2>
+            <div class="loading" id="loading">Loading team members...</div>
+            <ul class="employee-list" id="employee-list">
+                <!-- Employee list will be populated here -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let dashboardData = null;
+        
+        async function loadDashboard() {
+            try {
+                const response = await fetch('/api/company-dashboard');
+                const result = await response.json();
+                
+                if (result.success) {
+                    dashboardData = result;
+                    updateDashboard(result);
+                } else {
+                    showError(result.error);
+                }
+            } catch (error) {
+                showError('Failed to load dashboard data');
+            }
+        }
+        
+        function updateDashboard(data) {
+            // Update welcome section
+            document.getElementById('welcome-title').textContent = `Welcome to ${data.organisation.name}`;
+            document.getElementById('welcome-subtitle').textContent = `Plan: ${data.organisation.plan.toUpperCase()}`;
+            
+            // Update user info
+            document.getElementById('user-name').textContent = data.current_user.name;
+            document.getElementById('user-role').textContent = data.current_user.role.toUpperCase();
+            document.getElementById('user-avatar').textContent = data.current_user.name.charAt(0).toUpperCase();
+            
+            // Update stats
+            document.getElementById('total-contacts').textContent = data.stats.total_contacts.toLocaleString();
+            document.getElementById('total-employees').textContent = data.stats.total_employees;
+            document.getElementById('total-jobs').textContent = data.stats.total_jobs;
+            
+            // Update employee list
+            updateEmployeeList(data.employees);
+        }
+        
+        function updateEmployeeList(employees) {
+            const list = document.getElementById('employee-list');
+            const loading = document.getElementById('loading');
+            
+            loading.style.display = 'none';
+            
+            if (employees.length === 0) {
+                list.innerHTML = '<li style="text-align: center; color: #666; padding: 20px;">No employees yet. Invite some team members to get started!</li>';
+                return;
+            }
+            
+            list.innerHTML = employees.map(emp => `
+                <li class="employee-item">
+                    <div class="employee-info">
+                        <div class="employee-avatar">${emp.name.charAt(0).toUpperCase()}</div>
+                        <div class="employee-details">
+                            <h3>${emp.name}</h3>
+                            <p>${emp.email}</p>
+                        </div>
+                    </div>
+                    <div class="role-badge ${emp.role}">${emp.role.toUpperCase()}</div>
+                </li>
+            `).join('');
+        }
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+        
+        function showSuccess(message) {
+            const successDiv = document.getElementById('success-message');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Handle employee invitation
+        document.getElementById('invite-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const nameInput = document.getElementById('employee-name');
+            const emailInput = document.getElementById('employee-email');
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Inviting...';
+            
+            try {
+                const response = await fetch('/api/invite-employee', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        employeeName: nameInput.value,
+                        employeeEmail: emailInput.value
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showSuccess(result.message);
+                    nameInput.value = '';
+                    emailInput.value = '';
+                    // Reload dashboard to show new employee
+                    loadDashboard();
+                } else {
+                    showError(result.error);
+                }
+            } catch (error) {
+                showError('Failed to invite employee');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Invite Employee';
+            }
+        });
+        
+        // Load dashboard on page load
+        loadDashboard();
+    </script>
 </body>
 </html>

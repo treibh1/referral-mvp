@@ -40,11 +40,41 @@ except Exception as e:
     # Don't crash the app, just log the error
     pass
 
-api = ReferralAPI()
-tagger = EnhancedContactTagger()
-user_manager = UserManager()
-email_notifier = EmailNotifier()
-email_service = ReferralEmailService()
+# Initialize services with error handling
+try:
+    api = ReferralAPI()
+    print("✅ ReferralAPI initialized")
+except Exception as e:
+    print(f"⚠️ ReferralAPI initialization failed: {e}")
+    api = None
+
+try:
+    tagger = EnhancedContactTagger()
+    print("✅ EnhancedContactTagger initialized")
+except Exception as e:
+    print(f"⚠️ EnhancedContactTagger initialization failed: {e}")
+    tagger = None
+
+try:
+    user_manager = UserManager()
+    print("✅ UserManager initialized")
+except Exception as e:
+    print(f"⚠️ UserManager initialization failed: {e}")
+    user_manager = None
+
+try:
+    email_notifier = EmailNotifier()
+    print("✅ EmailNotifier initialized")
+except Exception as e:
+    print(f"⚠️ EmailNotifier initialization failed: {e}")
+    email_notifier = None
+
+try:
+    email_service = ReferralEmailService()
+    print("✅ ReferralEmailService initialized")
+except Exception as e:
+    print(f"⚠️ ReferralEmailService initialization failed: {e}")
+    email_service = None
 
 @app.route('/')
 def index():
@@ -61,29 +91,32 @@ def login():
         email = request.form.get('email')
         name = request.form.get('name')
         
-        # For MVP, simple session-based auth (no file writes)
-        session['user_id'] = 'demo_user_123'
-        session['user_email'] = email or 'demo@example.com'
-        session['user_name'] = name or 'Demo User'
+        if not email:
+            return render_template('login.html', error='Email is required')
         
-        # Skip email sending for MVP
-        print(f"User logged in: {name} ({email})")
+        # Find user in database
+        user = User.query.filter_by(email=email).first()
         
-        return redirect(url_for('index'))
+        if user:
+            # User exists, log them in
+            session['user_id'] = str(user.id)
+            session['user_email'] = user.email
+            session['user_name'] = user.name
+            session['organisation_id'] = str(user.organisation_id)
+            session['user_role'] = user.role
+            
+            print(f"User logged in: {user.name} ({user.email}) from {user.organisation.name}")
+            return redirect(url_for('dashboard'))
+        else:
+            # User doesn't exist, show error
+            return render_template('login.html', error='User not found. Please register your company first.')
     
     return render_template('login.html')
 
-@app.route('/dashboard')
-def dashboard():
-    """User dashboard."""
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
-    
-    user_id = session['user_id']
-    user = user_manager.get_user(user_id)
-    pending_referrals = user_manager.get_pending_referrals(user_id)
-    
-    return render_template('dashboard.html', user=user, pending_referrals=pending_referrals)
+@app.route('/old-dashboard')
+def old_dashboard():
+    """Legacy user dashboard - redirect to new dashboard."""
+    return redirect(url_for('dashboard'))
 
 @app.route('/upload')
 def upload_page():
@@ -137,19 +170,20 @@ def match_job():
         if not job_description:
             return jsonify({'error': 'Job description is required'}), 400
         
-        # For MVP, skip authentication check
-        user_id = session.get('user_id', 'demo_user_123')
+        # Get current user's organization
+        user_id = session.get('user_id')
+        if not user_id:
+            return jsonify({'error': 'Not authenticated'}), 401
+        
+        current_user = User.query.get(user_id)
+        if not current_user:
+            return jsonify({'error': 'User not found'}), 404
         
         # SECURE: Get contacts from database for this organisation only
         try:
-            # Get organisation ID (for MVP, use demo organisation)
-            demo_org = Organisation.query.filter_by(name="Demo Company").first()
-            if not demo_org:
-                return jsonify({'error': 'No organisation found'}), 500
-            
             # Get contacts for this organisation only - NO DIRECTORY ACCESS
-            contacts = get_organisation_contacts_for_job(demo_org.id, job_description)
-            print(f"📊 Using {len(contacts)} contacts from database for organisation: {demo_org.name}")
+            contacts = get_organisation_contacts_for_job(current_user.organisation_id, job_description)
+            print(f"📊 Using {len(contacts)} contacts from database for organisation: {current_user.organisation.name}")
             
             # Convert to DataFrame for compatibility with existing matching logic
             contacts_data = []
@@ -323,14 +357,19 @@ def import_contacts():
         # Tag contacts
         tagged_df = tagger.tag_contacts(contacts_df)
         
-        # Get demo organisation and employee for MVP
-        demo_org = Organisation.query.filter_by(name="Demo Company").first()
-        if not demo_org:
-            return jsonify({'error': 'No organisation found'}), 500
+        # Get current user's organization
+        user_id = session.get('user_id')
+        if not user_id:
+            return jsonify({'error': 'Not authenticated'}), 401
         
-        demo_employee = User.query.filter_by(organisation_id=demo_org.id, role='employee').first()
-        if not demo_employee:
-            return jsonify({'error': 'No employee found'}), 500
+        current_user = User.query.get(user_id)
+        if not current_user:
+            return jsonify({'error': 'User not found'}), 404
+        
+        # Use current user's organization
+        user_org = current_user.organisation
+        if not user_org:
+            return jsonify({'error': 'No organisation found'}), 500
         
         # Store contacts in database
         stored_count = 0
@@ -366,9 +405,9 @@ def import_contacts():
                 
                 # Link to this employee at this organisation
                 employee_contact = EmployeeContact(
-                    employee_id=demo_employee.id,
+                    employee_id=current_user.id,
                     contact_id=contact.id,
-                    organisation_id=demo_org.id,
+                    organisation_id=user_org.id,
                     relationship_type='linkedin_connection'
                 )
                 db.session.add(employee_contact)
@@ -1118,6 +1157,209 @@ def get_referrals():
             'success': False,
             'error': str(e)
         }), 500
+
+# ===== MULTI-TENANT SYSTEM ROUTES =====
+
+@app.route('/register-company')
+def register_company_page():
+    """Company registration page."""
+    return render_template('register_company.html')
+
+@app.route('/api/register-company', methods=['POST'])
+def register_company():
+    """Register a new company."""
+    try:
+        data = request.get_json()
+        company_name = data.get('companyName', '').strip()
+        admin_email = data.get('adminEmail', '').strip()
+        admin_name = data.get('adminName', '').strip()
+        company_domain = data.get('companyDomain', '').strip()
+        
+        if not all([company_name, admin_email, admin_name]):
+            return jsonify({
+                'success': False,
+                'error': 'Company name, admin email, and admin name are required'
+            }), 400
+        
+        # Check if company already exists
+        existing_org = Organisation.query.filter_by(name=company_name).first()
+        if existing_org:
+            return jsonify({
+                'success': False,
+                'error': 'Company already exists'
+            }), 400
+        
+        # Check if admin email already exists
+        existing_admin = User.query.filter_by(email=admin_email).first()
+        if existing_admin:
+            return jsonify({
+                'success': False,
+                'error': 'Admin email already registered'
+            }), 400
+        
+        # Create new organisation
+        new_org = Organisation(
+            name=company_name,
+            domain=company_domain,
+            plan='free'  # Start with free plan
+        )
+        db.session.add(new_org)
+        db.session.flush()
+        
+        # Create admin user
+        admin_user = User(
+            organisation_id=new_org.id,
+            email=admin_email,
+            name=admin_name,
+            role='admin'
+        )
+        db.session.add(admin_user)
+        db.session.commit()
+        
+        return jsonify({
+            'success': True,
+            'message': 'Company registered successfully',
+            'organisation_id': new_org.id,
+            'admin_id': admin_user.id
+        })
+        
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/invite-employee', methods=['POST'])
+def invite_employee():
+    """Invite a new employee to the company."""
+    try:
+        data = request.get_json()
+        employee_email = data.get('employeeEmail', '').strip()
+        employee_name = data.get('employeeName', '').strip()
+        
+        if not all([employee_email, employee_name]):
+            return jsonify({
+                'success': False,
+                'error': 'Employee email and name are required'
+            }), 400
+        
+        # Get current user's organisation
+        user_id = session.get('user_id')
+        if not user_id:
+            return jsonify({
+                'success': False,
+                'error': 'Not authenticated'
+            }), 401
+        
+        current_user = User.query.get(user_id)
+        if not current_user or current_user.role != 'admin':
+            return jsonify({
+                'success': False,
+                'error': 'Only admins can invite employees'
+            }), 403
+        
+        # Check if employee already exists
+        existing_employee = User.query.filter_by(email=employee_email).first()
+        if existing_employee:
+            return jsonify({
+                'success': False,
+                'error': 'Employee email already registered'
+            }), 400
+        
+        # Create new employee
+        new_employee = User(
+            organisation_id=current_user.organisation_id,
+            email=employee_email,
+            name=employee_name,
+            role='employee'
+        )
+        db.session.add(new_employee)
+        db.session.commit()
+        
+        return jsonify({
+            'success': True,
+            'message': 'Employee invited successfully',
+            'employee_id': new_employee.id
+        })
+        
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/company-dashboard', methods=['GET'])
+def get_company_dashboard():
+    """Get company dashboard data."""
+    try:
+        user_id = session.get('user_id')
+        if not user_id:
+            return jsonify({
+                'success': False,
+                'error': 'Not authenticated'
+            }), 401
+        
+        current_user = User.query.get(user_id)
+        if not current_user:
+            return jsonify({
+                'success': False,
+                'error': 'User not found'
+            }), 404
+        
+        organisation = Organisation.query.get(current_user.organisation_id)
+        if not organisation:
+            return jsonify({
+                'success': False,
+                'error': 'Organisation not found'
+            }), 404
+        
+        # Get company stats
+        stats = get_organisation_stats(current_user.organisation_id)
+        
+        # Get all employees in the company
+        employees = User.query.filter_by(organisation_id=current_user.organisation_id).all()
+        employee_data = []
+        for emp in employees:
+            employee_data.append({
+                'id': emp.id,
+                'name': emp.name,
+                'email': emp.email,
+                'role': emp.role,
+                'created_at': emp.created_at.isoformat() if emp.created_at else None
+            })
+        
+        return jsonify({
+            'success': True,
+            'organisation': {
+                'id': organisation.id,
+                'name': organisation.name,
+                'domain': organisation.domain,
+                'plan': organisation.plan
+            },
+            'stats': stats,
+            'employees': employee_data,
+            'current_user': {
+                'id': current_user.id,
+                'name': current_user.name,
+                'email': current_user.email,
+                'role': current_user.role
+            }
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/dashboard')
+def dashboard():
+    """Company dashboard page."""
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    return render_template('dashboard.html')
 
 @app.route('/logout')
 def logout():

@@ -145,12 +145,6 @@ def job_descriptions_page():
         return redirect(url_for('login'))
     return render_template('job_descriptions.html')
 
-@app.route('/referrals')
-def referrals_page():
-    """Referrals dashboard page."""
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
-    return render_template('referrals.html')
 
 @app.route('/api/match', methods=['POST'])
 def match_job():

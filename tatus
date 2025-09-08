@@ -1,0 +1,10 @@
+[33m2bfa580[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m FIX: Add health endpoint and fix contacts API to handle missing CSV files gracefully
+[33m9a9f745[m RAILWAY DEPLOYMENT: Add Railway config and restore full requirements.txt
+[33m6fb0414[m DEPLOY MINIMAL VERSION: Create app_minimal.py that works without heavy dependencies
+[33mfb4fc27[m BULLETPROOF FIX: Remove all problematic packages, deploy minimal working version first
+[33m75a9ff6[m CRITICAL FIX: Force Python 3.11 and disable PEP517 to prevent setuptools.build_meta error
+[33m4c6e899[m TIMEOUT PREVENTION: Use Python 3.11 + pre-compiled wheels for faster builds
+[33mfe2aeb5[m RESEARCH-BASED FIX: Use latest numpy==2.3.2 and pandas==2.3.2 for Python 3.13 compatibility
+[33m09fb34a[m FIX: Use numpy 1.26.4 and pandas 2.1.4 for Python 3.13 compatibility
+[33mc4cdce0[m FIX: Add setuptools and use older pandas/numpy versions for Python 3.13 compatibility
+[33m4f5e4e2[m FIX: Restore pandas with compatible versions (pandas==1.5.3, numpy==1.24.3, Python 3.10.12)

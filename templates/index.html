@@ -392,6 +392,27 @@
                     <!-- Location-Based Matches -->
                     <div id="regularResults">
                         <h5>Location-Based Matches</h5>
+                        
+                        <!-- Bulk Selection Controls -->
+                        <div id="bulk-selection-controls" class="mb-3" style="display: none;">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="selectAllContacts()">
+                                        <i class="fas fa-check-square"></i> Select All
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="deselectAllContacts()">
+                                        <i class="fas fa-square"></i> Deselect All
+                                    </button>
+                                    <span class="ms-3 text-muted">
+                                        <span id="selected-count">0</span> contacts selected
+                                    </span>
+                                </div>
+                                <button type="button" class="btn btn-success" onclick="sendBulkReferralEmails()" id="bulk-email-btn" disabled>
+                                    <i class="fas fa-envelope"></i> Contact Selected (<span id="bulk-count">0</span>)
+                                </button>
+                            </div>
+                        </div>
+                        
                         <div id="referral-summary" style="display: none;">
                             <div class="alert alert-info">
                                 <strong>📧 Referral Summary:</strong> 
@@ -1055,9 +1076,13 @@
                 contentDiv.innerHTML = html;
                 // Store matches globally for referral functionality
                 window.currentMatches = matches;
+                // Update bulk selection controls
+                updateBulkSelection();
             } else {
                 contentDiv.innerHTML = '<p>No matches found.</p>';
                 window.currentMatches = [];
+                // Update bulk selection controls
+                updateBulkSelection();
             }
         }
         
@@ -1066,8 +1091,9 @@
             
             return `
                 <div class="result-card">
-                    <div class="card-header">
-                        <h6>${match.name}</h6>
+                    <div class="card-header d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <h6>${match.name}</h6>
                         <p><strong>Company:</strong> ${match.company}</p>
                         <p><strong>Position:</strong> ${match.position || 'N/A'}</p>
                         <p><strong>Score:</strong> ${match.score ? match.score.toFixed(2) : 'N/A'}</p>
@@ -1075,6 +1101,16 @@
                         ${match.location_match_details ? `<p><strong>Location Match:</strong> ${match.location_match_details}</p>` : ''}
                         ${match.employee_connection ? `<p><strong>Employee Connection:</strong> <span class="employee-badge">${match.employee_connection}</span></p>` : ''}
                         ${match.score_breakdown && match.score_breakdown.tagged_boost > 0 ? `<p><strong>🏆 Tagged Contact:</strong> <span class="badge badge-success">+${match.score_breakdown.tagged_boost} boost</span></p>` : ''}
+                        </div>
+                        <div class="ms-3">
+                            <input type="checkbox" class="form-check-input contact-checkbox" 
+                                   id="checkbox-${match.contact_id || cardId}" 
+                                   data-contact-id="${match.contact_id || ''}"
+                                   data-contact-name="${match.name}"
+                                   data-contact-position="${match.position || ''}"
+                                   data-contact-company="${match.company}"
+                                   onchange="updateBulkSelection()">
+                        </div>
                     </div>
                     
                     ${(match.skill_matches && match.skill_matches.length > 0) || (match.score_breakdown) ? `
@@ -1309,6 +1345,128 @@ You can reach out to ${employeeName} directly to discuss the referral request.
 
         // Store current matches for referral functionality
         window.currentMatches = [];
+        
+        // Bulk selection functionality
+        function updateBulkSelection() {
+            const checkboxes = document.querySelectorAll('.contact-checkbox');
+            const selectedCount = document.querySelectorAll('.contact-checkbox:checked').length;
+            const bulkControls = document.getElementById('bulk-selection-controls');
+            const selectedCountSpan = document.getElementById('selected-count');
+            const bulkCountSpan = document.getElementById('bulk-count');
+            const bulkEmailBtn = document.getElementById('bulk-email-btn');
+            
+            // Show/hide bulk controls based on whether there are any contacts
+            if (checkboxes.length > 0) {
+                bulkControls.style.display = 'block';
+            } else {
+                bulkControls.style.display = 'none';
+            }
+            
+            // Update counts
+            selectedCountSpan.textContent = selectedCount;
+            bulkCountSpan.textContent = selectedCount;
+            
+            // Enable/disable bulk email button
+            bulkEmailBtn.disabled = selectedCount === 0;
+        }
+        
+        function selectAllContacts() {
+            const checkboxes = document.querySelectorAll('.contact-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = true;
+            });
+            updateBulkSelection();
+        }
+        
+        function deselectAllContacts() {
+            const checkboxes = document.querySelectorAll('.contact-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            updateBulkSelection();
+        }
+        
+        async function sendBulkReferralEmails() {
+            const selectedCheckboxes = document.querySelectorAll('.contact-checkbox:checked');
+            const selectedContacts = [];
+            
+            selectedCheckboxes.forEach(checkbox => {
+                const contactId = checkbox.getAttribute('data-contact-id');
+                if (contactId) {
+                    selectedContacts.push({
+                        contactId: contactId,
+                        contactName: checkbox.getAttribute('data-contact-name'),
+                        contactPosition: checkbox.getAttribute('data-contact-position'),
+                        contactCompany: checkbox.getAttribute('data-contact-company')
+                    });
+                }
+            });
+            
+            if (selectedContacts.length === 0) {
+                alert('No contacts selected for bulk referral emails.');
+                return;
+            }
+            
+            const jobTitle = document.getElementById('jobTitle').value || 'this role';
+            const jobLocation = document.getElementById('jobLocation').value || 'this location';
+            
+            // Show confirmation dialog
+            const confirmed = confirm(
+                `📧 Send Bulk Referral Emails?\n\n` +
+                `This will send ${selectedContacts.length} contacts to employees for referral requests:\n\n` +
+                `• Job Title: ${jobTitle}\n` +
+                `• Location: ${jobLocation}\n\n` +
+                `All emails will be sent automatically. Continue?`
+            );
+            
+            if (!confirmed) {
+                return;
+            }
+            
+            // Show loading state
+            const button = document.getElementById('bulk-email-btn');
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            button.disabled = true;
+            
+            try {
+                const response = await fetch('/api/send-bulk-referral-emails', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        selectedContacts: selectedContacts,
+                        jobTitle: jobTitle,
+                        jobLocation: jobLocation
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert(
+                        `✅ Bulk Referral Emails Sent Successfully!\n\n` +
+                        `📧 ${data.successful_emails}/${data.total_emails} emails sent\n` +
+                        `👥 ${data.employees_contacted.length} employees contacted\n` +
+                        `📋 ${selectedContacts.length} contacts included\n\n` +
+                        `All employees have been notified about their contacts!`
+                    );
+                    
+                    // Deselect all checkboxes after successful send
+                    deselectAllContacts();
+                } else {
+                    alert(`❌ Error sending bulk emails: ${data.error || 'Unknown error'}`);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert(`❌ Error sending bulk emails: ${error.message}`);
+            } finally {
+                // Restore button state
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }
+        }
 
         // Load stored job descriptions
         function loadStoredJobDescriptions() {

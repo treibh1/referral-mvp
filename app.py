@@ -1565,10 +1565,35 @@ def request_referral():
         db.session.add(referral)
         db.session.commit()
         
-        # Send email notification to employee (for MVP, just log it)
-        print(f"📧 Referral request sent to {employee.name} ({employee.email}) for {contact.first_name} {contact.last_name}")
-        print(f"   Job: {job_title}")
-        print(f"   Message: {requester_message}")
+        # Send email notification to employee via SendGrid
+        if email_service:
+            try:
+                # Create contact data for email
+                contact_data = [{
+                    'name': f"{contact.first_name} {contact.last_name}",
+                    'position': contact.position or 'N/A',
+                    'company': contact.company or 'N/A',
+                    'location': contact.location or 'N/A',
+                    'linkedin_url': contact.linkedin_url or 'N/A'
+                }]
+                
+                # Send individual referral email
+                email_result = email_service.send_referral_email(
+                    employee_name=employee.name,
+                    contacts=contact_data,
+                    job_title=job_title,
+                    job_location=data.get('jobLocation', 'N/A')
+                )
+                
+                if email_result['success']:
+                    secure_log(f"📧 Referral email sent to {employee.name} ({employee.email}) for {contact.first_name} {contact.last_name}")
+                else:
+                    secure_log(f"⚠️ Failed to send email to {employee.name}: {email_result.get('error', 'Unknown error')}")
+                    
+            except Exception as email_error:
+                secure_log(f"⚠️ Email service error: {str(email_error)}")
+        else:
+            secure_log(f"📧 Referral request logged (email service not available) to {employee.name} ({employee.email}) for {contact.first_name} {contact.last_name}")
         
         return jsonify({
             'success': True,
@@ -1580,6 +1605,108 @@ def request_referral():
         
     except Exception as e:
         db.session.rollback()
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/send-bulk-referral-emails', methods=['POST'])
+def send_bulk_referral_emails():
+    """Send bulk referral emails to employees for multiple contacts."""
+    try:
+        data = request.get_json()
+        selected_contacts = data.get('selectedContacts', [])
+        job_title = data.get('jobTitle', '')
+        job_location = data.get('jobLocation', '')
+        
+        if not selected_contacts:
+            return jsonify({
+                'success': False,
+                'error': 'No contacts selected'
+            }), 400
+        
+        # Get current user
+        user_id = session.get('user_id')
+        if not user_id:
+            return jsonify({
+                'success': False,
+                'error': 'Not authenticated'
+            }), 401
+        
+        current_user = User.query.get(user_id)
+        if not current_user:
+            return jsonify({
+                'success': False,
+                'error': 'User not found'
+            }), 404
+        
+        # Group contacts by employee
+        contacts_by_employee = {}
+        successful_emails = 0
+        total_emails = 0
+        
+        for contact_data in selected_contacts:
+            contact_id = contact_data.get('contactId')
+            if not contact_id:
+                continue
+                
+            # Get the contact
+            contact = Contact.query.get(contact_id)
+            if not contact:
+                continue
+            
+            # Find which employee knows this contact
+            employee_contact = EmployeeContact.query.filter_by(
+                contact_id=contact_id,
+                organisation_id=current_user.organisation_id
+            ).first()
+            
+            if not employee_contact:
+                continue
+            
+            # Get the employee
+            employee = User.query.get(employee_contact.employee_id)
+            if not employee:
+                continue
+            
+            # Add to employee's contact list
+            if employee.name not in contacts_by_employee:
+                contacts_by_employee[employee.name] = []
+            
+            contacts_by_employee[employee.name].append({
+                'name': f"{contact.first_name} {contact.last_name}",
+                'position': contact.position or 'N/A',
+                'company': contact.company or 'N/A',
+                'location': contact.location or 'N/A',
+                'linkedin_url': contact.linkedin_url or 'N/A'
+            })
+        
+        # Send emails to each employee
+        if email_service and contacts_by_employee:
+            email_results = email_service.send_bulk_referral_emails(
+                contacts_by_employee=contacts_by_employee,
+                job_title=job_title,
+                job_location=job_location
+            )
+            
+            successful_emails = email_results.get('successful_emails', 0)
+            total_emails = email_results.get('total_emails', 0)
+            
+            secure_log(f"📧 Bulk referral emails sent: {successful_emails}/{total_emails} successful")
+        else:
+            secure_log(f"📧 Bulk referral emails logged (email service not available): {len(contacts_by_employee)} employees")
+            successful_emails = len(contacts_by_employee)
+            total_emails = len(contacts_by_employee)
+        
+        return jsonify({
+            'success': True,
+            'message': f'Bulk referral emails sent to {len(contacts_by_employee)} employees',
+            'successful_emails': successful_emails,
+            'total_emails': total_emails,
+            'employees_contacted': list(contacts_by_employee.keys())
+        })
+        
+    except Exception as e:
         return jsonify({
             'success': False,
             'error': str(e)

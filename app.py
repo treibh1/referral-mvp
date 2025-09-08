@@ -48,16 +48,15 @@ def login():
         email = request.form.get('email')
         name = request.form.get('name')
         
-        # For MVP, create user if they don't exist
-        user_id = user_manager.create_user(email, name)
-        session['user_id'] = user_id
-        session['user_email'] = email
-        session['user_name'] = name
+        # For MVP, simple session-based auth (no file writes)
+        session['user_id'] = 'demo_user_123'
+        session['user_email'] = email or 'demo@example.com'
+        session['user_name'] = name or 'Demo User'
         
-        # Send welcome email
-        email_notifier.send_welcome_email(email, name)
+        # Skip email sending for MVP
+        print(f"User logged in: {name} ({email})")
         
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('index'))
     
     return render_template('login.html')
 
@@ -120,10 +119,8 @@ def match_job():
         if not job_description:
             return jsonify({'error': 'Job description is required'}), 400
         
-        # Get user's contacts
-        user_id = session.get('user_id')
-        if not user_id:
-            return jsonify({'error': 'User not authenticated'}), 401
+        # For MVP, skip authentication check
+        user_id = session.get('user_id', 'demo_user_123')
         
         # For now, use all contacts from the main CSV file
         try:

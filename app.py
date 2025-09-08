@@ -1525,7 +1525,8 @@ def referrals_page():
         return redirect(url_for('login'))
     return render_template('referrals.html')
 
-@app.route('/api/init-database', methods=['POST'])
+@app.route('/api/init-database', methods=['POST', 'GET'])
+@csrf.exempt
 def init_database_endpoint():
     """Manually initialize database with demo organization."""
     try:

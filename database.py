@@ -111,11 +111,18 @@ def create_demo_organisation():
     db.session.add(demo_employee)
     db.session.flush()
     
-    # Migrate existing CSV data to database
-    migrate_csv_to_database(demo_org.id, demo_employee.id)
-    
+    # Commit the organisation and users first
     db.session.commit()
     print(f"✅ Demo organisation created with ID: {demo_org.id}")
+    
+    # Try to migrate CSV data, but don't fail if it doesn't work
+    try:
+        print("📊 Attempting to migrate CSV data...")
+        migrate_csv_to_database(demo_org.id, demo_employee.id)
+        print("✅ CSV migration completed")
+    except Exception as e:
+        print(f"⚠️ CSV migration failed (this is OK for now): {e}")
+        print("📝 Demo organisation created without CSV data - contacts can be uploaded later")
 
 def migrate_csv_to_database(organisation_id, employee_id):
     """Migrate existing CSV data to the database."""

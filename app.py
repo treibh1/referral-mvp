@@ -1103,13 +1103,6 @@ def match_to_known_role(job_title):
     # If no match found, return the cleaned title as-is
     return job_title
 
-    except Exception as e:
-        # Ensure we always return JSON, never HTML
-        return jsonify({
-            'success': False,
-            'error': f'Failed to fetch job description: {str(e)}'
-        }), 500
-
 @app.route('/health')
 def simple_health():
     """Simple health check endpoint."""

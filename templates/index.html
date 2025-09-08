@@ -766,6 +766,8 @@
                     serpapiKey: '' // Not needed
                 };
                 
+                console.log('Sending search request with data:', formData);
+                
                 const response = await fetch('/api/match', {
                     method: 'POST',
                     headers: {
@@ -773,6 +775,9 @@
                     },
                     body: JSON.stringify(formData)
                 });
+                
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
                 
                 const result = await response.json();
                 
@@ -784,10 +789,11 @@
                 if (response.ok) {
                     displayResults(result);
                 } else {
+                    console.error('API Error:', result);
                     alert('Error: ' + (result.error || 'Unknown error occurred'));
                 }
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Network/Parse Error:', error);
                 alert('Error: ' + error.message);
             } finally {
                 // Hide loading state

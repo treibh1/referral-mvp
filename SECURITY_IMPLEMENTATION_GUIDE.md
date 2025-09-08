@@ -21,9 +21,11 @@ This document outlines the comprehensive security measures implemented in the Re
 - **XSS Prevention**: Comprehensive input cleaning before database storage
 
 ### 3. **CSRF Protection**
-- **Flask-WTF Integration**: CSRF tokens on all forms
+- **Flask-WTF Integration**: CSRF tokens on all forms and API endpoints
 - **Token Timeout**: 1-hour CSRF token expiration
 - **Automatic Protection**: All POST requests protected by default
+- **API Security**: CSRF tokens included in all AJAX requests via X-CSRFToken header
+- **Frontend Integration**: CSRF tokens automatically included in fetch requests
 
 ### 4. **Security Headers**
 All responses include security headers:

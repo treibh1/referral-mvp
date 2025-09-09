@@ -700,6 +700,29 @@ def health_check():
     """Health check endpoint."""
     return jsonify(api.test_connection())
 
+@app.route('/api/db-status')
+def db_status():
+    """Check database status."""
+    try:
+        # Test database connection
+        org_count = Organisation.query.count()
+        user_count = User.query.count()
+        
+        return jsonify({
+            'success': True,
+            'database_connected': True,
+            'organisations_count': org_count,
+            'users_count': user_count,
+            'tables_exist': True
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'database_connected': False,
+            'error': str(e),
+            'tables_exist': False
+        }), 500
+
 @app.route('/api/stats')
 def get_stats():
     """Get system statistics."""

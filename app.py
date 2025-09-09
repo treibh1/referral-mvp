@@ -154,27 +154,53 @@ def create_database_session(user_id, session_data=None):
 
 def get_database_session(session_id):
     """Get session data from database."""
+    print(f"🔍 DEBUG: get_database_session called with session_id: {session_id}")
+    
     if not session_id:
+        print(f"❌ DEBUG: No session_id provided")
         return None, None
     
-    db_session = UserSession.query.filter_by(session_id=session_id).first()
-    
-    if not db_session:
-        return None, None
-    
-    # Check if expired
-    if datetime.utcnow() > db_session.expires_at:
-        db.session.delete(db_session)
+    try:
+        print(f"🔍 DEBUG: Querying UserSession table for session_id: {session_id}")
+        db_session = UserSession.query.filter_by(session_id=session_id).first()
+        print(f"🔍 DEBUG: Database query result: {db_session}")
+        
+        if not db_session:
+            print(f"❌ DEBUG: No database session found for session_id: {session_id}")
+            # Let's check what sessions exist in the database
+            all_sessions = UserSession.query.all()
+            print(f"🔍 DEBUG: All sessions in database: {len(all_sessions)}")
+            for sess in all_sessions:
+                print(f"  - Session ID: {sess.session_id}, User ID: {sess.user_id}, Expires: {sess.expires_at}")
+            return None, None
+        
+        print(f"🔍 DEBUG: Found database session - User ID: {db_session.user_id}, Expires: {db_session.expires_at}")
+        
+        # Check if expired
+        current_time = datetime.utcnow()
+        print(f"🔍 DEBUG: Current time: {current_time}, Session expires: {db_session.expires_at}")
+        
+        if current_time > db_session.expires_at:
+            print(f"❌ DEBUG: Session expired, deleting")
+            db.session.delete(db_session)
+            db.session.commit()
+            return None, None
+        
+        print(f"✅ DEBUG: Session is valid, updating last_accessed")
+        
+        # Update last accessed
+        db_session.last_accessed = current_time
         db.session.commit()
+        
+        # Parse session data
+        session_data = json.loads(db_session.session_data) if db_session.session_data else {}
+        print(f"✅ DEBUG: Parsed session data: {session_data}")
+        return db_session.user_id, session_data
+    except Exception as e:
+        print(f"❌ DEBUG: Error getting database session: {str(e)}")
+        import traceback
+        print(f"❌ DEBUG: Traceback: {traceback.format_exc()}")
         return None, None
-    
-    # Update last accessed
-    db_session.last_accessed = datetime.utcnow()
-    db.session.commit()
-    
-    # Parse session data
-    session_data = json.loads(db_session.session_data) if db_session.session_data else {}
-    return db_session.user_id, session_data
 
 def validate_session_isolation():
     """Validate that session is properly isolated using database sessions."""

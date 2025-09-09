@@ -13,6 +13,7 @@ from user_management import UserManager
 from email_notifications import EmailNotifier
 from database import init_database, get_organisation_contacts_for_job, get_employee_contacts_for_job, get_organisation_stats
 from models import db, Organisation, User, Contact, EmployeeContact, JobDescription, Referral, UserSession
+from unified_matcher import UnifiedReferralMatcher
 import pandas as pd
 import os
 import json
@@ -393,7 +394,6 @@ def login():
             return render_template('login.html', error='User not found. Please register your company first.')
     
     print(f"🔍 DEBUG: Rendering login template")
-    print(f"🔍 DEBUG: CSRF token for template: {csrf.generate_csrf()}")
     return render_template('login.html')
 
 @app.route('/old-dashboard')
@@ -585,8 +585,6 @@ def match_job():
                 print(f"✅ DEBUG: Converted {len(contacts_data)} database contacts for matching")
                 
                 # Create a temporary matcher with database contacts
-                from unified_matcher import UnifiedReferralMatcher
-                import pandas as pd
                 
                 # Convert contacts to DataFrame format
                 contacts_df = pd.DataFrame(contacts_data)

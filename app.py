@@ -179,9 +179,15 @@ def get_database_session(session_id):
         
         # Check if expired
         current_time = datetime.now(timezone.utc)
-        print(f"🔍 DEBUG: Current time: {current_time}, Session expires: {db_session.expires_at}")
+        # Ensure expires_at is timezone-aware for comparison
+        if db_session.expires_at.tzinfo is None:
+            expires_at_aware = db_session.expires_at.replace(tzinfo=timezone.utc)
+        else:
+            expires_at_aware = db_session.expires_at
+            
+        print(f"🔍 DEBUG: Current time: {current_time}, Session expires: {expires_at_aware}")
         
-        if current_time > db_session.expires_at:
+        if current_time > expires_at_aware:
             print(f"❌ DEBUG: Session expired, deleting")
             db.session.delete(db_session)
             db.session.commit()

@@ -309,6 +309,8 @@ def login():
         print(f"🔍 DEBUG: Login POST request received")
         print(f"🔍 DEBUG: CSRF token in form: {request.form.get('csrf_token')}")
         print(f"🔍 DEBUG: CSRF token in headers: {request.headers.get('X-CSRFToken')}")
+        print(f"🔍 DEBUG: Request form data: {dict(request.form)}")
+        print(f"🔍 DEBUG: CSRF validation error: {request.form.get('csrf_token') is None}")
         email = request.form.get('email', '').strip()
         name = request.form.get('name', '').strip()
         
@@ -366,6 +368,8 @@ def login():
             secure_log(f"Login attempt with unknown email: {email}", "WARNING")
             return render_template('login.html', error='User not found. Please register your company first.')
     
+    print(f"🔍 DEBUG: Rendering login template")
+    print(f"🔍 DEBUG: CSRF token for template: {csrf.generate_csrf()}")
     return render_template('login.html')
 
 @app.route('/old-dashboard')

@@ -251,6 +251,9 @@ def require_auth(f):
         
         if not is_valid:
             print(f"❌ DEBUG: Auth failed - {message}")
+            # For API endpoints, return JSON error instead of redirect
+            if request.path.startswith('/api/'):
+                return jsonify({'error': 'Authentication required', 'message': message}), 401
             return redirect(url_for('login'))
         
         print(f"✅ DEBUG: Auth successful - {message}")

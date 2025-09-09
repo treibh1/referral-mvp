@@ -283,12 +283,10 @@ except Exception as e:
     pass
 
 # Initialize services with error handling
-try:
-    api = ReferralAPI()
-    secure_log("ReferralAPI initialized")
-except Exception as e:
-    secure_log(f"ReferralAPI initialization failed: {str(e)}", "WARNING")
-    api = None
+# NOTE: ReferralAPI will be initialized per-request with database contacts
+# instead of loading CSV contacts during startup
+api = None
+secure_log("ReferralAPI will be initialized per-request with database contacts")
 
 try:
     tagger = EnhancedContactTagger()
@@ -528,18 +526,87 @@ def match_job():
         job_title = data.get('jobTitle', '').strip()
         alternative_titles = data.get('alternativeTitles', [])
         
-        # Use the existing API instance (already configured with enhanced_tagged_contacts.csv)
-        results = api.match_job(
-            job_description=job_description,
-            job_title=job_title,
-            alternative_titles=alternative_titles,
-            top_n=top_n,
-            preferred_companies=preferred_companies,
-            preferred_industries=preferred_industries,
-            job_location=job_location,
-            enable_location_enrichment=enable_location_enrichment,
-            serpapi_key=serpapi_key
-        )
+        # DATABASE-DRIVEN: Use database contacts instead of CSV
+        # Get contacts from database based on user role
+        if demo_mode:
+            print("⚠️ DEBUG: Using demo mode - no database contacts available")
+            results = {
+                'matches': [],
+                'job_analysis': {
+                    'role_detected': 'Unknown',
+                    'role_confidence': 0.0,
+                    'company_detected': 'Unknown',
+                    'seniority_detected': 'Unknown',
+                    'skills_found': [],
+                    'platforms_found': []
+                },
+                'processing_time': 0.0
+            }
+        else:
+            print(f"✅ DEBUG: Using database contacts for user {current_user.name}")
+            
+            # Get contacts from database based on user role
+            if current_user.role == 'employee':
+                contacts = get_employee_contacts_for_job(current_user.id, job_description)
+                print(f"👤 EMPLOYEE MODE: Found {len(contacts)} contacts for employee {current_user.name}")
+            else:  # admin or recruiter
+                contacts = get_organisation_contacts_for_job(current_user.organisation_id, job_description)
+                print(f"🏢 ORG MODE: Found {len(contacts)} contacts for organization {current_user.organisation.name}")
+            
+            if not contacts:
+                print("⚠️ DEBUG: No contacts found in database")
+                results = {
+                    'matches': [],
+                    'job_analysis': {
+                        'role_detected': 'Unknown',
+                        'role_confidence': 0.0,
+                        'company_detected': 'Unknown',
+                        'seniority_detected': 'Unknown',
+                        'skills_found': [],
+                        'platforms_found': []
+                    },
+                    'processing_time': 0.0
+                }
+            else:
+                # Convert database contacts to the format expected by the matcher
+                contacts_data = []
+                for contact in contacts:
+                    contact_dict = {
+                        'name': contact.name,
+                        'company': contact.company,
+                        'position': contact.position,
+                        'location': contact.location,
+                        'linkedin_url': contact.linkedin_url,
+                        'skills': contact.skills.split(',') if contact.skills else [],
+                        'tags': contact.tags.split(',') if contact.tags else []
+                    }
+                    contacts_data.append(contact_dict)
+                
+                print(f"✅ DEBUG: Converted {len(contacts_data)} database contacts for matching")
+                
+                # Create a temporary matcher with database contacts
+                from unified_matcher import UnifiedReferralMatcher
+                import pandas as pd
+                
+                # Convert contacts to DataFrame format
+                contacts_df = pd.DataFrame(contacts_data)
+                
+                # Create matcher with database contacts
+                db_matcher = UnifiedReferralMatcher()
+                db_matcher.df = contacts_df  # Use database contacts instead of CSV
+                
+                # Perform matching
+                results = db_matcher.match_job(
+                    job_description=job_description,
+                    job_title=job_title,
+                    alternative_titles=alternative_titles,
+                    top_n=top_n,
+                    preferred_companies=preferred_companies,
+                    preferred_industries=preferred_industries,
+                    job_location=job_location,
+                    enable_location_enrichment=enable_location_enrichment,
+                    serpapi_key=serpapi_key
+                )
         
         # Add contact IDs to the results for referral functionality
         if results.get('success') and 'candidates' in results:

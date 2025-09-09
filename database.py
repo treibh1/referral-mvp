@@ -225,6 +225,24 @@ def get_organisation_contacts_for_job(organisation_id, job_description=None):
     
     return query.all()
 
+def get_employee_contacts_for_job(employee_id, job_description=None):
+    """
+    SECURE: Get contacts for a specific employee only - NO DIRECTORY ACCESS.
+    Only returns contacts that the employee has uploaded.
+    """
+    # Base query - only contacts from this specific employee
+    query = db.session.query(Contact).join(EmployeeContact).filter(
+        EmployeeContact.employee_id == employee_id
+    )
+    
+    # Add job-specific filtering if provided
+    if job_description:
+        # This is where we'd add job relevance filtering
+        # For now, return all contacts for the employee
+        pass
+    
+    return query.all()
+
 def get_organisation_stats(organisation_id):
     """Get statistics for an organisation."""
     total_contacts = db.session.query(Contact).join(EmployeeContact).filter(

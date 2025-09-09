@@ -38,7 +38,7 @@ class User(db.Model):
     organisation_id = db.Column(db.String(36), db.ForeignKey('organisations.id'), nullable=False)
     email = db.Column(db.String(255), nullable=False)
     name = db.Column(db.String(255), nullable=False)
-    role = db.Column(db.String(50), default='employee')  # admin, employee
+    role = db.Column(db.String(50), default='employee')  # admin, recruiter, employee
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
@@ -147,6 +147,22 @@ def get_organisation_contacts(organisation_id, job_context=None):
     """
     query = db.session.query(Contact).join(EmployeeContact).filter(
         EmployeeContact.organisation_id == organisation_id
+    )
+    
+    # If job context provided, add relevance filtering
+    if job_context:
+        # Add job-specific filtering here
+        pass
+    
+    return query.all()
+
+def get_employee_contacts(employee_id, job_context=None):
+    """
+    SECURE: Get contacts for a specific employee only.
+    NO DIRECTORY ACCESS - only employee's own contacts.
+    """
+    query = db.session.query(Contact).join(EmployeeContact).filter(
+        EmployeeContact.employee_id == employee_id
     )
     
     # If job context provided, add relevance filtering

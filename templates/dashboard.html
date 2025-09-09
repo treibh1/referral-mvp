@@ -314,13 +314,15 @@
             </div>
         </div>
         
-        <div class="section">
+        <!-- Invite Team Members (Admin only) -->
+        <div class="section" id="invite-section" style="display: none;">
             <h2>Invite Team Members</h2>
             <form id="invite-form" class="invite-form">
                 <input type="text" id="employee-name" placeholder="Full Name" required>
                 <input type="email" id="employee-email" placeholder="Email Address" required>
                 <select id="employee-role" required>
                     <option value="employee">Employee</option>
+                    <option value="recruiter">Recruiter</option>
                     <option value="admin">Admin</option>
                 </select>
                 <button type="submit" class="btn">Invite Team Member</button>
@@ -364,6 +366,14 @@
             document.getElementById('user-name').textContent = data.current_user.name;
             document.getElementById('user-role').textContent = data.current_user.role.toUpperCase();
             document.getElementById('user-avatar').textContent = data.current_user.name.charAt(0).toUpperCase();
+            
+            // Show/hide invite section based on role (Admin only)
+            const inviteSection = document.getElementById('invite-section');
+            if (data.current_user.role === 'admin') {
+                inviteSection.style.display = 'block';
+            } else {
+                inviteSection.style.display = 'none';
+            }
             
             // Update stats
             document.getElementById('total-contacts').textContent = data.stats.total_contacts.toLocaleString();

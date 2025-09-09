@@ -395,7 +395,7 @@
                         <h5>Location-Based Matches</h5>
                         
                         <!-- Bulk Selection Controls (Admin/Recruiter only) -->
-                        {% if user_role == 'admin' %}
+                        {% if user_role in ['admin', 'recruiter'] %}
                         <div id="bulk-selection-controls" class="mb-3" style="display: none;">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
@@ -1119,7 +1119,7 @@
                                    data-contact-position="${match.position || ''}"
                                    data-contact-company="${match.company}"
                                    onchange="updateBulkSelection()"
-                                   style="display: ${window.userRole === 'admin' ? 'block' : 'none'};">
+                                   style="display: ${['admin', 'recruiter'].includes(window.userRole) ? 'block' : 'none'};">
                         </div>
                     </div>
                     
@@ -1361,8 +1361,8 @@ You can reach out to ${employeeName} directly to discuss the referral request.
         
         // Bulk selection functionality (Admin only)
         function updateBulkSelection() {
-            // Only show bulk controls for admins
-            if (window.userRole !== 'admin') {
+            // Only show bulk controls for admins and recruiters
+            if (!['admin', 'recruiter'].includes(window.userRole)) {
                 return;
             }
             

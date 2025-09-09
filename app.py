@@ -11,7 +11,7 @@ from enhanced_contact_tagger import EnhancedContactTagger
 from email_service import ReferralEmailService
 from user_management import UserManager
 from email_notifications import EmailNotifier
-from database import init_database, get_organisation_contacts_for_job, get_organisation_stats
+from database import init_database, get_organisation_contacts_for_job, get_employee_contacts_for_job, get_organisation_stats
 from models import db, Organisation, User, Contact, EmployeeContact, JobDescription, Referral
 import pandas as pd
 import os
@@ -301,7 +301,7 @@ def match_job():
                 return jsonify({'error': 'User not found'}), 404
             demo_mode = False
         
-        # SECURE: Get contacts from database for this organisation only
+        # SECURE: Get contacts based on user role
         try:
             if demo_mode:
                 # Demo mode - use demo organization
@@ -312,8 +312,15 @@ def match_job():
                     # Fallback to CSV if no demo org
                     contacts = load_contacts_from_csv_demo()
             else:
-                # Get contacts for this organisation only - NO DIRECTORY ACCESS
-                contacts = get_organisation_contacts_for_job(current_user.organisation_id, job_description)
+                # Role-based contact access
+                if current_user.role == 'employee':
+                    # Employees can only see their own contacts
+                    contacts = get_employee_contacts_for_job(current_user.id, job_description)
+                elif current_user.role in ['recruiter', 'admin']:
+                    # Recruiters and admins can see all organization contacts
+                    contacts = get_organisation_contacts_for_job(current_user.organisation_id, job_description)
+                else:
+                    return jsonify({'error': 'Invalid user role'}), 403
             if demo_mode:
                 print(f"📊 Using {len(contacts)} contacts in demo mode")
             else:
@@ -1403,10 +1410,10 @@ def invite_employee():
             }), 400
         
         # Validate role
-        if employee_role not in ['employee', 'admin']:
+        if employee_role not in ['employee', 'recruiter', 'admin']:
             return jsonify({
                 'success': False,
-                'error': 'Role must be either "employee" or "admin"'
+                'error': 'Role must be "employee", "recruiter", or "admin"'
             }), 400
         
         # Get current user's organisation

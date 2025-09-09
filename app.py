@@ -306,6 +306,9 @@ def gamification():
 def login():
     """User login page."""
     if request.method == 'POST':
+        print(f"🔍 DEBUG: Login POST request received")
+        print(f"🔍 DEBUG: CSRF token in form: {request.form.get('csrf_token')}")
+        print(f"🔍 DEBUG: CSRF token in headers: {request.headers.get('X-CSRFToken')}")
         email = request.form.get('email', '').strip()
         name = request.form.get('name', '').strip()
         
@@ -1819,8 +1822,8 @@ def dashboard():
     ).count()
     print(f"✅ DEBUG: Dashboard - Contact count: {contact_count}")
     
-    # Get job postings count
-    job_count = JobPosting.query.filter_by(organisation_id=user.organisation_id).count()
+    # Get job descriptions count
+    job_count = JobDescription.query.filter_by(organisation_id=user.organisation_id).count()
     print(f"✅ DEBUG: Dashboard - Job count: {job_count}")
     
     print(f"✅ DEBUG: Dashboard - Rendering template")

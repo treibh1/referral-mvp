@@ -132,17 +132,25 @@ def create_database_session(user_id, session_data=None):
     session_id = str(uuid.uuid4())
     expires_at = datetime.utcnow() + timedelta(hours=1)  # 1 hour expiry
     
-    db_session = UserSession(
-        session_id=session_id,
-        user_id=user_id,
-        session_data=json.dumps(session_data) if session_data else None,
-        expires_at=expires_at
-    )
+    print(f"🔍 DEBUG: Creating database session - session_id: {session_id}, user_id: {user_id}")
     
-    db.session.add(db_session)
-    db.session.commit()
-    
-    return session_id
+    try:
+        db_session = UserSession(
+            session_id=session_id,
+            user_id=user_id,
+            session_data=json.dumps(session_data) if session_data else None,
+            expires_at=expires_at
+        )
+        
+        db.session.add(db_session)
+        db.session.commit()
+        
+        print(f"✅ DEBUG: Database session created successfully")
+        return session_id
+    except Exception as e:
+        print(f"❌ DEBUG: Failed to create database session: {str(e)}")
+        db.session.rollback()
+        raise
 
 def get_database_session(session_id):
     """Get session data from database."""
@@ -172,23 +180,35 @@ def validate_session_isolation():
     """Validate that session is properly isolated using database sessions."""
     # Get session ID from cookie
     session_id = request.cookies.get('referral_session')
+    print(f"🔍 DEBUG: Cookie session_id = {session_id}")
     
     if not session_id:
+        print("❌ DEBUG: No session cookie found - using Flask default session")
+        # Fallback to Flask session for debugging
+        user_id = session.get('user_id')
+        if user_id:
+            user = User.query.get(user_id)
+            if user:
+                return True, f"Flask session fallback for {user.name} ({user.email})"
         return False, "No session cookie found"
     
     # Get session from database
     user_id, session_data = get_database_session(session_id)
+    print(f"🔍 DEBUG: Database session lookup - user_id: {user_id}, data: {session_data}")
     
     if not user_id:
+        print("❌ DEBUG: Invalid or expired database session")
         return False, "Invalid or expired session"
     
     # Verify user still exists
     user = User.query.get(user_id)
     if not user:
+        print("❌ DEBUG: User not found in database")
         return False, "User not found in database"
     
     # Update Flask session with database data
     session.update(session_data)
+    print(f"✅ DEBUG: Updated Flask session with database data")
     
     return True, f"Valid database session for {user.name} ({user.email})"
 
@@ -308,11 +328,13 @@ def login():
             session_id = create_database_session(user.id, session_data)
             
             print(f"✅ DEBUG: Database session created - session_id: {session_id}, user_id: {user.id}")
+            print(f"✅ DEBUG: Session data: {session_data}")
             secure_log(f"User logged in: {user.name} from {user.organisation.name}")
             
             # Create response with session cookie
             response = redirect(url_for('dashboard'))
             response.set_cookie('referral_session', session_id, max_age=3600, httponly=True, secure=True, samesite='Lax')
+            print(f"✅ DEBUG: Cookie set - referral_session: {session_id}")
             return response
         else:
             # User doesn't exist, show error

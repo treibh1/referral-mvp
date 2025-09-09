@@ -1540,12 +1540,48 @@ def invite_employee():
         db.session.add(new_user)
         db.session.commit()
         
+        # Send invitation email
+        email_result = None
+        if email_service:
+            try:
+                # Use organization-specific email settings if available
+                if current_user.organisation.from_email:
+                    email_service.from_email = current_user.organisation.from_email
+                if current_user.organisation.from_name:
+                    email_service.from_name = current_user.organisation.from_name
+                
+                email_result = email_service.send_team_invitation_email(
+                    employee_name=employee_name,
+                    employee_email=employee_email,
+                    role=employee_role,
+                    company_name=current_user.organisation.name,
+                    inviter_name=current_user.name
+                )
+                
+                if email_result['success']:
+                    secure_log(f"📧 Invitation email sent to {employee_name} ({employee_email})")
+                else:
+                    secure_log(f"⚠️ Failed to send invitation email to {employee_name}: {email_result.get('error', 'Unknown error')}")
+            except Exception as email_error:
+                secure_log(f"⚠️ Error sending invitation email: {str(email_error)}")
+        
         role_text = "admin" if employee_role == 'admin' else "employee"
+        message = f'{role_text.title()} invited successfully'
+        
+        # Add email status to message
+        if email_result and email_result['success']:
+            message += ' and invitation email sent'
+        elif email_result and not email_result['success']:
+            message += ' (email invitation failed)'
+        else:
+            message += ' (email service unavailable)'
+        
         return jsonify({
             'success': True,
-            'message': f'{role_text.title()} invited successfully',
+            'message': message,
             'user_id': new_user.id,
-            'role': employee_role
+            'role': employee_role,
+            'email_sent': email_result['success'] if email_result else False
         })
         
     except Exception as e:

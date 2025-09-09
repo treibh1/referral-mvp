@@ -209,4 +209,172 @@ The Recruiting Team"""
             'results': results,
             'message': f"Sent {successful_emails}/{total_emails} emails successfully"
         }
+    
+    def send_team_invitation_email(self, employee_name: str, employee_email: str, 
+                                 role: str, company_name: str, inviter_name: str) -> Dict:
+        """Send team invitation email to new team member."""
+        
+        try:
+            # Email subject
+            subject = f"You've been invited to join {company_name} on Referral System"
+            
+            # Email body (HTML)
+            html_body = f"""
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <h2 style="color: #2c3e50;">Welcome to {company_name}!</h2>
+                
+                <p>Hi {employee_name},</p>
+                
+                <p><strong>{inviter_name}</strong> has invited you to join <strong>{company_name}</strong> on our Referral System as a <strong>{role.title()}</strong>.</p>
+                
+                <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <h3 style="color: #2c3e50; margin-top: 0;">What you can do as a {role.title()}:</h3>
+                    <ul style="color: #555;">
+                        {self._get_role_permissions_html(role)}
+                    </ul>
+                </div>
+                
+                <div style="background-color: #d4edda; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #28a745;">
+                    <h3 style="color: #155724; margin-top: 0;">🚀 Get Started</h3>
+                    <p style="margin-bottom: 15px;">To join your team, simply:</p>
+                    <ol style="color: #155724;">
+                        <li>Go to: <strong>https://web-production-2d975.up.railway.app/login</strong></li>
+                        <li>Enter your email: <strong>{employee_email}</strong></li>
+                        <li>Enter your name: <strong>{employee_name}</strong></li>
+                        <li>Click "Login" to access your dashboard</li>
+                    </ol>
+                </div>
+                
+                <div style="background-color: #e7f3ff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #007bff;">
+                    <h3 style="color: #004085; margin-top: 0;">💡 Need Help?</h3>
+                    <p style="color: #004085; margin-bottom: 0;">If you have any questions, feel free to reach out to {inviter_name} or contact our support team.</p>
+                </div>
+                
+                <p>Welcome to the team!</p>
+                <p><strong>The {company_name} Team</strong></p>
+            </div>
+            """
+            
+            # Email body (plain text)
+            text_body = f"""Welcome to {company_name}!
+
+Hi {employee_name},
+
+{inviter_name} has invited you to join {company_name} on our Referral System as a {role.title()}.
+
+What you can do as a {role.title()}:{self._get_role_permissions_text(role)}
+
+🚀 Get Started:
+To join your team, simply:
+1. Go to: https://web-production-2d975.up.railway.app/login
+2. Enter your email: {employee_email}
+3. Enter your name: {employee_name}
+4. Click "Login" to access your dashboard
+
+💡 Need Help?
+If you have any questions, feel free to reach out to {inviter_name} or contact our support team.
+
+Welcome to the team!
+The {company_name} Team"""
+            
+            # Create email
+            from_email = Email(self.from_email, self.from_name)
+            to_email_obj = To(employee_email, employee_name)
+            html_content = HtmlContent(html_body)
+            text_content = Content("text/plain", text_body)
+            
+            mail = Mail(from_email, to_email_obj, subject, text_content)
+            mail.add_content(html_content)
+            
+            # Send email if API key is available
+            if self.api_key:
+                sg = SendGridAPIClient(api_key=self.api_key)
+                response = sg.send(mail)
+                
+                return {
+                    'success': True,
+                    'employee': employee_name,
+                    'email': employee_email,
+                    'role': role,
+                    'status_code': response.status_code,
+                    'message': f"Invitation email sent to {employee_name} ({employee_email})"
+                }
+            else:
+                # Log email content for testing
+                print(f"📧 TEST INVITATION EMAIL - Would send to {employee_name} ({employee_email}):")
+                print(f"   Subject: {subject}")
+                print(f"   Role: {role}")
+                print(f"   Company: {company_name}")
+                
+                return {
+                    'success': True,
+                    'employee': employee_name,
+                    'email': employee_email,
+                    'role': role,
+                    'status_code': 200,
+                    'message': f"TEST MODE: Invitation email logged for {employee_name} ({employee_email})"
+                }
+                
+        except Exception as e:
+            return {
+                'success': False,
+                'employee': employee_name,
+                'email': employee_email,
+                'error': str(e),
+                'message': f"Failed to send invitation email to {employee_name}: {str(e)}"
+            }
+    
+    def _get_role_permissions_html(self, role: str) -> str:
+        """Get role permissions as HTML list items."""
+        permissions = {
+            'admin': [
+                '<li>Invite team members (employees, recruiters, admins)</li>',
+                '<li>Search all company contacts</li>',
+                '<li>Use bulk email features</li>',
+                '<li>Manage company settings</li>',
+                '<li>View company dashboard and analytics</li>'
+            ],
+            'recruiter': [
+                '<li>Search all company contacts</li>',
+                '<li>Use bulk email features</li>',
+                '<li>Request referrals from employees</li>',
+                '<li>View job matching results</li>',
+                '<li>Access referral management tools</li>'
+            ],
+            'employee': [
+                '<li>Upload your own contacts</li>',
+                '<li>Search only your contacts</li>',
+                '<li>Request referrals for your contacts</li>',
+                '<li>Respond to referral requests</li>',
+                '<li>View your referral activity</li>'
+            ]
+        }
+        return ''.join(permissions.get(role, ['<li>Access basic features</li>']))
+    
+    def _get_role_permissions_text(self, role: str) -> str:
+        """Get role permissions as plain text."""
+        permissions = {
+            'admin': [
+                '• Invite team members (employees, recruiters, admins)',
+                '• Search all company contacts',
+                '• Use bulk email features',
+                '• Manage company settings',
+                '• View company dashboard and analytics'
+            ],
+            'recruiter': [
+                '• Search all company contacts',
+                '• Use bulk email features',
+                '• Request referrals from employees',
+                '• View job matching results',
+                '• Access referral management tools'
+            ],
+            'employee': [
+                '• Upload your own contacts',
+                '• Search only your contacts',
+                '• Request referrals for your contacts',
+                '• Respond to referral requests',
+                '• View your referral activity'
+            ]
+        }
+        return '\n' + '\n'.join(permissions.get(role, ['• Access basic features']))
 

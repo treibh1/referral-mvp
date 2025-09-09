@@ -558,15 +558,24 @@ def import_contacts():
                     db.session.add(contact)
                     db.session.flush()
                 
-                # Link to this employee at this organisation
-                employee_contact = EmployeeContact(
+                # Check if this employee-contact relationship already exists
+                existing_relationship = EmployeeContact.query.filter_by(
                     employee_id=current_user.id,
-                    contact_id=contact.id,
-                    organisation_id=user_org.id,
-                    relationship_type='linkedin_connection'
-                )
-                db.session.add(employee_contact)
-                stored_count += 1
+                    contact_id=contact.id
+                ).first()
+                
+                if not existing_relationship:
+                    # Link to this employee at this organisation
+                    employee_contact = EmployeeContact(
+                        employee_id=current_user.id,
+                        contact_id=contact.id,
+                        organisation_id=user_org.id,
+                        relationship_type='linkedin_connection'
+                    )
+                    db.session.add(employee_contact)
+                    stored_count += 1
+                else:
+                    print(f"Contact {contact.first_name} {contact.last_name} already linked to employee")
                 
             except Exception as e:
                 print(f"Error storing contact {row.get('First Name', 'Unknown')}: {e}")

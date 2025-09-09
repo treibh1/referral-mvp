@@ -38,6 +38,13 @@ app.config['WTF_CSRF_ENABLED'] = True
 app.config['WTF_CSRF_TIME_LIMIT'] = 3600  # 1 hour
 app.config['PERMANENT_SESSION_LIFETIME'] = 3600  # 1 hour session timeout
 
+# CRITICAL: Session isolation for multi-tenant security
+app.config['SESSION_COOKIE_NAME'] = 'referral_session'
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SECURE'] = True  # HTTPS only
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'  # CSRF protection
+app.config['SESSION_COOKIE_DOMAIN'] = None  # Don't share across subdomains
+
 # Initialize CSRF protection
 csrf = CSRFProtect(app)
 
@@ -118,6 +125,25 @@ def secure_log(message, level="INFO"):
         message = re.sub(pattern, '[REDACTED]', message, flags=re.IGNORECASE)
     
     print(f"[{level}] {message}")
+
+def validate_session_isolation():
+    """Validate that session is properly isolated and not shared across users."""
+    user_id = session.get('user_id')
+    if not user_id:
+        return False, "No user session found"
+    
+    # Verify user still exists in database
+    user = User.query.get(user_id)
+    if not user:
+        session.clear()  # Clear invalid session
+        return False, "User session invalid - user not found"
+    
+    # Verify session data matches database
+    if session.get('user_email') != user.email:
+        session.clear()  # Clear mismatched session
+        return False, "Session data mismatch - clearing session"
+    
+    return True, f"Valid session for {user.name} ({user.email})"
 
 def require_auth(f):
     """Decorator to require authentication."""
@@ -293,23 +319,20 @@ def match_job():
         if not job_description:
             return jsonify({'error': 'Job description is required'}), 400
         
-        # Get current user's organization (allow demo mode)
-        user_id = session.get('user_id')
-        print(f"🔍 DEBUG: Session user_id = {user_id}")
-        print(f"🔍 DEBUG: Full session = {dict(session)}")
+        # CRITICAL: Validate session isolation first
+        session_valid, session_msg = validate_session_isolation()
+        print(f"🔍 DEBUG: Session validation: {session_msg}")
         
-        if not user_id:
-            # Demo mode - use demo organization
+        if not session_valid:
+            print("⚠️ DEBUG: Invalid session - using DEMO MODE")
             current_user = None
             demo_mode = True
-            print("⚠️ DEBUG: No user_id in session - using DEMO MODE")
         else:
+            # Session is valid, get user
+            user_id = session.get('user_id')
             current_user = User.query.get(user_id)
-            if not current_user:
-                print(f"❌ DEBUG: User {user_id} not found in database")
-                return jsonify({'error': 'User not found'}), 404
             demo_mode = False
-            print(f"✅ DEBUG: User found: {current_user.name} ({current_user.email}) from {current_user.organisation.name}")
+            print(f"✅ DEBUG: Valid session for {current_user.name} ({current_user.email}) from {current_user.organisation.name}")
         
         # SECURE: Get contacts based on user role
         try:
@@ -326,9 +349,11 @@ def match_job():
                 if current_user.role == 'employee':
                     # Employees can only see their own contacts
                     contacts = get_employee_contacts_for_job(current_user.id, job_description)
+                    print(f"👤 EMPLOYEE MODE: {current_user.name} sees only their own {len(contacts)} contacts")
                 elif current_user.role in ['recruiter', 'admin']:
-                    # Recruiters and admins can see all organization contacts
+                    # Recruiters and admins can see ALL contacts uploaded by ANYONE in the organization
                     contacts = get_organisation_contacts_for_job(current_user.organisation_id, job_description)
+                    print(f"🏢 ORG MODE: {current_user.name} ({current_user.role}) sees ALL {len(contacts)} contacts in organization")
                 else:
                     return jsonify({'error': 'Invalid user role'}), 403
             if demo_mode:

@@ -209,13 +209,14 @@ def migrate_csv_to_database(organisation_id, employee_id):
 
 def get_organisation_contacts_for_job(organisation_id, job_description=None):
     """
-    SECURE: Get contacts for job matching - NO DIRECTORY ACCESS.
-    Only returns contacts relevant to the specific job context.
+    SECURE: Get ALL contacts uploaded by ANY employee in the organization.
+    Used by Admins and Recruiters - they can see everyone's contacts.
+    NO DIRECTORY ACCESS - only returns contacts relevant to job context.
     """
-    # Base query - only contacts from this organisation
+    # Base query - ALL contacts from this organisation (uploaded by ANY employee)
     query = db.session.query(Contact).join(EmployeeContact).filter(
         EmployeeContact.organisation_id == organisation_id
-    )
+    ).distinct()  # Remove duplicates if same contact uploaded by multiple employees
     
     # Add job-specific filtering if provided
     if job_description:
@@ -223,12 +224,15 @@ def get_organisation_contacts_for_job(organisation_id, job_description=None):
         # For now, return all contacts for the organisation
         pass
     
-    return query.all()
+    contacts = query.all()
+    print(f"🏢 ORGANIZATION CONTACTS: Found {len(contacts)} contacts uploaded by ANY employee in org {organisation_id}")
+    return contacts
 
 def get_employee_contacts_for_job(employee_id, job_description=None):
     """
-    SECURE: Get contacts for a specific employee only - NO DIRECTORY ACCESS.
-    Only returns contacts that the employee has uploaded.
+    SECURE: Get contacts uploaded by a SPECIFIC employee only.
+    Used by Employees - they can only see their own uploaded contacts.
+    NO DIRECTORY ACCESS - only returns contacts relevant to job context.
     """
     # Base query - only contacts from this specific employee
     query = db.session.query(Contact).join(EmployeeContact).filter(
@@ -241,7 +245,9 @@ def get_employee_contacts_for_job(employee_id, job_description=None):
         # For now, return all contacts for the employee
         pass
     
-    return query.all()
+    contacts = query.all()
+    print(f"👤 EMPLOYEE CONTACTS: Found {len(contacts)} contacts uploaded by employee {employee_id}")
+    return contacts
 
 def get_organisation_stats(organisation_id):
     """Get statistics for an organisation."""

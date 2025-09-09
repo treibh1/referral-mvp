@@ -1630,50 +1630,45 @@ def init_database_endpoint():
     """Manually initialize database with demo organization and run migrations."""
     try:
         # First, run database migration to add missing columns
-        try:
-            from sqlalchemy import text
-            
-            print("🔧 Running database migration...")
-            
-            # Check if from_email column exists and add it if missing
-            result = db.session.execute(text("""
-                SELECT column_name 
-                FROM information_schema.columns 
-                WHERE table_name = 'organisations' 
-                AND column_name = 'from_email'
-            """))
-            
-            if not result.fetchone():
-                print("➕ Adding from_email column to organisations table...")
-                db.session.execute(text("ALTER TABLE organisations ADD COLUMN from_email VARCHAR(255)"))
-                db.session.commit()
-                print("✅ Added from_email column")
-            else:
-                print("✅ from_email column already exists")
-            
-            # Check if from_name column exists and add it if missing
-            result = db.session.execute(text("""
-                SELECT column_name 
-                FROM information_schema.columns 
-                WHERE table_name = 'organisations' 
-                AND column_name = 'from_name'
-            """))
-            
-            if not result.fetchone():
-                print("➕ Adding from_name column to organisations table...")
-                db.session.execute(text("ALTER TABLE organisations ADD COLUMN from_name VARCHAR(255)"))
-                db.session.commit()
-                print("✅ Added from_name column")
-            else:
-                print("✅ from_name column already exists")
-            
-            print("✅ Database migration completed successfully")
-            
-        except Exception as migration_error:
-            print(f"⚠️ Migration warning: {migration_error}")
-            # Continue even if migration fails
+        from sqlalchemy import text
         
-        # Check if demo organization already exists
+        print("🔧 Running database migration...")
+        
+        # Check if from_email column exists and add it if missing
+        result = db.session.execute(text("""
+            SELECT column_name 
+            FROM information_schema.columns 
+            WHERE table_name = 'organisations' 
+            AND column_name = 'from_email'
+        """))
+        
+        if not result.fetchone():
+            print("➕ Adding from_email column to organisations table...")
+            db.session.execute(text("ALTER TABLE organisations ADD COLUMN from_email VARCHAR(255)"))
+            db.session.commit()
+            print("✅ Added from_email column")
+        else:
+            print("✅ from_email column already exists")
+        
+        # Check if from_name column exists and add it if missing
+        result = db.session.execute(text("""
+            SELECT column_name 
+            FROM information_schema.columns 
+            WHERE table_name = 'organisations' 
+            AND column_name = 'from_name'
+        """))
+        
+        if not result.fetchone():
+            print("➕ Adding from_name column to organisations table...")
+            db.session.execute(text("ALTER TABLE organisations ADD COLUMN from_name VARCHAR(255)"))
+            db.session.commit()
+            print("✅ Added from_name column")
+        else:
+            print("✅ from_name column already exists")
+        
+        print("✅ Database migration completed successfully")
+        
+        # Now check if demo organization already exists (after migration)
         demo_org = Organisation.query.filter_by(name="Demo Company").first()
         
         if demo_org:

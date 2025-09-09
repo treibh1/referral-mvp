@@ -1389,16 +1389,24 @@ def register_company():
 
 @app.route('/api/invite-employee', methods=['POST'])
 def invite_employee():
-    """Invite a new employee to the company."""
+    """Invite a new employee or admin to the company."""
     try:
         data = request.get_json()
         employee_email = data.get('employeeEmail', '').strip()
         employee_name = data.get('employeeName', '').strip()
+        employee_role = data.get('employeeRole', 'employee').strip()  # New field
         
         if not all([employee_email, employee_name]):
             return jsonify({
                 'success': False,
                 'error': 'Employee email and name are required'
+            }), 400
+        
+        # Validate role
+        if employee_role not in ['employee', 'admin']:
+            return jsonify({
+                'success': False,
+                'error': 'Role must be either "employee" or "admin"'
             }), 400
         
         # Get current user's organisation
@@ -1413,31 +1421,33 @@ def invite_employee():
         if not current_user or current_user.role != 'admin':
             return jsonify({
                 'success': False,
-                'error': 'Only admins can invite employees'
+                'error': 'Only admins can invite users'
             }), 403
         
-        # Check if employee already exists
-        existing_employee = User.query.filter_by(email=employee_email).first()
-        if existing_employee:
+        # Check if user already exists
+        existing_user = User.query.filter_by(email=employee_email).first()
+        if existing_user:
             return jsonify({
                 'success': False,
-                'error': 'Employee email already registered'
+                'error': 'User email already registered'
             }), 400
         
-        # Create new employee
-        new_employee = User(
+        # Create new user
+        new_user = User(
             organisation_id=current_user.organisation_id,
             email=employee_email,
             name=employee_name,
-            role='employee'
+            role=employee_role
         )
-        db.session.add(new_employee)
+        db.session.add(new_user)
         db.session.commit()
         
+        role_text = "admin" if employee_role == 'admin' else "employee"
         return jsonify({
             'success': True,
-            'message': 'Employee invited successfully',
-            'employee_id': new_employee.id
+            'message': f'{role_text.title()} invited successfully',
+            'user_id': new_user.id,
+            'role': employee_role
         })
         
     except Exception as e:

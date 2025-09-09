@@ -315,11 +315,15 @@
         </div>
         
         <div class="section">
-            <h2>Invite Employees</h2>
+            <h2>Invite Team Members</h2>
             <form id="invite-form" class="invite-form">
-                <input type="text" id="employee-name" placeholder="Employee Name" required>
-                <input type="email" id="employee-email" placeholder="Employee Email" required>
-                <button type="submit" class="btn">Invite Employee</button>
+                <input type="text" id="employee-name" placeholder="Full Name" required>
+                <input type="email" id="employee-email" placeholder="Email Address" required>
+                <select id="employee-role" required>
+                    <option value="employee">Employee</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <button type="submit" class="btn">Invite Team Member</button>
             </form>
         </div>
         
@@ -419,6 +423,7 @@
             
             const nameInput = document.getElementById('employee-name');
             const emailInput = document.getElementById('employee-email');
+            const roleInput = document.getElementById('employee-role');
             const submitBtn = e.target.querySelector('button[type="submit"]');
             
             submitBtn.disabled = true;
@@ -432,7 +437,8 @@
                     },
                     body: JSON.stringify({
                         employeeName: nameInput.value,
-                        employeeEmail: emailInput.value
+                        employeeEmail: emailInput.value,
+                        employeeRole: roleInput.value
                     })
                 });
                 
@@ -442,6 +448,7 @@
                     showSuccess(result.message);
                     nameInput.value = '';
                     emailInput.value = '';
+                    roleInput.value = 'employee'; // Reset to default
                     // Reload dashboard to show new employee
                     loadDashboard();
                 } else {

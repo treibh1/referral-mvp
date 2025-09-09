@@ -316,6 +316,9 @@ def login():
         print(f"🔍 DEBUG: User found: {user}")
         
         if user:
+            print(f"✅ DEBUG: User found - ID: {user.id}, Name: {user.name}, Email: {user.email}, Role: {user.role}")
+            print(f"✅ DEBUG: User organisation: {user.organisation.name if user.organisation else 'None'}")
+            
             # Create database-backed session
             session_data = {
                 'user_id': str(user.id),
@@ -325,20 +328,28 @@ def login():
                 'user_role': user.role
             }
             
-            session_id = create_database_session(user.id, session_data)
-            
-            print(f"✅ DEBUG: Database session created - session_id: {session_id}, user_id: {user.id}")
-            print(f"✅ DEBUG: Session data: {session_data}")
-            secure_log(f"User logged in: {user.name} from {user.organisation.name}")
-            
-            # Create response with session cookie
-            response = redirect(url_for('dashboard'))
-            response.set_cookie('referral_session', session_id, max_age=3600, httponly=True, secure=True, samesite='Lax')
-            print(f"✅ DEBUG: Cookie set - referral_session: {session_id}")
-            return response
+            try:
+                session_id = create_database_session(user.id, session_data)
+                
+                print(f"✅ DEBUG: Database session created - session_id: {session_id}, user_id: {user.id}")
+                print(f"✅ DEBUG: Session data: {session_data}")
+                secure_log(f"User logged in: {user.name} from {user.organisation.name}")
+                
+                # Create response with session cookie
+                response = redirect(url_for('dashboard'))
+                response.set_cookie('referral_session', session_id, max_age=3600, httponly=True, secure=True, samesite='Lax')
+                print(f"✅ DEBUG: Cookie set - referral_session: {session_id}")
+                return response
+            except Exception as e:
+                print(f"❌ DEBUG: Failed to create database session: {str(e)}")
+                return render_template('login.html', error=f'Login failed: {str(e)}')
         else:
             # User doesn't exist, show error
             print(f"❌ DEBUG: No user found with email: {email}")
+            print(f"❌ DEBUG: Available users in database:")
+            all_users = User.query.all()
+            for u in all_users:
+                print(f"  - {u.email} ({u.name}) - Role: {u.role}")
             secure_log(f"Login attempt with unknown email: {email}", "WARNING")
             return render_template('login.html', error='User not found. Please register your company first.')
     

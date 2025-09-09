@@ -723,6 +723,65 @@ def db_status():
             'tables_exist': False
         }), 500
 
+@app.route('/api/migrate-database', methods=['POST'])
+def migrate_database():
+    """Run database migration to add missing columns."""
+    try:
+        from sqlalchemy import text
+        
+        print("🔧 Starting database migration...")
+        
+        # Check if from_email column exists and add it if missing
+        result = db.session.execute(text("""
+            SELECT column_name 
+            FROM information_schema.columns 
+            WHERE table_name = 'organisations' 
+            AND column_name = 'from_email'
+        """))
+        
+        if not result.fetchone():
+            print("➕ Adding from_email column to organisations table...")
+            db.session.execute(text("ALTER TABLE organisations ADD COLUMN from_email VARCHAR(255)"))
+            db.session.commit()
+            print("✅ Added from_email column")
+        else:
+            print("✅ from_email column already exists")
+        
+        # Check if from_name column exists and add it if missing
+        result = db.session.execute(text("""
+            SELECT column_name 
+            FROM information_schema.columns 
+            WHERE table_name = 'organisations' 
+            AND column_name = 'from_name'
+        """))
+        
+        if not result.fetchone():
+            print("➕ Adding from_name column to organisations table...")
+            db.session.execute(text("ALTER TABLE organisations ADD COLUMN from_name VARCHAR(255)"))
+            db.session.commit()
+            print("✅ Added from_name column")
+        else:
+            print("✅ from_name column already exists")
+        
+        # Test the migration
+        print("🧪 Testing migration...")
+        org_count = Organisation.query.count()
+        print(f"✅ Migration successful! Found {org_count} organisations")
+        
+        return jsonify({
+            'success': True,
+            'message': 'Database migration completed successfully',
+            'organisations_count': org_count
+        })
+        
+    except Exception as e:
+        db.session.rollback()
+        secure_log(f"Database migration failed: {str(e)}", "ERROR")
+        return jsonify({
+            'success': False,
+            'error': f'Migration failed: {str(e)}'
+        }), 500
+
 @app.route('/api/stats')
 def get_stats():
     """Get system statistics."""

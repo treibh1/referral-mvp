@@ -443,6 +443,14 @@
             try {
                 // Get CSRF token from meta tag
                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                console.log('CSRF Token:', csrfToken);
+                
+                const requestData = {
+                    employeeName: nameInput.value,
+                    employeeEmail: emailInput.value,
+                    employeeRole: roleInput.value
+                };
+                console.log('Request Data:', requestData);
                 
                 const response = await fetch('/api/invite-employee', {
                     method: 'POST',
@@ -450,12 +458,10 @@
                         'Content-Type': 'application/json',
                         'X-CSRFToken': csrfToken
                     },
-                    body: JSON.stringify({
-                        employeeName: nameInput.value,
-                        employeeEmail: emailInput.value,
-                        employeeRole: roleInput.value
-                    })
+                    body: JSON.stringify(requestData)
                 });
+                
+                console.log('Response Status:', response.status);
                 
                 const result = await response.json();
                 

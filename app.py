@@ -374,33 +374,32 @@ def old_dashboard():
     return redirect(url_for('dashboard'))
 
 @app.route('/upload')
+@require_auth
 def upload_page():
     """Contact upload page."""
     return render_template('upload.html')
 
 @app.route('/import')
+@require_auth
 def import_page():
     """Contact import page."""
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
     return render_template('import.html')
 
 @app.route('/enrichment')
+@require_auth
 def enrichment_page():
     """Contact enrichment page."""
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
     return render_template('contact_enrichment.html')
 
 @app.route('/job-descriptions')
+@require_auth
 def job_descriptions_page():
     """Job descriptions management page."""
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
     return render_template('job_descriptions.html')
 
 
 @app.route('/api/match', methods=['POST'])
+@require_auth
 def match_job():
     """Match job description to contacts with full feature set."""
     try:
@@ -532,6 +531,7 @@ def match_job():
         return jsonify({'error': 'Internal server error'}), 500
 
 @app.route('/api/import-contacts', methods=['POST'])
+@require_auth
 def import_contacts():
     """API endpoint for importing and tagging LinkedIn contacts."""
     try:
@@ -937,16 +937,16 @@ def get_stats():
 # REMOVED: Duplicate /api/request-referral route - using the database-integrated version below
 
 @app.route('/referrals/<referral_id>')
+@require_auth
 def view_referral(referral_id):
     """View specific referral request."""
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
     
     # This would load the referral details
     # For now, return a placeholder page
     return render_template('referral_detail.html', referral_id=referral_id)
 
 @app.route('/api/fetch-job', methods=['POST'])
+@require_auth
 def fetch_job_description():
     """Fetch job description from a URL."""
     try:
@@ -1624,6 +1624,7 @@ def register_company():
         }), 500
 
 @app.route('/api/invite-employee', methods=['POST'])
+@require_auth
 def invite_employee():
     """Invite a new employee or admin to the company."""
     try:
@@ -1838,10 +1839,9 @@ def dashboard():
                          job_count=job_count)
 
 @app.route('/referrals')
+@require_auth
 def referrals_page():
     """Referrals management page."""
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
     return render_template('referrals.html')
 
 @app.route('/api/init-database', methods=['POST', 'GET'])
@@ -2394,6 +2394,7 @@ def update_referral_status():
         }), 500
 
 @app.route('/logout')
+@require_auth
 def logout():
     """User logout."""
     session.clear()

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Contact Import - Referral Matching System</title>
     <style>
         * {
@@ -367,6 +368,10 @@
         function uploadFile(file) {
             const formData = new FormData();
             formData.append('file', file);
+            
+            // Add CSRF token
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            formData.append('csrf_token', csrfToken);
 
             // Show progress
             progressSection.style.display = 'block';

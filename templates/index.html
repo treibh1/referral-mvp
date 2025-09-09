@@ -1199,10 +1199,12 @@
              }
              
              try {
+                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                  const response = await fetch('/api/request-referral', {
                      method: 'POST',
                      headers: {
                          'Content-Type': 'application/json',
+                         'X-CSRFToken': csrfToken
                      },
                      body: JSON.stringify({
                          contactId: contactId,
@@ -1317,10 +1319,12 @@ You can reach out to ${employeeName} directly to discuss the referral request.
              button.disabled = true;
              
              // Send bulk emails via API
+             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
              fetch('/api/send-referral-emails', {
                  method: 'POST',
                  headers: {
                      'Content-Type': 'application/json',
+                     'X-CSRFToken': csrfToken
                  },
                  body: JSON.stringify({
                      contacts: contactsWithConnections,
@@ -1448,10 +1452,12 @@ You can reach out to ${employeeName} directly to discuss the referral request.
             button.disabled = true;
             
             try {
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 const response = await fetch('/api/send-bulk-referral-emails', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
                     },
                     body: JSON.stringify({
                         selectedContacts: selectedContacts,

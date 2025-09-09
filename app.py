@@ -723,7 +723,7 @@ def db_status():
             'tables_exist': False
         }), 500
 
-@app.route('/api/migrate-database', methods=['POST'])
+@app.route('/api/migrate-database', methods=['GET', 'POST'])
 def migrate_database():
     """Run database migration to add missing columns."""
     try:
@@ -1627,15 +1627,59 @@ def referrals_page():
 @app.route('/api/init-database', methods=['POST', 'GET'])
 @csrf.exempt
 def init_database_endpoint():
-    """Manually initialize database with demo organization."""
+    """Manually initialize database with demo organization and run migrations."""
     try:
+        # First, run database migration to add missing columns
+        try:
+            from sqlalchemy import text
+            
+            print("🔧 Running database migration...")
+            
+            # Check if from_email column exists and add it if missing
+            result = db.session.execute(text("""
+                SELECT column_name 
+                FROM information_schema.columns 
+                WHERE table_name = 'organisations' 
+                AND column_name = 'from_email'
+            """))
+            
+            if not result.fetchone():
+                print("➕ Adding from_email column to organisations table...")
+                db.session.execute(text("ALTER TABLE organisations ADD COLUMN from_email VARCHAR(255)"))
+                db.session.commit()
+                print("✅ Added from_email column")
+            else:
+                print("✅ from_email column already exists")
+            
+            # Check if from_name column exists and add it if missing
+            result = db.session.execute(text("""
+                SELECT column_name 
+                FROM information_schema.columns 
+                WHERE table_name = 'organisations' 
+                AND column_name = 'from_name'
+            """))
+            
+            if not result.fetchone():
+                print("➕ Adding from_name column to organisations table...")
+                db.session.execute(text("ALTER TABLE organisations ADD COLUMN from_name VARCHAR(255)"))
+                db.session.commit()
+                print("✅ Added from_name column")
+            else:
+                print("✅ from_name column already exists")
+            
+            print("✅ Database migration completed successfully")
+            
+        except Exception as migration_error:
+            print(f"⚠️ Migration warning: {migration_error}")
+            # Continue even if migration fails
+        
         # Check if demo organization already exists
         demo_org = Organisation.query.filter_by(name="Demo Company").first()
         
         if demo_org:
             return jsonify({
                 'success': True,
-                'message': 'Demo organization already exists',
+                'message': 'Demo organization already exists. Database migration completed.',
                 'organisation_id': str(demo_org.id)
             })
         

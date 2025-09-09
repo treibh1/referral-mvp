@@ -12,16 +12,17 @@ from email_service import ReferralEmailService
 from user_management import UserManager
 from email_notifications import EmailNotifier
 from database import init_database, get_organisation_contacts_for_job, get_employee_contacts_for_job, get_organisation_stats
-from models import db, Organisation, User, Contact, EmployeeContact, JobDescription, Referral
+from models import db, Organisation, User, Contact, EmployeeContact, JobDescription, Referral, UserSession
 import pandas as pd
 import os
 import json
 import time
 import re
 import secrets
-from datetime import datetime
+from datetime import datetime, timedelta
 from werkzeug.utils import secure_filename
 from functools import wraps
+import uuid
 
 # Location enrichment temporarily disabled
 # from smart_geo_enricher import SmartGeoEnricher
@@ -126,24 +127,70 @@ def secure_log(message, level="INFO"):
     
     print(f"[{level}] {message}")
 
-def validate_session_isolation():
-    """Validate that session is properly isolated and not shared across users."""
-    user_id = session.get('user_id')
-    if not user_id:
-        return False, "No user session found"
+def create_database_session(user_id, session_data=None):
+    """Create a new database-backed session."""
+    session_id = str(uuid.uuid4())
+    expires_at = datetime.utcnow() + timedelta(hours=1)  # 1 hour expiry
     
-    # Verify user still exists in database
+    db_session = UserSession(
+        session_id=session_id,
+        user_id=user_id,
+        session_data=json.dumps(session_data) if session_data else None,
+        expires_at=expires_at
+    )
+    
+    db.session.add(db_session)
+    db.session.commit()
+    
+    return session_id
+
+def get_database_session(session_id):
+    """Get session data from database."""
+    if not session_id:
+        return None, None
+    
+    db_session = UserSession.query.filter_by(session_id=session_id).first()
+    
+    if not db_session:
+        return None, None
+    
+    # Check if expired
+    if datetime.utcnow() > db_session.expires_at:
+        db.session.delete(db_session)
+        db.session.commit()
+        return None, None
+    
+    # Update last accessed
+    db_session.last_accessed = datetime.utcnow()
+    db.session.commit()
+    
+    # Parse session data
+    session_data = json.loads(db_session.session_data) if db_session.session_data else {}
+    return db_session.user_id, session_data
+
+def validate_session_isolation():
+    """Validate that session is properly isolated using database sessions."""
+    # Get session ID from cookie
+    session_id = request.cookies.get('referral_session')
+    
+    if not session_id:
+        return False, "No session cookie found"
+    
+    # Get session from database
+    user_id, session_data = get_database_session(session_id)
+    
+    if not user_id:
+        return False, "Invalid or expired session"
+    
+    # Verify user still exists
     user = User.query.get(user_id)
     if not user:
-        session.clear()  # Clear invalid session
-        return False, "User session invalid - user not found"
+        return False, "User not found in database"
     
-    # Verify session data matches database
-    if session.get('user_email') != user.email:
-        session.clear()  # Clear mismatched session
-        return False, "Session data mismatch - clearing session"
+    # Update Flask session with database data
+    session.update(session_data)
     
-    return True, f"Valid session for {user.name} ({user.email})"
+    return True, f"Valid database session for {user.name} ({user.email})"
 
 def require_auth(f):
     """Decorator to require authentication."""
@@ -249,17 +296,24 @@ def login():
         print(f"🔍 DEBUG: User found: {user}")
         
         if user:
-            # User exists, log them in
-            session['user_id'] = str(user.id)
-            session['user_email'] = user.email
-            session['user_name'] = user.name
-            session['organisation_id'] = str(user.organisation_id)
-            session['user_role'] = user.role
-            session.permanent = True  # Enable session timeout
+            # Create database-backed session
+            session_data = {
+                'user_id': str(user.id),
+                'user_email': user.email,
+                'user_name': user.name,
+                'organisation_id': str(user.organisation_id),
+                'user_role': user.role
+            }
             
-            print(f"✅ DEBUG: Session set - user_id: {session['user_id']}, org_id: {session['organisation_id']}")
+            session_id = create_database_session(user.id, session_data)
+            
+            print(f"✅ DEBUG: Database session created - session_id: {session_id}, user_id: {user.id}")
             secure_log(f"User logged in: {user.name} from {user.organisation.name}")
-            return redirect(url_for('dashboard'))
+            
+            # Create response with session cookie
+            response = redirect(url_for('dashboard'))
+            response.set_cookie('referral_session', session_id, max_age=3600, httponly=True, secure=True, samesite='Lax')
+            return response
         else:
             # User doesn't exist, show error
             print(f"❌ DEBUG: No user found with email: {email}")
@@ -1745,6 +1799,32 @@ def init_database_endpoint():
             print("✅ Added from_name column")
         else:
             print("✅ from_name column already exists")
+        
+        # Check if user_sessions table exists and create it if missing
+        result = db.session.execute(text("""
+            SELECT table_name 
+            FROM information_schema.tables 
+            WHERE table_name = 'user_sessions'
+        """))
+        
+        if not result.fetchone():
+            print("➕ Creating user_sessions table...")
+            db.session.execute(text("""
+                CREATE TABLE user_sessions (
+                    id VARCHAR(36) PRIMARY KEY,
+                    session_id VARCHAR(36) UNIQUE NOT NULL,
+                    user_id VARCHAR(36) REFERENCES users(id),
+                    session_data TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    expires_at TIMESTAMP NOT NULL,
+                    last_accessed TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            """))
+            db.session.execute(text("CREATE INDEX idx_user_sessions_session_id ON user_sessions(session_id)"))
+            db.session.commit()
+            print("✅ Created user_sessions table")
+        else:
+            print("✅ user_sessions table already exists")
         
         print("✅ Database migration completed successfully")
         

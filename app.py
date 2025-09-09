@@ -131,7 +131,7 @@ def secure_log(message, level="INFO"):
 def create_database_session(user_id, session_data=None):
     """Create a new database-backed session."""
     session_id = str(uuid.uuid4())
-    expires_at = datetime.utcnow() + timedelta(hours=1)  # 1 hour expiry
+    expires_at = datetime.utcnow() + timedelta(hours=8)  # 8 hours expiry
     
     print(f"🔍 DEBUG: Creating database session - session_id: {session_id}, user_id: {user_id}")
     
@@ -187,10 +187,11 @@ def get_database_session(session_id):
             db.session.commit()
             return None, None
         
-        print(f"✅ DEBUG: Session is valid, updating last_accessed")
+        print(f"✅ DEBUG: Session is valid, updating last_accessed and extending expiry")
         
-        # Update last accessed
+        # Update last accessed and extend expiry time
         db_session.last_accessed = current_time
+        db_session.expires_at = current_time + timedelta(hours=8)  # Extend by 8 hours from now
         db.session.commit()
         
         # Parse session data

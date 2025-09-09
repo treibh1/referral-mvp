@@ -328,6 +328,7 @@ except Exception as e:
     email_service = None
 
 @app.route('/')
+@require_auth
 def index():
     # Get user role for role-based UI
     user_role = session.get('user_role', 'employee')
@@ -851,6 +852,7 @@ def import_contacts():
         }), 500
 
 @app.route('/api/get-contacts-for-enrichment')
+@require_auth
 def get_contacts_for_enrichment():
     """Get contacts for enrichment interface."""
     try:
@@ -874,6 +876,7 @@ def get_contacts_for_enrichment():
         }), 500
 
 @app.route('/api/save-enrichment', methods=['POST'])
+@require_auth
 def save_enrichment():
     """Save enrichment data for a contact."""
     try:
@@ -913,6 +916,7 @@ def save_enrichment():
         }), 500
 
 @app.route('/api/send-referral-emails', methods=['POST'])
+@require_auth
 def send_referral_emails():
     """Send bulk referral emails to employees."""
     try:
@@ -1454,6 +1458,7 @@ def simple_health():
     })
 
 @app.route('/api/contacts-info')
+@require_auth
 def contacts_info():
     """Get information about currently loaded contacts - SECURE VERSION."""
     try:
@@ -1495,6 +1500,7 @@ def contacts_info():
 
 # Job Descriptions API endpoints
 @app.route('/api/job-descriptions', methods=['GET'])
+@require_auth
 def get_job_descriptions():
     """Get all job descriptions."""
     try:
@@ -1513,6 +1519,7 @@ def get_job_descriptions():
         }), 500
 
 @app.route('/api/job-descriptions', methods=['POST'])
+@require_auth
 def create_job_description():
     """Create a new job description."""
     try:
@@ -1532,6 +1539,7 @@ def create_job_description():
         }), 500
 
 @app.route('/api/job-descriptions/<int:job_id>', methods=['GET'])
+@require_auth
 def get_job_description(job_id):
     """Get a specific job description."""
     try:
@@ -1549,6 +1557,7 @@ def get_job_description(job_id):
         }), 500
 
 @app.route('/api/job-descriptions/<int:job_id>', methods=['DELETE'])
+@require_auth
 def delete_job_description(job_id):
     """Delete a job description."""
     try:
@@ -1566,6 +1575,7 @@ def delete_job_description(job_id):
         }), 500
 
 @app.route('/api/job-descriptions/stats', methods=['GET'])
+@require_auth
 def get_job_descriptions_stats():
     """Get statistics for job descriptions."""
     try:
@@ -1589,6 +1599,7 @@ def get_job_descriptions_stats():
 
 # Referrals API endpoints
 @app.route('/api/referrals', methods=['GET'])
+@require_auth
 def get_referrals():
     """Get all referrals for the current user."""
     try:
@@ -1836,6 +1847,7 @@ def invite_employee():
         }), 500
 
 @app.route('/api/company-dashboard', methods=['GET'])
+@require_auth
 def get_company_dashboard():
     """Get company dashboard data."""
     try:
@@ -2140,6 +2152,7 @@ def create_demo_users_endpoint():
 # ===== REFERRAL WORKFLOW ROUTES =====
 
 @app.route('/api/request-referral', methods=['POST'])
+@require_auth
 def request_referral():
     """Request a referral from an employee for a specific contact."""
     try:
@@ -2264,6 +2277,7 @@ def request_referral():
         }), 500
 
 @app.route('/api/send-bulk-referral-emails', methods=['POST'])
+@require_auth
 def send_bulk_referral_emails():
     """Send bulk referral emails to employees for multiple contacts."""
     try:
@@ -2372,6 +2386,7 @@ def send_bulk_referral_emails():
         }), 500
 
 @app.route('/api/my-referrals', methods=['GET'])
+@require_auth
 def get_my_referrals():
     """Get all referrals for the current user."""
     try:
@@ -2429,6 +2444,7 @@ def get_my_referrals():
         }), 500
 
 @app.route('/api/update-referral-status', methods=['POST'])
+@require_auth
 def update_referral_status():
     """Update the status of a referral (employee response)."""
     try:

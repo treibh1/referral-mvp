@@ -20,7 +20,7 @@ import json
 import time
 import re
 import secrets
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from werkzeug.utils import secure_filename
 from functools import wraps
 import uuid
@@ -131,7 +131,7 @@ def secure_log(message, level="INFO"):
 def create_database_session(user_id, session_data=None):
     """Create a new database-backed session."""
     session_id = str(uuid.uuid4())
-    expires_at = datetime.utcnow() + timedelta(hours=8)  # 8 hours expiry
+    expires_at = datetime.now(timezone.utc) + timedelta(hours=8)  # 8 hours expiry
     
     print(f"🔍 DEBUG: Creating database session - session_id: {session_id}, user_id: {user_id}")
     
@@ -178,7 +178,7 @@ def get_database_session(session_id):
         print(f"🔍 DEBUG: Found database session - User ID: {db_session.user_id}, Expires: {db_session.expires_at}")
         
         # Check if expired
-        current_time = datetime.utcnow()
+        current_time = datetime.now(timezone.utc)
         print(f"🔍 DEBUG: Current time: {current_time}, Session expires: {db_session.expires_at}")
         
         if current_time > db_session.expires_at:
@@ -2471,7 +2471,7 @@ def update_referral_status():
         referral.status = new_status
         if employee_message:
             referral.employee_message = employee_message
-        referral.updated_at = datetime.utcnow()
+        referral.updated_at = datetime.now(timezone.utc)
         
         db.session.commit()
         

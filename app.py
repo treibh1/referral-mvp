@@ -219,6 +219,8 @@ def login():
         
         # Find user in database
         user = User.query.filter_by(email=email).first()
+        print(f"🔍 DEBUG: Looking for user with email: {email}")
+        print(f"🔍 DEBUG: User found: {user}")
         
         if user:
             # User exists, log them in
@@ -229,10 +231,12 @@ def login():
             session['user_role'] = user.role
             session.permanent = True  # Enable session timeout
             
+            print(f"✅ DEBUG: Session set - user_id: {session['user_id']}, org_id: {session['organisation_id']}")
             secure_log(f"User logged in: {user.name} from {user.organisation.name}")
             return redirect(url_for('dashboard'))
         else:
             # User doesn't exist, show error
+            print(f"❌ DEBUG: No user found with email: {email}")
             secure_log(f"Login attempt with unknown email: {email}", "WARNING")
             return render_template('login.html', error='User not found. Please register your company first.')
     
@@ -291,15 +295,21 @@ def match_job():
         
         # Get current user's organization (allow demo mode)
         user_id = session.get('user_id')
+        print(f"🔍 DEBUG: Session user_id = {user_id}")
+        print(f"🔍 DEBUG: Full session = {dict(session)}")
+        
         if not user_id:
             # Demo mode - use demo organization
             current_user = None
             demo_mode = True
+            print("⚠️ DEBUG: No user_id in session - using DEMO MODE")
         else:
             current_user = User.query.get(user_id)
             if not current_user:
+                print(f"❌ DEBUG: User {user_id} not found in database")
                 return jsonify({'error': 'User not found'}), 404
             demo_mode = False
+            print(f"✅ DEBUG: User found: {current_user.name} ({current_user.email}) from {current_user.organisation.name}")
         
         # SECURE: Get contacts based on user role
         try:

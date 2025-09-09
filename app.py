@@ -422,9 +422,11 @@ def match_job():
         # CRITICAL: Validate session isolation first
         session_valid, session_msg = validate_session_isolation()
         print(f"🔍 DEBUG: Session validation: {session_msg}")
+        print(f"🔍 DEBUG: Current Flask session: {dict(session)}")
         
         if not session_valid:
             print("⚠️ DEBUG: Invalid session - using DEMO MODE")
+            print(f"⚠️ DEBUG: Session validation failed: {session_msg}")
             current_user = None
             demo_mode = True
         else:
@@ -433,6 +435,7 @@ def match_job():
             current_user = User.query.get(user_id)
             demo_mode = False
             print(f"✅ DEBUG: Valid session for {current_user.name} ({current_user.email}) from {current_user.organisation.name}")
+            print(f"✅ DEBUG: User role: {current_user.role}")
         
         # SECURE: Get contacts based on user role
         try:

@@ -50,6 +50,39 @@ app.config['SESSION_COOKIE_DOMAIN'] = None  # Don't share across subdomains
 # Initialize CSRF protection
 csrf = CSRFProtect(app)
 
+# Disable Flask's default session management entirely
+class NullSession(dict):
+    def __init__(self, *args, **kwargs):
+        super().__init__()
+    
+    def __setitem__(self, key, value):
+        pass
+    
+    def __getitem__(self, key):
+        return None
+    
+    def __contains__(self, key):
+        return False
+    
+    def pop(self, key, default=None):
+        return default
+    
+    def clear(self):
+        pass
+    
+    def update(self, *args, **kwargs):
+        pass
+
+class NullSessionInterface:
+    def open_session(self, app, request):
+        return NullSession()
+    
+    def save_session(self, app, session, response):
+        pass
+
+# Set the null session interface to disable Flask's default session
+app.session_interface = NullSessionInterface()
+
 def load_contacts_from_csv_demo():
     """Load demo contacts from CSV for demo mode."""
     try:
@@ -128,10 +161,11 @@ def secure_log(message, level="INFO"):
     
     print(f"[{level}] {message}")
 
-def create_database_session(user_id, session_data=None):
+def create_database_session(user_id, user_role, organisation_id):
     """Create a new database-backed session."""
     session_id = str(uuid.uuid4())
-    expires_at = datetime.now(timezone.utc) + timedelta(hours=8)  # 8 hours expiry
+    current_time = datetime.now(timezone.utc)
+    expires_at = current_time + timedelta(hours=8)  # 8 hours expiry
     
     print(f"🔍 DEBUG: Creating database session - session_id: {session_id}, user_id: {user_id}")
     
@@ -139,7 +173,10 @@ def create_database_session(user_id, session_data=None):
         db_session = UserSession(
             session_id=session_id,
             user_id=user_id,
-            session_data=json.dumps(session_data) if session_data else None,
+            user_role=user_role,
+            organisation_id=organisation_id,
+            created_at=current_time,
+            last_accessed=current_time,
             expires_at=expires_at
         )
         
@@ -200,9 +237,13 @@ def get_database_session(session_id):
         db_session.expires_at = current_time + timedelta(hours=8)  # Extend by 8 hours from now
         db.session.commit()
         
-        # Parse session data
-        session_data = json.loads(db_session.session_data) if db_session.session_data else {}
-        print(f"✅ DEBUG: Parsed session data: {session_data}")
+        # Return session data directly from the new model structure
+        session_data = {
+            'user_id': db_session.user_id,
+            'user_role': db_session.user_role,
+            'organisation_id': db_session.organisation_id
+        }
+        print(f"✅ DEBUG: Session data: {session_data}")
         return db_session.user_id, session_data
     except Exception as e:
         print(f"❌ DEBUG: Error getting database session: {str(e)}")
@@ -217,13 +258,7 @@ def validate_session_isolation():
     print(f"🔍 DEBUG: Cookie session_id = {session_id}")
     
     if not session_id:
-        print("❌ DEBUG: No session cookie found - using Flask default session")
-        # Fallback to Flask session for debugging
-        user_id = session.get('user_id')
-        if user_id:
-            user = User.query.get(user_id)
-            if user:
-                return True, f"Flask session fallback for {user.name} ({user.email})"
+        print("❌ DEBUG: No session cookie found")
         return False, "No session cookie found"
     
     # Get session from database
@@ -240,9 +275,9 @@ def validate_session_isolation():
         print("❌ DEBUG: User not found in database")
         return False, "User not found in database"
     
-    # Update Flask session with database data
-    session.update(session_data)
-    print(f"✅ DEBUG: Updated Flask session with database data")
+    # Store session data in request context for use by routes
+    request.session_data = session_data
+    print(f"✅ DEBUG: Valid database session for {user.name} ({user.email})")
     
     return True, f"Valid database session for {user.name} ({user.email})"
 
@@ -251,7 +286,6 @@ def require_auth(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         print(f"🔍 DEBUG: require_auth decorator called for {f.__name__}")
-        print(f"🔍 DEBUG: Current session: {dict(session)}")
         
         # Validate session isolation
         is_valid, message = validate_session_isolation()
@@ -272,11 +306,13 @@ def require_admin(f):
     """Decorator to require admin role."""
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if 'user_id' not in session:
+        # First check authentication
+        is_valid, message = validate_session_isolation()
+        if not is_valid:
             return jsonify({'error': 'Authentication required'}), 401
         
-        user = User.query.get(session['user_id'])
-        if not user or user.role != 'admin':
+        # Check admin role
+        if not hasattr(request, 'session_data') or request.session_data.get('user_role') != 'admin':
             return jsonify({'error': 'Admin access required'}), 403
         
         return f(*args, **kwargs)
@@ -331,7 +367,7 @@ except Exception as e:
 @require_auth
 def index():
     # Get user role for role-based UI
-    user_role = session.get('user_role', 'employee')
+    user_role = request.session_data.get('user_role', 'employee')
     return render_template('index.html', user_role=user_role)
 
 @app.route('/gamification')
@@ -370,25 +406,15 @@ def login():
             print(f"✅ DEBUG: User found - ID: {user.id}, Name: {user.name}, Email: {user.email}, Role: {user.role}")
             print(f"✅ DEBUG: User organisation: {user.organisation.name if user.organisation else 'None'}")
             
-            # Create database-backed session
-            session_data = {
-                'user_id': str(user.id),
-                'user_email': user.email,
-                'user_name': user.name,
-                'organisation_id': str(user.organisation_id),
-                'user_role': user.role
-            }
-            
             try:
-                session_id = create_database_session(user.id, session_data)
+                session_id = create_database_session(user.id, user.role, user.organisation_id)
                 
                 print(f"✅ DEBUG: Database session created - session_id: {session_id}, user_id: {user.id}")
-                print(f"✅ DEBUG: Session data: {session_data}")
                 secure_log(f"User logged in: {user.name} from {user.organisation.name}")
                 
                 # Create response with session cookie
                 response = redirect(url_for('dashboard'))
-                response.set_cookie('referral_session', session_id, max_age=3600, httponly=True, secure=True, samesite='Lax')
+                response.set_cookie('referral_session', session_id, max_age=28800, httponly=True, secure=True, samesite='Strict')
                 print(f"✅ DEBUG: Cookie set - referral_session: {session_id}")
                 return response
             except Exception as e:
@@ -457,20 +483,19 @@ def match_job():
         if not job_description:
             return jsonify({'error': 'Job description is required'}), 400
         
-        # CRITICAL: Validate session isolation first
-        session_valid, session_msg = validate_session_isolation()
-        print(f"🔍 DEBUG: Session validation: {session_msg}")
-        print(f"🔍 DEBUG: Current Flask session: {dict(session)}")
+        # Get user session data
+        user_id = request.session_data['user_id']
+        user_role = request.session_data['user_role']
+        organisation_id = request.session_data['organisation_id']
         
-        if not session_valid:
-            print("⚠️ DEBUG: Invalid session - using DEMO MODE")
-            print(f"⚠️ DEBUG: Session validation failed: {session_msg}")
+        print(f"🔍 DEBUG: Match request - User ID: {user_id}, Role: {user_role}, Org ID: {organisation_id}")
+        
+        current_user = User.query.get(user_id)
+        if not current_user:
+            print("❌ DEBUG: User not found, using demo mode")
             current_user = None
             demo_mode = True
         else:
-            # Session is valid, get user
-            user_id = session.get('user_id')
-            current_user = User.query.get(user_id)
             demo_mode = False
             print(f"✅ DEBUG: Valid session for {current_user.name} ({current_user.email}) from {current_user.organisation.name}")
             print(f"✅ DEBUG: User role: {current_user.role}")
@@ -487,14 +512,14 @@ def match_job():
                     contacts = load_contacts_from_csv_demo()
             else:
                 # Role-based contact access
-                if current_user.role == 'employee':
+                if user_role == 'employee':
                     # Employees can only see their own contacts
-                    contacts = get_employee_contacts_for_job(current_user.id, job_description)
+                    contacts = get_employee_contacts_for_job(user_id, job_description)
                     print(f"👤 EMPLOYEE MODE: {current_user.name} sees only their own {len(contacts)} contacts")
-                elif current_user.role in ['recruiter', 'admin']:
+                elif user_role in ['recruiter', 'admin']:
                     # Recruiters and admins can see ALL contacts uploaded by ANYONE in the organization
-                    contacts = get_organisation_contacts_for_job(current_user.organisation_id, job_description)
-                    print(f"🏢 ORG MODE: {current_user.name} ({current_user.role}) sees ALL {len(contacts)} contacts in organization")
+                    contacts = get_organisation_contacts_for_job(organisation_id, job_description)
+                    print(f"🏢 ORG MODE: {current_user.name} ({user_role}) sees ALL {len(contacts)} contacts in organization")
                 else:
                     return jsonify({'error': 'Invalid user role'}), 403
             if demo_mode:
@@ -1915,14 +1940,13 @@ def get_company_dashboard():
 @require_auth
 def dashboard():
     """Company dashboard page."""
-    print(f"🔍 DEBUG: Dashboard accessed - session: {dict(session)}")
+    user_id = request.session_data['user_id']
+    user_role = request.session_data['user_role']
+    organisation_id = request.session_data['organisation_id']
     
-    user_id = session.get('user_id')
-    print(f"🔍 DEBUG: Dashboard user_id from session: {user_id}")
+    print(f"✅ DEBUG: Dashboard - User ID: {user_id}, Role: {user_role}, Org ID: {organisation_id}")
     
     user = User.query.get(user_id)
-    print(f"🔍 DEBUG: Dashboard user lookup result: {user}")
-    
     if not user:
         print(f"❌ DEBUG: Dashboard - No user found, redirecting to login")
         return redirect(url_for('login'))
@@ -1953,7 +1977,8 @@ def dashboard():
                          organisation=organisation,
                          team_members=team_members,
                          contact_count=contact_count,
-                         job_count=job_count)
+                         job_count=job_count,
+                         user_role=user_role)
 
 @app.route('/referrals')
 @require_auth
@@ -2017,7 +2042,8 @@ def init_database_endpoint():
                     id VARCHAR(36) PRIMARY KEY,
                     session_id VARCHAR(36) UNIQUE NOT NULL,
                     user_id VARCHAR(36) REFERENCES users(id),
-                    session_data TEXT,
+                    user_role VARCHAR(20) NOT NULL,
+                    organisation_id VARCHAR(36) REFERENCES organisations(id),
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     expires_at TIMESTAMP NOT NULL,
                     last_accessed TIMESTAMP DEFAULT CURRENT_TIMESTAMP

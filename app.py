@@ -216,9 +216,19 @@ def require_auth(f):
     """Decorator to require authentication."""
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if 'user_id' not in session:
-            return jsonify({'error': 'Authentication required'}), 401
+        print(f"🔍 DEBUG: require_auth decorator called for {f.__name__}")
+        print(f"🔍 DEBUG: Current session: {dict(session)}")
+        
+        # Validate session isolation
+        is_valid, message = validate_session_isolation()
+        
+        if not is_valid:
+            print(f"❌ DEBUG: Auth failed - {message}")
+            return redirect(url_for('login'))
+        
+        print(f"✅ DEBUG: Auth successful - {message}")
         return f(*args, **kwargs)
+    
     return decorated_function
 
 def require_admin(f):
@@ -1778,11 +1788,48 @@ def get_company_dashboard():
         }), 500
 
 @app.route('/dashboard')
+@require_auth
 def dashboard():
     """Company dashboard page."""
-    if 'user_id' not in session:
+    print(f"🔍 DEBUG: Dashboard accessed - session: {dict(session)}")
+    
+    user_id = session.get('user_id')
+    print(f"🔍 DEBUG: Dashboard user_id from session: {user_id}")
+    
+    user = User.query.get(user_id)
+    print(f"🔍 DEBUG: Dashboard user lookup result: {user}")
+    
+    if not user:
+        print(f"❌ DEBUG: Dashboard - No user found, redirecting to login")
         return redirect(url_for('login'))
-    return render_template('dashboard.html')
+    
+    print(f"✅ DEBUG: Dashboard - User found: {user.name} ({user.email})")
+    
+    # Get organisation data
+    organisation = user.organisation
+    print(f"✅ DEBUG: Dashboard - Organisation: {organisation.name if organisation else 'None'}")
+    
+    # Get team members
+    team_members = User.query.filter_by(organisation_id=user.organisation_id).all()
+    print(f"✅ DEBUG: Dashboard - Team members count: {len(team_members)}")
+    
+    # Get contact count
+    contact_count = db.session.query(Contact).join(EmployeeContact).filter(
+        EmployeeContact.organisation_id == user.organisation_id
+    ).count()
+    print(f"✅ DEBUG: Dashboard - Contact count: {contact_count}")
+    
+    # Get job postings count
+    job_count = JobPosting.query.filter_by(organisation_id=user.organisation_id).count()
+    print(f"✅ DEBUG: Dashboard - Job count: {job_count}")
+    
+    print(f"✅ DEBUG: Dashboard - Rendering template")
+    return render_template('dashboard.html', 
+                         user=user, 
+                         organisation=organisation,
+                         team_members=team_members,
+                         contact_count=contact_count,
+                         job_count=job_count)
 
 @app.route('/referrals')
 def referrals_page():

@@ -371,11 +371,13 @@ except Exception as e:
 def index():
     # Get user role for role-based UI
     user_role = request.session_data.get('user_role', 'employee')
-    return render_template('index.html', user_role=user_role)
+    csrf_token = generate_csrf()
+    return render_template('index.html', user_role=user_role, csrf_token=csrf_token)
 
 @app.route('/gamification')
 def gamification():
-    return render_template('gamification.html')
+    csrf_token = generate_csrf()
+    return render_template('gamification.html', csrf_token=csrf_token)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -434,7 +436,8 @@ def login():
             for u in all_users:
                 print(f"  - {u.email} ({u.name}) - Role: {u.role}")
             secure_log(f"Login attempt with unknown email: {email}", "WARNING")
-            return render_template('login.html', error='User not found. Please register your company first.')
+            csrf_token = generate_csrf()
+            return render_template('login.html', error='User not found. Please register your company first.', csrf_token=csrf_token)
     
     print(f"🔍 DEBUG: Rendering login template")
     # Generate CSRF token for the template
@@ -450,25 +453,29 @@ def old_dashboard():
 @require_auth
 def upload_page():
     """Contact upload page."""
-    return render_template('upload.html')
+    csrf_token = generate_csrf()
+    return render_template('upload.html', csrf_token=csrf_token)
 
 @app.route('/import')
 @require_auth
 def import_page():
     """Contact import page."""
-    return render_template('import.html')
+    csrf_token = generate_csrf()
+    return render_template('import.html', csrf_token=csrf_token)
 
 @app.route('/enrichment')
 @require_auth
 def enrichment_page():
     """Contact enrichment page."""
-    return render_template('contact_enrichment.html')
+    csrf_token = generate_csrf()
+    return render_template('contact_enrichment.html', csrf_token=csrf_token)
 
 @app.route('/job-descriptions')
 @require_auth
 def job_descriptions_page():
     """Job descriptions management page."""
-    return render_template('job_descriptions.html')
+    csrf_token = generate_csrf()
+    return render_template('job_descriptions.html', csrf_token=csrf_token)
 
 
 @app.route('/api/match', methods=['POST'])
@@ -1085,7 +1092,8 @@ def view_referral(referral_id):
     
     # This would load the referral details
     # For now, return a placeholder page
-    return render_template('referral_detail.html', referral_id=referral_id)
+    csrf_token = generate_csrf()
+    return render_template('referral_detail.html', referral_id=referral_id, csrf_token=csrf_token)
 
 @app.route('/api/fetch-job', methods=['POST'])
 @require_auth
@@ -1663,7 +1671,8 @@ def get_referrals():
 @app.route('/register-company')
 def register_company_page():
     """Company registration page."""
-    return render_template('register_company.html')
+    csrf_token = generate_csrf()
+    return render_template('register_company.html', csrf_token=csrf_token)
 
 @app.route('/api/register-company', methods=['POST'])
 def register_company():
@@ -1980,19 +1989,22 @@ def dashboard():
     print(f"✅ DEBUG: Dashboard - Job count: {job_count}")
     
     print(f"✅ DEBUG: Dashboard - Rendering template")
+    csrf_token = generate_csrf()
     return render_template('dashboard.html', 
                          user=user, 
                          organisation=organisation,
                          team_members=team_members,
                          contact_count=contact_count,
                          job_count=job_count,
-                         user_role=user_role)
+                         user_role=user_role,
+                         csrf_token=csrf_token)
 
 @app.route('/referrals')
 @require_auth
 def referrals_page():
     """Referrals management page."""
-    return render_template('referrals.html')
+    csrf_token = generate_csrf()
+    return render_template('referrals.html', csrf_token=csrf_token)
 
 @app.route('/api/init-database', methods=['POST', 'GET'])
 @csrf.exempt

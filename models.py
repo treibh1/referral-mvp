@@ -146,13 +146,16 @@ class UserSession(db.Model):
     id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     session_id = db.Column(db.String(36), unique=True, nullable=False, index=True)
     user_id = db.Column(db.String(36), db.ForeignKey('users.id'), nullable=False)
+    user_role = db.Column(db.String(20), nullable=False)  # admin, recruiter, employee
+    organisation_id = db.Column(db.String(36), db.ForeignKey('organisations.id'), nullable=False)
     session_data = db.Column(db.Text, nullable=True)  # JSON string
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     expires_at = db.Column(db.DateTime, nullable=False)
     last_accessed = db.Column(db.DateTime, default=datetime.utcnow)
     
-    # Relationship
+    # Relationships
     user = db.relationship('User', backref='sessions')
+    organisation = db.relationship('Organisation', backref='sessions')
     
     def __repr__(self):
         return f'<UserSession {self.session_id} - User {self.user_id}>'

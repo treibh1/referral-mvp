@@ -2049,6 +2049,36 @@ def init_database_endpoint():
             print("✅ Created user_sessions table")
         else:
             print("✅ user_sessions table already exists")
+            
+            # Check if user_role column exists and add it if missing
+            result = db.session.execute(text("""
+                SELECT column_name 
+                FROM information_schema.columns 
+                WHERE table_name = 'user_sessions' AND column_name = 'user_role'
+            """))
+            
+            if not result.fetchone():
+                print("➕ Adding user_role column to user_sessions...")
+                db.session.execute(text("ALTER TABLE user_sessions ADD COLUMN user_role VARCHAR(20)"))
+                db.session.commit()
+                print("✅ Added user_role column")
+            else:
+                print("✅ user_role column already exists")
+            
+            # Check if organisation_id column exists and add it if missing
+            result = db.session.execute(text("""
+                SELECT column_name 
+                FROM information_schema.columns 
+                WHERE table_name = 'user_sessions' AND column_name = 'organisation_id'
+            """))
+            
+            if not result.fetchone():
+                print("➕ Adding organisation_id column to user_sessions...")
+                db.session.execute(text("ALTER TABLE user_sessions ADD COLUMN organisation_id VARCHAR(36) REFERENCES organisations(id)"))
+                db.session.commit()
+                print("✅ Added organisation_id column")
+            else:
+                print("✅ organisation_id column already exists")
         
         print("✅ Database migration completed successfully")
         

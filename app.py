@@ -79,6 +79,9 @@ class NullSessionInterface:
     
     def save_session(self, app, session, response):
         pass
+    
+    def is_null_session(self, session):
+        return True
 
 # Set the null session interface to disable Flask's default session
 app.session_interface = NullSessionInterface()
@@ -388,10 +391,12 @@ def login():
         
         # Validate input
         if not email:
-            return render_template('login.html', error='Email is required')
+            csrf_token = generate_csrf()
+            return render_template('login.html', error='Email is required', csrf_token=csrf_token)
         
         if not validate_email(email):
-            return render_template('login.html', error='Invalid email format')
+            csrf_token = generate_csrf()
+            return render_template('login.html', error='Invalid email format', csrf_token=csrf_token)
         
         # Sanitize inputs
         email = validate_input(email, max_length=255)
@@ -419,7 +424,8 @@ def login():
                 return response
             except Exception as e:
                 print(f"❌ DEBUG: Failed to create database session: {str(e)}")
-                return render_template('login.html', error=f'Login failed: {str(e)}')
+                csrf_token = generate_csrf()
+                return render_template('login.html', error=f'Login failed: {str(e)}', csrf_token=csrf_token)
         else:
             # User doesn't exist, show error
             print(f"❌ DEBUG: No user found with email: {email}")
@@ -431,7 +437,9 @@ def login():
             return render_template('login.html', error='User not found. Please register your company first.')
     
     print(f"🔍 DEBUG: Rendering login template")
-    return render_template('login.html')
+    # Generate CSRF token for the template
+    csrf_token = generate_csrf()
+    return render_template('login.html', csrf_token=csrf_token)
 
 @app.route('/old-dashboard')
 def old_dashboard():

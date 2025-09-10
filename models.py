@@ -5,6 +5,7 @@ Implements GDPR-compliant contact management with no directory access.
 """
 
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 from datetime import datetime
 import uuid
 
@@ -30,7 +31,7 @@ class Organisation(db.Model):
     def __repr__(self):
         return f'<Organisation {self.name}>'
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     """Employees of organisations."""
     __tablename__ = 'users'
     
@@ -139,26 +140,6 @@ class Referral(db.Model):
     def __repr__(self):
         return f'<Referral {self.job_id} -> {self.contact_id}>'
 
-class UserSession(db.Model):
-    """Database-backed user sessions for complete isolation."""
-    __tablename__ = 'user_sessions'
-    
-    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    session_id = db.Column(db.String(36), unique=True, nullable=False, index=True)
-    user_id = db.Column(db.String(36), db.ForeignKey('users.id'), nullable=False)
-    user_role = db.Column(db.String(20), nullable=False)  # admin, recruiter, employee
-    organisation_id = db.Column(db.String(36), db.ForeignKey('organisations.id'), nullable=False)
-    session_data = db.Column(db.Text, nullable=True)  # JSON string
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    expires_at = db.Column(db.DateTime, nullable=False)
-    last_accessed = db.Column(db.DateTime, default=datetime.utcnow)
-    
-    # Relationships
-    user = db.relationship('User', backref='sessions')
-    organisation = db.relationship('Organisation', backref='sessions')
-    
-    def __repr__(self):
-        return f'<UserSession {self.session_id} - User {self.user_id}>'
 
 # Security helper functions
 def get_organisation_contacts(organisation_id, job_context=None):

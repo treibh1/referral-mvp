@@ -36,6 +36,13 @@ app.secret_key = os.environ.get('SECRET_KEY')
 if not app.secret_key:
     raise ValueError("SECRET_KEY environment variable must be set for security")
 
+# Database configuration
+database_url = os.environ.get('DATABASE_URL') or os.environ.get('DATABASE_PUBLIC_URL')
+if not database_url:
+    raise ValueError("DATABASE_URL environment variable must be set")
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 # Single session system configuration
 app.config.update(
     SESSION_COOKIE_NAME="referral_session",

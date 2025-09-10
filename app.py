@@ -5,7 +5,7 @@ Demonstrates how to integrate the unified matcher into a web interface.
 """
 
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
-from flask_wtf.csrf import CSRFProtect
+from flask_wtf.csrf import CSRFProtect, generate_csrf
 from referral_api import ReferralAPI
 from enhanced_contact_tagger import EnhancedContactTagger
 from email_service import ReferralEmailService

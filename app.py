@@ -50,41 +50,16 @@ app.config['SESSION_COOKIE_DOMAIN'] = None  # Don't share across subdomains
 # Initialize CSRF protection
 csrf = CSRFProtect(app)
 
-# Disable Flask's default session management entirely
-class NullSession(dict):
-    def __init__(self, *args, **kwargs):
-        super().__init__()
-    
-    def __setitem__(self, key, value):
-        pass
-    
-    def __getitem__(self, key):
-        return None
-    
-    def __contains__(self, key):
-        return False
-    
-    def pop(self, key, default=None):
-        return default
-    
-    def clear(self):
-        pass
-    
-    def update(self, *args, **kwargs):
-        pass
+# HYBRID APPROACH: Allow Flask sessions for CSRF, but use database sessions for authentication
+# This prevents session bleeding while maintaining CSRF protection
 
-class NullSessionInterface:
-    def open_session(self, app, request):
-        return NullSession()
-    
-    def save_session(self, app, session, response):
-        pass
-    
-    def is_null_session(self, session):
-        return True
-
-# Set the null session interface to disable Flask's default session
-app.session_interface = NullSessionInterface()
+# Configure Flask sessions to be minimal and secure
+app.config['SESSION_COOKIE_NAME'] = 'csrf_session'  # Different from our auth session
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Strict'  # Strict for CSRF protection
+app.config['SESSION_COOKIE_DOMAIN'] = None
+app.config['PERMANENT_SESSION_LIFETIME'] = 3600  # 1 hour for CSRF tokens
 
 def load_contacts_from_csv_demo():
     """Load demo contacts from CSV for demo mode."""
@@ -257,7 +232,7 @@ def get_database_session(session_id):
 def validate_session_isolation():
     """Validate that session is properly isolated using database sessions."""
     # Get session ID from cookie
-    session_id = request.cookies.get('referral_session')
+    session_id = request.cookies.get('auth_session')
     print(f"🔍 DEBUG: Cookie session_id = {session_id}")
     
     if not session_id:
@@ -421,8 +396,8 @@ def login():
                 
                 # Create response with session cookie
                 response = redirect(url_for('dashboard'))
-                response.set_cookie('referral_session', session_id, max_age=28800, httponly=True, secure=True, samesite='Strict')
-                print(f"✅ DEBUG: Cookie set - referral_session: {session_id}")
+                response.set_cookie('auth_session', session_id, max_age=28800, httponly=True, secure=True, samesite='Strict')
+                print(f"✅ DEBUG: Cookie set - auth_session: {session_id}")
                 return response
             except Exception as e:
                 print(f"❌ DEBUG: Failed to create database session: {str(e)}")

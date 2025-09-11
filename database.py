@@ -105,50 +105,79 @@ def init_database(app):
                         'csrf_token': 'VARCHAR(255)'
                     }
                     
-                    # Add missing columns
+                    # Add missing columns (each in its own transaction)
                     for column_name, column_type in required_columns.items():
                         if column_name not in existing_columns:
-                            print(f"🔄 Adding {column_name} column to user_sessions...")
-                            db.session.execute(db.text(f"ALTER TABLE user_sessions ADD COLUMN {column_name} {column_type}"))
+                            try:
+                                print(f"🔄 Adding {column_name} column to user_sessions...")
+                                db.session.execute(db.text(f"ALTER TABLE user_sessions ADD COLUMN {column_name} {column_type}"))
+                                db.session.commit()
+                            except Exception as e:
+                                print(f"⚠️ Failed to add {column_name} column: {e}")
+                                db.session.rollback()
                     
                     # Add foreign key constraint for organisation_id if it was just added
                     if 'organisation_id' not in existing_columns:
-                        print("🔄 Adding foreign key constraint for organisation_id...")
-                        db.session.execute(db.text("ALTER TABLE user_sessions ADD CONSTRAINT fk_user_sessions_organisation FOREIGN KEY (organisation_id) REFERENCES organisations(id)"))
+                        try:
+                            print("🔄 Adding foreign key constraint for organisation_id...")
+                            db.session.execute(db.text("ALTER TABLE user_sessions ADD CONSTRAINT fk_user_sessions_organisation FOREIGN KEY (organisation_id) REFERENCES organisations(id)"))
+                            db.session.commit()
+                        except Exception as e:
+                            print(f"⚠️ Failed to add foreign key constraint: {e}")
+                            db.session.rollback()
                     
                     # Rename session_id to session_token if it exists
                     if 'session_id' in existing_columns and 'session_token' not in existing_columns:
-                        print("🔄 Renaming session_id to session_token...")
-                        db.session.execute(db.text("ALTER TABLE user_sessions RENAME COLUMN session_id TO session_token"))
+                        try:
+                            print("🔄 Renaming session_id to session_token...")
+                            db.session.execute(db.text("ALTER TABLE user_sessions RENAME COLUMN session_id TO session_token"))
+                            db.session.commit()
+                        except Exception as e:
+                            print(f"⚠️ Failed to rename session_id: {e}")
+                            db.session.rollback()
                     
                     # Rename last_accessed to last_activity if it exists
                     if 'last_accessed' in existing_columns and 'last_activity' not in existing_columns:
-                        print("🔄 Renaming last_accessed to last_activity...")
-                        db.session.execute(db.text("ALTER TABLE user_sessions RENAME COLUMN last_accessed TO last_activity"))
+                        try:
+                            print("🔄 Renaming last_accessed to last_activity...")
+                            db.session.execute(db.text("ALTER TABLE user_sessions RENAME COLUMN last_accessed TO last_activity"))
+                            db.session.commit()
+                        except Exception as e:
+                            print(f"⚠️ Failed to rename last_accessed: {e}")
+                            db.session.rollback()
                     
                     # Drop old session_data column if it exists (not needed in new model)
                     if 'session_data' in existing_columns:
-                        print("🔄 Dropping old session_data column...")
-                        db.session.execute(db.text("ALTER TABLE user_sessions DROP COLUMN session_data"))
+                        try:
+                            print("🔄 Dropping old session_data column...")
+                            db.session.execute(db.text("ALTER TABLE user_sessions DROP COLUMN session_data"))
+                            db.session.commit()
+                        except Exception as e:
+                            print(f"⚠️ Failed to drop session_data: {e}")
+                            db.session.rollback()
                     
-                    db.session.commit()
                     print("✅ user_sessions table migration completed")
                 else:
                     print("ℹ️ user_sessions table doesn't exist yet, will be created by db.create_all()")
                     
             except Exception as e:
                 print(f"⚠️ user_sessions migration skipped: {e}")
+                db.session.rollback()  # Ensure clean transaction state
             
             # No sessions table needed - using simple Flask sessions
             
             print("✅ Database tables created")
             
             # Create demo organisation if none exists
-            if not Organisation.query.first():
-                print("🏢 Creating demo organisation...")
-                create_demo_organisation()
-            else:
-                print("✅ Demo organisation already exists")
+            try:
+                if not Organisation.query.first():
+                    print("🏢 Creating demo organisation...")
+                    create_demo_organisation()
+                else:
+                    print("✅ Demo organisation already exists")
+            except Exception as e:
+                print(f"❌ Error checking/creating demo organisation: {e}")
+                db.session.rollback()
             
             print("✅ Database initialized successfully")
             

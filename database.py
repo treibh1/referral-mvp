@@ -54,13 +54,28 @@ def init_database(app):
             'max_overflow': 0,
         }
         
-        # Initialize database
-        db.init_app(app)
+        # Database is already initialized in app.py, no need to init again
         
         with app.app_context():
             print("🔄 Creating database tables...")
             # Create tables
             db.create_all()
+            
+            # Create sessions table for Flask-Session if it doesn't exist
+            try:
+                from sqlalchemy import text
+                db.session.execute(text("""
+                    CREATE TABLE IF NOT EXISTS sessions (
+                        id VARCHAR(255) PRIMARY KEY,
+                        data BYTEA,
+                        expiry TIMESTAMP
+                    )
+                """))
+                db.session.commit()
+                print("✅ Sessions table created/verified")
+            except Exception as e:
+                print(f"⚠️ Sessions table creation failed (may already exist): {e}")
+            
             print("✅ Database tables created")
             
             # Create demo organisation if none exists

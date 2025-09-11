@@ -233,65 +233,38 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    """Production-ready user login with comprehensive security."""
+    """Simple login that actually works."""
     if request.method == 'POST':
         try:
-            # CSRF validation is automatic with Flask-WTF
             email = request.form.get('email', '').strip()
             name = request.form.get('name', '').strip()
             
+            print(f"Login attempt: email={email}, name={name}")
+            
             if not email or not name:
-                csrf_token = generate_csrf()
-                return render_template('login.html', 
-                                     error='Please provide both name and email.', 
-                                     csrf_token=csrf_token)
+                return render_template('login.html', error='Please provide both name and email.')
             
-            # Authenticate user with production security
-            result = AuthService.authenticate_user(
-                email=email,
-                password=None,  # MVP: no password
-                ip_address=request.remote_addr,
-                user_agent=request.headers.get('User-Agent')
-            )
+            # Simple user lookup
+            user = User.query.filter_by(email=email).first()
+            if not user:
+                print(f"User not found: {email}")
+                return render_template('login.html', error='User not found. Try admin@demo.com or employee@demo.com')
             
-            if len(result) == 3:  # Success case
-                user, user_session, error = result
-                if user and user_session:
-                    # Set session cookie
-                    response = make_response(redirect(url_for('dashboard')))
-                    response.set_cookie(
-                        'auth_session',
-                        user_session.session_token,
-                        max_age=8*3600,  # 8 hours
-                        httponly=True,
-                        secure=False,  # Set to True in production with HTTPS
-                        samesite='Lax'
-                    )
-                    
-                    # Also set Flask-Login session for compatibility
-                    login_user(user, remember=False)
-                    
-                    return response
-                else:
-                    csrf_token = generate_csrf()
-                    return render_template('login.html', 
-                                         error=error or 'Authentication failed', 
-                                         csrf_token=csrf_token)
-            else:  # Error case
-                user, error = result
-                csrf_token = generate_csrf()
-                return render_template('login.html', 
-                                     error=error or 'Authentication failed', 
-                                     csrf_token=csrf_token)
-        
+            # Simple session - just store user ID in Flask session
+            session['user_id'] = user.id
+            session['user_email'] = user.email
+            session['user_name'] = user.name
+            session['user_role'] = user.role
+            session['organisation_id'] = user.organisation_id
+            
+            print(f"Login successful: {user.email}")
+            return redirect(url_for('dashboard'))
+            
         except Exception as e:
-            csrf_token = generate_csrf()
-            return render_template('login.html', 
-                                 error='Login error. Please try again.', 
-                                 csrf_token=csrf_token)
-    
-    csrf_token = generate_csrf()
-    return render_template('login.html', csrf_token=csrf_token)
+            print(f"Login error: {e}")
+            return render_template('login.html', error='Login error. Please try again.')
+    else:
+        return render_template('login.html')
 
 @app.route('/logout')
 @require_auth
@@ -323,28 +296,27 @@ def logout():
         return redirect(url_for('login'))
 
 @app.route('/dashboard')
-@require_auth
 def dashboard():
-    """Production-ready user dashboard with organization isolation."""
-    user = current_user
-    organisation = user.organisation
+    """Simple dashboard that works."""
+    # Check if user is logged in
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
     
-    # Get team members
-    team_members = User.query.filter_by(organisation_id=user.organisation_id).all()
+    # Get user from database
+    user = User.query.get(session['user_id'])
+    if not user:
+        session.clear()
+        return redirect(url_for('login'))
     
-    # Get stats
-    contact_count = get_organisation_stats(user.organisation_id)['total_contacts']
+    # Get basic stats
+    contact_count = Contact.query.filter_by(organisation_id=user.organisation_id).count()
     job_count = JobDescription.query.filter_by(organisation_id=user.organisation_id).count()
     
-    csrf_token = generate_csrf()
     return render_template('dashboard.html', 
                          user=user, 
-                         organisation=organisation, 
-                         team_members=team_members, 
                          contact_count=contact_count, 
                          job_count=job_count, 
-                         user_role=user.role,
-                         csrf_token=csrf_token)
+                         user_role=user.role)
 
 @app.route('/api/match', methods=['POST'])
 @login_required

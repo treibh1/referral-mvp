@@ -7,7 +7,7 @@ Uses Flask-Login and Flask-Session for robust authentication.
 from flask import Flask, render_template, request, jsonify, redirect, url_for, abort
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-from flask_session import Session
+# Removed Flask-Session import
 from referral_api import ReferralAPI
 from enhanced_contact_tagger import EnhancedContactTagger
 from email_service import ReferralEmailService
@@ -53,13 +53,11 @@ app.config.update(
     # Don't set SESSION_COOKIE_DOMAIN - let it default to host-only
 )
 
-# Flask-Session configuration for server-side storage
-app.config["SESSION_TYPE"] = "sqlalchemy"
-app.config["SESSION_SQLALCHEMY"] = db
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_USE_SIGNER"] = True
-app.config["SESSION_KEY_PREFIX"] = "referral:"
-app.config["SESSION_SQLALCHEMY_TABLE"] = "sessions"
+# Simple session configuration - no Flask-Session
+app.config['SESSION_COOKIE_NAME'] = 'referral_session'
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SECURE'] = False  # Set to True in production with HTTPS
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
 # Security configurations
 app.config['WTF_CSRF_ENABLED'] = True
@@ -74,8 +72,7 @@ login_manager.login_view = "login"
 login_manager.login_message = "Please log in to access this page."
 login_manager.login_message_category = "info"
 
-# Initialize Flask-Session
-Session(app)
+# No Flask-Session - using simple Flask sessions
 
 @login_manager.user_loader
 def load_user(user_id):

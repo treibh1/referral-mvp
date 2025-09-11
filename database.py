@@ -61,26 +61,7 @@ def init_database(app):
             # Create tables
             db.create_all()
             
-            # Create sessions table for Flask-Session if it doesn't exist
-            try:
-                from sqlalchemy import text
-                db.session.execute(text("""
-                    CREATE TABLE IF NOT EXISTS sessions (
-                        id VARCHAR(255) PRIMARY KEY,
-                        data BYTEA,
-                        expiry TIMESTAMP DEFAULT NULL
-                    )
-                """))
-                
-                # Clean up any existing sessions with NULL expiry that might cause issues
-                db.session.execute(text("""
-                    DELETE FROM sessions WHERE expiry IS NULL
-                """))
-                
-                db.session.commit()
-                print("✅ Sessions table created/verified and cleaned")
-            except Exception as e:
-                print(f"⚠️ Sessions table creation failed (may already exist): {e}")
+            # No sessions table needed - using simple Flask sessions
             
             print("✅ Database tables created")
             

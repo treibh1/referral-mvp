@@ -6,8 +6,10 @@ Implements GDPR-compliant contact management with no directory access.
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
-from datetime import datetime
+from datetime import datetime, timedelta
 import uuid
+import hashlib
+import secrets
 
 db = SQLAlchemy()
 
@@ -37,18 +39,64 @@ class User(UserMixin, db.Model):
     
     id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     organisation_id = db.Column(db.String(36), db.ForeignKey('organisations.id'), nullable=False)
-    email = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), nullable=False, unique=True)
     name = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(50), default='employee')  # admin, recruiter, employee
+    
+    # Authentication fields
+    password_hash = db.Column(db.String(255), nullable=True)  # For future password auth
+    is_active = db.Column(db.Boolean, default=True)
+    is_verified = db.Column(db.Boolean, default=False)
+    last_login = db.Column(db.DateTime, nullable=True)
+    login_attempts = db.Column(db.Integer, default=0)
+    locked_until = db.Column(db.DateTime, nullable=True)
+    
+    # Security fields
+    two_factor_enabled = db.Column(db.Boolean, default=False)
+    two_factor_secret = db.Column(db.String(255), nullable=True)
+    
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     # Relationships
     employee_contacts = db.relationship('EmployeeContact', backref='employee', lazy=True)
     referrals_sent = db.relationship('Referral', backref='referrer', lazy=True)
+    sessions = db.relationship('UserSession', backref='user', lazy=True)
+    audit_logs = db.relationship('AuditLog', backref='user', lazy=True)
     
     def __repr__(self):
         return f'<User {self.name} ({self.email})>'
+    
+    def is_locked(self):
+        """Check if user account is locked."""
+        if self.locked_until and self.locked_until > datetime.utcnow():
+            return True
+        return False
+    
+    def lock_account(self, duration_minutes=30):
+        """Lock user account for specified duration."""
+        self.locked_until = datetime.utcnow() + timedelta(minutes=duration_minutes)
+        self.login_attempts = 0
+        db.session.commit()
+    
+    def unlock_account(self):
+        """Unlock user account."""
+        self.locked_until = None
+        self.login_attempts = 0
+        db.session.commit()
+    
+    def increment_login_attempts(self):
+        """Increment failed login attempts."""
+        self.login_attempts += 1
+        if self.login_attempts >= 5:  # Lock after 5 failed attempts
+            self.lock_account()
+        db.session.commit()
+    
+    def reset_login_attempts(self):
+        """Reset failed login attempts on successful login."""
+        self.login_attempts = 0
+        self.last_login = datetime.utcnow()
+        db.session.commit()
 
 class Contact(db.Model):
     """Universal contact database - shared across organisations."""
@@ -139,6 +187,209 @@ class Referral(db.Model):
     
     def __repr__(self):
         return f'<Referral {self.job_id} -> {self.contact_id}>'
+
+class UserSession(db.Model):
+    """Production-ready user session management."""
+    __tablename__ = 'user_sessions'
+    
+    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = db.Column(db.String(36), db.ForeignKey('users.id'), nullable=False)
+    organisation_id = db.Column(db.String(36), db.ForeignKey('organisations.id'), nullable=False)
+    session_token = db.Column(db.String(255), unique=True, nullable=False, index=True)
+    
+    # Session metadata
+    ip_address = db.Column(db.String(45), nullable=True)  # IPv6 support
+    user_agent = db.Column(db.Text, nullable=True)
+    device_fingerprint = db.Column(db.String(255), nullable=True)
+    
+    # Session lifecycle
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    last_activity = db.Column(db.DateTime, default=datetime.utcnow)
+    expires_at = db.Column(db.DateTime, nullable=False)
+    is_active = db.Column(db.Boolean, default=True)
+    
+    # Security
+    is_secure = db.Column(db.Boolean, default=False)  # HTTPS session
+    csrf_token = db.Column(db.String(255), nullable=True)
+    
+    def __repr__(self):
+        return f'<UserSession {self.user_id} ({self.session_token[:8]}...)>'
+    
+    def is_expired(self):
+        """Check if session is expired."""
+        return datetime.utcnow() > self.expires_at
+    
+    def extend_session(self, hours=8):
+        """Extend session expiration."""
+        self.expires_at = datetime.utcnow() + timedelta(hours=hours)
+        self.last_activity = datetime.utcnow()
+        db.session.commit()
+    
+    def deactivate(self):
+        """Deactivate session."""
+        self.is_active = False
+        db.session.commit()
+    
+    @staticmethod
+    def create_session(user_id, organisation_id, ip_address=None, user_agent=None):
+        """Create a new user session."""
+        session_token = secrets.token_urlsafe(32)
+        csrf_token = secrets.token_urlsafe(32)
+        
+        session = UserSession(
+            user_id=user_id,
+            organisation_id=organisation_id,
+            session_token=session_token,
+            ip_address=ip_address,
+            user_agent=user_agent,
+            expires_at=datetime.utcnow() + timedelta(hours=8),
+            csrf_token=csrf_token
+        )
+        
+        db.session.add(session)
+        db.session.commit()
+        return session
+    
+    @staticmethod
+    def get_active_session(session_token):
+        """Get active session by token."""
+        session = UserSession.query.filter_by(
+            session_token=session_token,
+            is_active=True
+        ).first()
+        
+        if session and not session.is_expired():
+            return session
+        return None
+    
+    @staticmethod
+    def cleanup_expired_sessions():
+        """Clean up expired sessions."""
+        expired_sessions = UserSession.query.filter(
+            UserSession.expires_at < datetime.utcnow()
+        ).all()
+        
+        for session in expired_sessions:
+            session.deactivate()
+        
+        return len(expired_sessions)
+
+class AuditLog(db.Model):
+    """Comprehensive audit logging for security and compliance."""
+    __tablename__ = 'audit_logs'
+    
+    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = db.Column(db.String(36), db.ForeignKey('users.id'), nullable=True)
+    organisation_id = db.Column(db.String(36), db.ForeignKey('organisations.id'), nullable=True)
+    session_id = db.Column(db.String(36), db.ForeignKey('user_sessions.id'), nullable=True)
+    
+    # Event details
+    event_type = db.Column(db.String(100), nullable=False)  # login, logout, data_access, etc.
+    event_category = db.Column(db.String(50), nullable=False)  # auth, data, admin, security
+    event_description = db.Column(db.Text, nullable=False)
+    
+    # Request details
+    ip_address = db.Column(db.String(45), nullable=True)
+    user_agent = db.Column(db.Text, nullable=True)
+    endpoint = db.Column(db.String(255), nullable=True)
+    method = db.Column(db.String(10), nullable=True)
+    
+    # Result
+    success = db.Column(db.Boolean, nullable=False)
+    error_message = db.Column(db.Text, nullable=True)
+    
+    # Additional data
+    metadata = db.Column(db.Text, nullable=True)  # JSON string for additional context
+    
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    
+    def __repr__(self):
+        return f'<AuditLog {self.event_type} - {self.user_id}>'
+    
+    @staticmethod
+    def log_event(user_id, organisation_id, session_id, event_type, event_category, 
+                  description, success=True, ip_address=None, user_agent=None, 
+                  endpoint=None, method=None, error_message=None, metadata=None):
+        """Log an audit event."""
+        log = AuditLog(
+            user_id=user_id,
+            organisation_id=organisation_id,
+            session_id=session_id,
+            event_type=event_type,
+            event_category=event_category,
+            event_description=description,
+            success=success,
+            ip_address=ip_address,
+            user_agent=user_agent,
+            endpoint=endpoint,
+            method=method,
+            error_message=error_message,
+            metadata=metadata
+        )
+        
+        db.session.add(log)
+        db.session.commit()
+        return log
+
+class RateLimit(db.Model):
+    """Rate limiting for security."""
+    __tablename__ = 'rate_limits'
+    
+    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    identifier = db.Column(db.String(255), nullable=False, index=True)  # IP, user_id, etc.
+    action = db.Column(db.String(100), nullable=False)  # login, api_call, etc.
+    attempts = db.Column(db.Integer, default=1)
+    window_start = db.Column(db.DateTime, default=datetime.utcnow)
+    blocked_until = db.Column(db.DateTime, nullable=True)
+    
+    def __repr__(self):
+        return f'<RateLimit {self.identifier} - {self.action}>'
+    
+    @staticmethod
+    def check_rate_limit(identifier, action, max_attempts=5, window_minutes=15):
+        """Check if rate limit is exceeded."""
+        window_start = datetime.utcnow() - timedelta(minutes=window_minutes)
+        
+        # Clean up old entries
+        RateLimit.query.filter(RateLimit.window_start < window_start).delete()
+        
+        # Check current rate limit
+        rate_limit = RateLimit.query.filter_by(
+            identifier=identifier,
+            action=action
+        ).first()
+        
+        if rate_limit:
+            if rate_limit.blocked_until and rate_limit.blocked_until > datetime.utcnow():
+                return False, f"Rate limit exceeded. Blocked until {rate_limit.blocked_until}"
+            
+            if rate_limit.attempts >= max_attempts:
+                # Block for 1 hour
+                rate_limit.blocked_until = datetime.utcnow() + timedelta(hours=1)
+                db.session.commit()
+                return False, "Rate limit exceeded. Blocked for 1 hour."
+            
+            rate_limit.attempts += 1
+            db.session.commit()
+        else:
+            rate_limit = RateLimit(
+                identifier=identifier,
+                action=action,
+                attempts=1
+            )
+            db.session.add(rate_limit)
+            db.session.commit()
+        
+        return True, None
+    
+    @staticmethod
+    def reset_rate_limit(identifier, action):
+        """Reset rate limit for identifier."""
+        RateLimit.query.filter_by(
+            identifier=identifier,
+            action=action
+        ).delete()
+        db.session.commit()
 
 
 # Security helper functions

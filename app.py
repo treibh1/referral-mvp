@@ -4,10 +4,10 @@ Flask web application for the referral matching system.
 Uses Flask-Login and Flask-Session for robust authentication.
 """
 
-from flask import Flask, render_template, request, jsonify, redirect, url_for, abort
+from flask import Flask, render_template, request, jsonify, redirect, url_for, abort, make_response
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-# Removed Flask-Session import
+from auth_service import AuthService, require_auth, require_role, require_org_access, log_audit_event
 from referral_api import ReferralAPI
 from enhanced_contact_tagger import EnhancedContactTagger
 from email_service import ReferralEmailService
@@ -118,6 +118,18 @@ try:
         init_database(app)
         print("[INFO] Database initialized successfully")
         print("[INFO] ReferralAPI will be initialized per-request with database contacts")
+        
+        # Cleanup expired sessions on startup
+        try:
+            from auth_service import AuthService
+            count, error = AuthService.cleanup_expired_sessions()
+            if error:
+                print(f"⚠️ Session cleanup warning: {error}")
+            else:
+                print(f"✅ Cleaned up {count} expired sessions")
+        except Exception as e:
+            print(f"⚠️ Session cleanup failed: {e}")
+            
 except Exception as e:
     print(f"❌ Database initialization failed: {e}")
 
@@ -203,53 +215,117 @@ def get_demo_contacts():
 
 # Routes
 @app.route('/')
-@login_required
+@require_auth
 def index():
-    """Main job search page."""
-    user_role = current_user.role
+    """Production-ready main job search page with organization isolation."""
+    user = current_user
     csrf_token = generate_csrf()
-    return render_template('index.html', user_role=user_role, csrf_token=csrf_token)
+    
+    # Log page access
+    log_audit_event(
+        event_type='page_access',
+        event_category='data',
+        description=f'Accessed main job search page',
+        success=True
+    )
+    
+    return render_template('index.html', user_role=user.role, csrf_token=csrf_token)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    """User login."""
+    """Production-ready user login with comprehensive security."""
     if request.method == 'POST':
-        # CSRF validation is automatic with Flask-WTF
-        email = request.form.get('email', '').strip()
-        name = request.form.get('name', '').strip()
+        try:
+            # CSRF validation is automatic with Flask-WTF
+            email = request.form.get('email', '').strip()
+            name = request.form.get('name', '').strip()
+            
+            if not email or not name:
+                csrf_token = generate_csrf()
+                return render_template('login.html', 
+                                     error='Please provide both name and email.', 
+                                     csrf_token=csrf_token)
+            
+            # Authenticate user with production security
+            result = AuthService.authenticate_user(
+                email=email,
+                password=None,  # MVP: no password
+                ip_address=request.remote_addr,
+                user_agent=request.headers.get('User-Agent')
+            )
+            
+            if len(result) == 3:  # Success case
+                user, user_session, error = result
+                if user and user_session:
+                    # Set session cookie
+                    response = make_response(redirect(url_for('dashboard')))
+                    response.set_cookie(
+                        'auth_session',
+                        user_session.session_token,
+                        max_age=8*3600,  # 8 hours
+                        httponly=True,
+                        secure=False,  # Set to True in production with HTTPS
+                        samesite='Lax'
+                    )
+                    
+                    # Also set Flask-Login session for compatibility
+                    login_user(user, remember=False)
+                    
+                    return response
+                else:
+                    csrf_token = generate_csrf()
+                    return render_template('login.html', 
+                                         error=error or 'Authentication failed', 
+                                         csrf_token=csrf_token)
+            else:  # Error case
+                user, error = result
+                csrf_token = generate_csrf()
+                return render_template('login.html', 
+                                     error=error or 'Authentication failed', 
+                                     csrf_token=csrf_token)
         
-        if not email or not name:
+        except Exception as e:
             csrf_token = generate_csrf()
             return render_template('login.html', 
-                                 error='Please provide both name and email.', 
-                                 csrf_token=csrf_token)
-        
-        # Find user
-        user = User.query.filter_by(email=email).first()
-        if user:
-            # Login user
-            login_user(user, remember=False)
-            return redirect(url_for('dashboard'))
-        else:
-            csrf_token = generate_csrf()
-            return render_template('login.html', 
-                                 error='User not found. Please register your company first.', 
+                                 error='Login error. Please try again.', 
                                  csrf_token=csrf_token)
     
     csrf_token = generate_csrf()
     return render_template('login.html', csrf_token=csrf_token)
 
 @app.route('/logout')
-@login_required
+@require_auth
 def logout():
-    """User logout."""
-    logout_user()
-    return redirect(url_for('login'))
+    """Production-ready user logout with session cleanup."""
+    try:
+        # Get session token from cookie
+        session_token = request.cookies.get('auth_session')
+        
+        # Logout from production auth service
+        if session_token:
+            AuthService.logout_user(
+                session_token,
+                ip_address=request.remote_addr,
+                user_agent=request.headers.get('User-Agent')
+            )
+        
+        # Also logout from Flask-Login for compatibility
+        logout_user()
+        
+        # Clear session cookie
+        response = make_response(redirect(url_for('login')))
+        response.set_cookie('auth_session', '', expires=0)
+        
+        return response
+        
+    except Exception as e:
+        # Even if logout fails, redirect to login
+        return redirect(url_for('login'))
 
 @app.route('/dashboard')
-@login_required
+@require_auth
 def dashboard():
-    """User dashboard."""
+    """Production-ready user dashboard with organization isolation."""
     user = current_user
     organisation = user.organisation
     

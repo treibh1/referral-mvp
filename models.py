@@ -43,17 +43,7 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(50), default='employee')  # admin, recruiter, employee
     
-    # Authentication fields
-    password_hash = db.Column(db.String(255), nullable=True)  # For future password auth
-    is_active = db.Column(db.Boolean, default=True)
-    is_verified = db.Column(db.Boolean, default=False)
-    last_login = db.Column(db.DateTime, nullable=True)
-    login_attempts = db.Column(db.Integer, default=0)
-    locked_until = db.Column(db.DateTime, nullable=True)
-    
-    # Security fields
-    two_factor_enabled = db.Column(db.Boolean, default=False)
-    two_factor_secret = db.Column(db.String(255), nullable=True)
+    # Simple fields only
     
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

@@ -346,7 +346,7 @@ class RateLimit(db.Model):
         return f'<RateLimit {self.identifier} - {self.action}>'
     
     @staticmethod
-    def check_rate_limit(identifier, action, max_attempts=5, window_minutes=15):
+    def check_rate_limit(identifier, action, max_attempts=20, window_minutes=60):
         """Check if rate limit is exceeded."""
         window_start = datetime.utcnow() - timedelta(minutes=window_minutes)
         
@@ -364,10 +364,10 @@ class RateLimit(db.Model):
                 return False, f"Rate limit exceeded. Blocked until {rate_limit.blocked_until}"
             
             if rate_limit.attempts >= max_attempts:
-                # Block for 1 hour
-                rate_limit.blocked_until = datetime.utcnow() + timedelta(hours=1)
+                # Block for only 15 minutes instead of 1 hour
+                rate_limit.blocked_until = datetime.utcnow() + timedelta(minutes=15)
                 db.session.commit()
-                return False, "Rate limit exceeded. Blocked for 1 hour."
+                return False, "Rate limit exceeded. Blocked for 15 minutes."
             
             rate_limit.attempts += 1
             db.session.commit()

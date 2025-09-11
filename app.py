@@ -691,5 +691,16 @@ def register_company():
     csrf_token = generate_csrf()
     return render_template('register_company.html', csrf_token=csrf_token)
 
+@app.route('/api/reset-rate-limits', methods=['POST'])
+def reset_rate_limits():
+    """Reset all rate limits for testing purposes."""
+    try:
+        # Clear all rate limit entries
+        RateLimit.query.delete()
+        db.session.commit()
+        return jsonify({'success': True, 'message': 'All rate limits cleared'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8080)

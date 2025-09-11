@@ -4,10 +4,7 @@ Flask web application for the referral matching system.
 Uses Flask-Login and Flask-Session for robust authentication.
 """
 
-from flask import Flask, render_template, request, jsonify, redirect, url_for, abort, make_response
-from flask_wtf.csrf import CSRFProtect, generate_csrf
-from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-from auth_service import AuthService, require_auth, require_role, require_org_access, log_audit_event
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from referral_api import ReferralAPI
 from enhanced_contact_tagger import EnhancedContactTagger
 from email_service import ReferralEmailService
@@ -43,41 +40,14 @@ if not database_url:
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Single session system configuration
-app.config.update(
-    SESSION_COOKIE_NAME="referral_session",
-    SESSION_COOKIE_HTTPONLY=True,
-    SESSION_COOKIE_SECURE=True,  # HTTPS only in production
-    SESSION_COOKIE_SAMESITE="Lax",
-    PERMANENT_SESSION_LIFETIME=3600,  # 1 hour
-    # Don't set SESSION_COOKIE_DOMAIN - let it default to host-only
-)
-
-# Simple session configuration - no Flask-Session
+# Simple session configuration
 app.config['SESSION_COOKIE_NAME'] = 'referral_session'
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SESSION_COOKIE_SECURE'] = False  # Set to True in production with HTTPS
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
-# Security configurations
-app.config['WTF_CSRF_ENABLED'] = True
-app.config['WTF_CSRF_TIME_LIMIT'] = 3600  # 1 hour
-
-# Initialize extensions
+# Initialize database
 db.init_app(app)
-csrf = CSRFProtect(app)
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = "login"
-login_manager.login_message = "Please log in to access this page."
-login_manager.login_message_category = "info"
-
-# No Flask-Session - using simple Flask sessions
-
-@login_manager.user_loader
-def load_user(user_id):
-    """Load user for Flask-Login."""
-    return User.query.get(user_id)
 
 # Demo mode flag
 DEMO_MODE = os.environ.get('DEMO_MODE', 'false').lower() == 'true'
@@ -119,16 +89,7 @@ try:
         print("[INFO] Database initialized successfully")
         print("[INFO] ReferralAPI will be initialized per-request with database contacts")
         
-        # Cleanup expired sessions on startup
-        try:
-            from auth_service import AuthService
-            count, error = AuthService.cleanup_expired_sessions()
-            if error:
-                print(f"⚠️ Session cleanup warning: {error}")
-            else:
-                print(f"✅ Cleaned up {count} expired sessions")
-        except Exception as e:
-            print(f"⚠️ Session cleanup failed: {e}")
+        # Simple startup - no complex session cleanup needed
             
 except Exception as e:
     print(f"❌ Database initialization failed: {e}")
@@ -186,16 +147,12 @@ def internal_error(error):
                          error_message="Internal Server Error"), 500
 
 # Utility functions
-def require_admin(f):
-    """Decorator to require admin role."""
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if not current_user.is_authenticated or current_user.role != 'admin':
-            if request.path.startswith('/api/'):
-                return jsonify({'error': 'Admin access required'}), 403
-            abort(403)
-        return f(*args, **kwargs)
-    return decorated_function
+# Simple helper function to get current user from session
+def get_get_current_user()():
+    """Get current user from session."""
+    if 'user_id' not in session:
+        return None
+    return User.query.get(session['user_id'])
 
 def get_demo_contacts():
     """Get demo contacts for unauthenticated users."""
@@ -215,21 +172,19 @@ def get_demo_contacts():
 
 # Routes
 @app.route('/')
-@require_auth
 def index():
-    """Production-ready main job search page with organization isolation."""
-    user = current_user
-    csrf_token = generate_csrf()
+    """Simple main page."""
+    # Check if user is logged in
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
     
-    # Log page access
-    log_audit_event(
-        event_type='page_access',
-        event_category='data',
-        description=f'Accessed main job search page',
-        success=True
-    )
+    # Get user from database
+    user = User.query.get(session['user_id'])
+    if not user:
+        session.clear()
+        return redirect(url_for('login'))
     
-    return render_template('index.html', user_role=user.role, csrf_token=csrf_token)
+    return render_template('index.html', user_role=user.role)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -267,33 +222,10 @@ def login():
         return render_template('login.html')
 
 @app.route('/logout')
-@require_auth
 def logout():
-    """Production-ready user logout with session cleanup."""
-    try:
-        # Get session token from cookie
-        session_token = request.cookies.get('auth_session')
-        
-        # Logout from production auth service
-        if session_token:
-            AuthService.logout_user(
-                session_token,
-                ip_address=request.remote_addr,
-                user_agent=request.headers.get('User-Agent')
-            )
-        
-        # Also logout from Flask-Login for compatibility
-        logout_user()
-        
-        # Clear session cookie
-        response = make_response(redirect(url_for('login')))
-        response.set_cookie('auth_session', '', expires=0)
-        
-        return response
-        
-    except Exception as e:
-        # Even if logout fails, redirect to login
-        return redirect(url_for('login'))
+    """Simple logout that clears session."""
+    session.clear()
+    return redirect(url_for('login'))
 
 @app.route('/dashboard')
 def dashboard():
@@ -319,7 +251,6 @@ def dashboard():
                          user_role=user.role)
 
 @app.route('/api/match', methods=['POST'])
-@login_required
 def match_job():
     """Match job description to contacts."""
     try:
@@ -330,14 +261,14 @@ def match_job():
             return jsonify({'error': 'Job description is required'}), 400
         
         # Get contacts based on user role
-        if current_user.role in ['admin', 'recruiter']:
+        if get_current_user().role in ['admin', 'recruiter']:
             # Admins and recruiters see all org contacts
-            contacts = get_organisation_contacts_for_job(current_user.organisation_id, job_description)
-            print(f"🔍 ORG MODE: Found {len(contacts)} contacts for org {current_user.organisation_id}")
+            contacts = get_organisation_contacts_for_job(get_current_user().organisation_id, job_description)
+            print(f"🔍 ORG MODE: Found {len(contacts)} contacts for org {get_current_user().organisation_id}")
         else:
             # Employees see only their own contacts
-            contacts = get_employee_contacts_for_job(current_user.id, job_description)
-            print(f"🔍 EMPLOYEE MODE: Found {len(contacts)} contacts for user {current_user.id}")
+            contacts = get_employee_contacts_for_job(get_current_user().id, job_description)
+            print(f"🔍 EMPLOYEE MODE: Found {len(contacts)} contacts for user {get_current_user().id}")
         
         if not contacts:
             return jsonify({
@@ -361,7 +292,6 @@ def match_job():
         return jsonify({'error': 'Internal server error'}), 500
 
 @app.route('/api/fetch-job', methods=['POST'])
-@login_required
 def fetch_job_description():
     """Fetch job description from URL."""
     try:
@@ -420,7 +350,6 @@ def fetch_job_description():
         return jsonify({'error': 'Failed to fetch job description'}), 500
 
 @app.route('/api/import-contacts', methods=['POST'])
-@login_required
 def import_contacts():
     """Import contacts from CSV."""
     try:
@@ -468,13 +397,13 @@ def import_contacts():
             
             # Check if employee-contact relationship exists
             existing_relationship = EmployeeContact.query.filter_by(
-                employee_id=current_user.id,
+                employee_id=get_current_user().id,
                 contact_id=contact.id
             ).first()
             
             if not existing_relationship:
                 employee_contact = EmployeeContact(
-                    employee_id=current_user.id,
+                    employee_id=get_current_user().id,
                     contact_id=contact.id,
                     source='csv_upload'
                 )
@@ -494,16 +423,15 @@ def import_contacts():
         return jsonify({'error': 'Failed to import contacts'}), 500
 
 @app.route('/api/contacts-info')
-@login_required
 def contacts_info():
     """Get contact statistics."""
     try:
-        if current_user.role in ['admin', 'recruiter']:
+        if get_current_user().role in ['admin', 'recruiter']:
             # Org-wide stats
-            stats = get_organisation_stats(current_user.organisation_id)
+            stats = get_organisation_stats(get_current_user().organisation_id)
         else:
             # Employee's own contacts
-            contact_count = EmployeeContact.query.filter_by(employee_id=current_user.id).count()
+            contact_count = EmployeeContact.query.filter_by(employee_id=get_current_user().id).count()
             stats = {'total_contacts': contact_count}
         
         return jsonify(stats)
@@ -535,7 +463,7 @@ def invite_employee():
         
         # Create new user
         new_user = User(
-            organisation_id=current_user.organisation_id,
+            organisation_id=get_current_user().organisation_id,
             email=email,
             name=name,
             role=role
@@ -548,8 +476,8 @@ def invite_employee():
             email_service.send_team_invitation_email(
                 to_email=email,
                 to_name=name,
-                company_name=current_user.organisation.name,
-                inviter_name=current_user.name,
+                company_name=get_current_user().organisation.name,
+                inviter_name=get_current_user().name,
                 role=role
             )
         except Exception as e:
@@ -623,45 +551,32 @@ def create_demo_users():
 
 # Additional routes for other pages
 @app.route('/gamification')
-@login_required
 def gamification():
-    csrf_token = generate_csrf()
-    return render_template('gamification.html', csrf_token=csrf_token)
+    return render_template('gamification.html')
 
 @app.route('/upload')
-@login_required
 def upload():
-    csrf_token = generate_csrf()
-    return render_template('upload.html', csrf_token=csrf_token)
+    return render_template('upload.html')
 
 @app.route('/import')
-@login_required
 def import_page():
-    csrf_token = generate_csrf()
-    return render_template('import.html', csrf_token=csrf_token)
+    return render_template('import.html')
 
 @app.route('/enrichment')
-@login_required
 def enrichment():
-    csrf_token = generate_csrf()
-    return render_template('enrichment.html', csrf_token=csrf_token)
+    return render_template('enrichment.html')
 
 @app.route('/job-descriptions')
-@login_required
 def job_descriptions():
-    csrf_token = generate_csrf()
-    return render_template('job_descriptions.html', csrf_token=csrf_token)
+    return render_template('job_descriptions.html')
 
 @app.route('/referrals')
-@login_required
 def referrals():
-    csrf_token = generate_csrf()
-    return render_template('referrals.html', csrf_token=csrf_token)
+    return render_template('referrals.html')
 
 @app.route('/register-company')
 def register_company():
-    csrf_token = generate_csrf()
-    return render_template('register_company.html', csrf_token=csrf_token)
+    return render_template('register_company.html')
 
 # Rate limiting removed for testing
 

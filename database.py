@@ -91,15 +91,45 @@ def init_database(app):
                 if existing_columns:  # Table exists
                     print(f"🔄 Found user_sessions table with columns: {existing_columns}")
                     
-                    # Add missing columns if they don't exist
+                    # Define all required columns for the new UserSession model
+                    required_columns = {
+                        'organisation_id': 'VARCHAR(36)',
+                        'user_role': 'VARCHAR(50)',
+                        'session_token': 'VARCHAR(255)',
+                        'ip_address': 'VARCHAR(45)',
+                        'user_agent': 'TEXT',
+                        'device_fingerprint': 'VARCHAR(255)',
+                        'last_activity': 'TIMESTAMP',
+                        'is_active': 'BOOLEAN DEFAULT TRUE',
+                        'is_secure': 'BOOLEAN DEFAULT FALSE',
+                        'csrf_token': 'VARCHAR(255)'
+                    }
+                    
+                    # Add missing columns
+                    for column_name, column_type in required_columns.items():
+                        if column_name not in existing_columns:
+                            print(f"🔄 Adding {column_name} column to user_sessions...")
+                            db.session.execute(db.text(f"ALTER TABLE user_sessions ADD COLUMN {column_name} {column_type}"))
+                    
+                    # Add foreign key constraint for organisation_id if it was just added
                     if 'organisation_id' not in existing_columns:
-                        print("🔄 Adding organisation_id column to user_sessions...")
-                        db.session.execute(db.text("ALTER TABLE user_sessions ADD COLUMN organisation_id VARCHAR(36)"))
+                        print("🔄 Adding foreign key constraint for organisation_id...")
                         db.session.execute(db.text("ALTER TABLE user_sessions ADD CONSTRAINT fk_user_sessions_organisation FOREIGN KEY (organisation_id) REFERENCES organisations(id)"))
                     
-                    if 'user_role' not in existing_columns:
-                        print("🔄 Adding user_role column to user_sessions...")
-                        db.session.execute(db.text("ALTER TABLE user_sessions ADD COLUMN user_role VARCHAR(50)"))
+                    # Rename session_id to session_token if it exists
+                    if 'session_id' in existing_columns and 'session_token' not in existing_columns:
+                        print("🔄 Renaming session_id to session_token...")
+                        db.session.execute(db.text("ALTER TABLE user_sessions RENAME COLUMN session_id TO session_token"))
+                    
+                    # Rename last_accessed to last_activity if it exists
+                    if 'last_accessed' in existing_columns and 'last_activity' not in existing_columns:
+                        print("🔄 Renaming last_accessed to last_activity...")
+                        db.session.execute(db.text("ALTER TABLE user_sessions RENAME COLUMN last_accessed TO last_activity"))
+                    
+                    # Drop old session_data column if it exists (not needed in new model)
+                    if 'session_data' in existing_columns:
+                        print("🔄 Dropping old session_data column...")
+                        db.session.execute(db.text("ALTER TABLE user_sessions DROP COLUMN session_data"))
                     
                     db.session.commit()
                     print("✅ user_sessions table migration completed")

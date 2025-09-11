@@ -68,11 +68,17 @@ def init_database(app):
                     CREATE TABLE IF NOT EXISTS sessions (
                         id VARCHAR(255) PRIMARY KEY,
                         data BYTEA,
-                        expiry TIMESTAMP
+                        expiry TIMESTAMP DEFAULT NULL
                     )
                 """))
+                
+                # Clean up any existing sessions with NULL expiry that might cause issues
+                db.session.execute(text("""
+                    DELETE FROM sessions WHERE expiry IS NULL
+                """))
+                
                 db.session.commit()
-                print("✅ Sessions table created/verified")
+                print("✅ Sessions table created/verified and cleaned")
             except Exception as e:
                 print(f"⚠️ Sessions table creation failed (may already exist): {e}")
             

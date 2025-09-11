@@ -64,19 +64,50 @@ def init_database(app):
             # Handle column migrations
             try:
                 # Check if audit_logs table exists and has the old 'metadata' column
-                result = db.session.execute("""
+                result = db.session.execute(db.text("""
                     SELECT column_name 
                     FROM information_schema.columns 
                     WHERE table_name = 'audit_logs' 
                     AND column_name = 'metadata'
-                """)
+                """))
                 if result.fetchone():
                     print("🔄 Migrating audit_logs.metadata to event_metadata...")
-                    db.session.execute("ALTER TABLE audit_logs RENAME COLUMN metadata TO event_metadata")
+                    db.session.execute(db.text("ALTER TABLE audit_logs RENAME COLUMN metadata TO event_metadata"))
                     db.session.commit()
                     print("✅ Column migration completed")
             except Exception as e:
                 print(f"⚠️ Column migration skipped (table may not exist yet): {e}")
+            
+            # Handle user_sessions table migrations
+            try:
+                # Check if user_sessions table exists and add missing columns
+                result = db.session.execute(db.text("""
+                    SELECT column_name 
+                    FROM information_schema.columns 
+                    WHERE table_name = 'user_sessions'
+                """))
+                existing_columns = [row[0] for row in result.fetchall()]
+                
+                if existing_columns:  # Table exists
+                    print(f"🔄 Found user_sessions table with columns: {existing_columns}")
+                    
+                    # Add missing columns if they don't exist
+                    if 'organisation_id' not in existing_columns:
+                        print("🔄 Adding organisation_id column to user_sessions...")
+                        db.session.execute(db.text("ALTER TABLE user_sessions ADD COLUMN organisation_id VARCHAR(36)"))
+                        db.session.execute(db.text("ALTER TABLE user_sessions ADD CONSTRAINT fk_user_sessions_organisation FOREIGN KEY (organisation_id) REFERENCES organisations(id)"))
+                    
+                    if 'user_role' not in existing_columns:
+                        print("🔄 Adding user_role column to user_sessions...")
+                        db.session.execute(db.text("ALTER TABLE user_sessions ADD COLUMN user_role VARCHAR(50)"))
+                    
+                    db.session.commit()
+                    print("✅ user_sessions table migration completed")
+                else:
+                    print("ℹ️ user_sessions table doesn't exist yet, will be created by db.create_all()")
+                    
+            except Exception as e:
+                print(f"⚠️ user_sessions migration skipped: {e}")
             
             # No sessions table needed - using simple Flask sessions
             

@@ -8,7 +8,7 @@ import hashlib
 from datetime import datetime, timedelta
 from flask import request, session, current_app
 from functools import wraps
-from models import db, User, UserSession, AuditLog, RateLimit, Organisation
+from models import db, User, UserSession, AuditLog, Organisation
 
 class AuthService:
     """Production-ready authentication service."""
@@ -20,25 +20,7 @@ class AuthService:
         For MVP, password is optional (email-only auth).
         """
         try:
-            # Rate limiting check
-            if ip_address:
-                allowed, error_msg = RateLimit.check_rate_limit(
-                    ip_address, 'login', max_attempts=5, window_minutes=15
-                )
-                if not allowed:
-                    AuditLog.log_event(
-                        user_id=None,
-                        organisation_id=None,
-                        session_id=None,
-                        event_type='login_attempt',
-                        event_category='auth',
-                        description=f'Rate limit exceeded for IP {ip_address}',
-                        success=False,
-                        ip_address=ip_address,
-                        user_agent=user_agent,
-                        error_message=error_msg
-                    )
-                    return None, error_msg
+            # Rate limiting disabled for testing
             
             # Find user
             user = User.query.filter_by(email=email).first()

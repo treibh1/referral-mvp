@@ -299,7 +299,7 @@ class AuditLog(db.Model):
     error_message = db.Column(db.Text, nullable=True)
     
     # Additional data
-    metadata = db.Column(db.Text, nullable=True)  # JSON string for additional context
+    event_metadata = db.Column(db.Text, nullable=True)  # JSON string for additional context
     
     created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
     
@@ -309,7 +309,7 @@ class AuditLog(db.Model):
     @staticmethod
     def log_event(user_id, organisation_id, session_id, event_type, event_category, 
                   description, success=True, ip_address=None, user_agent=None, 
-                  endpoint=None, method=None, error_message=None, metadata=None):
+                  endpoint=None, method=None, error_message=None, event_metadata=None):
         """Log an audit event."""
         log = AuditLog(
             user_id=user_id,
@@ -324,7 +324,7 @@ class AuditLog(db.Model):
             endpoint=endpoint,
             method=method,
             error_message=error_message,
-            metadata=metadata
+            event_metadata=event_metadata
         )
         
         db.session.add(log)

@@ -334,7 +334,7 @@ def get_current_session():
     """Get current user session."""
     return getattr(request, 'current_session', None)
 
-def log_audit_event(event_type, event_category, description, success=True, metadata=None):
+def log_audit_event(event_type, event_category, description, success=True, event_metadata=None):
     """Log an audit event for the current user."""
     user = get_current_user()
     user_session = get_current_session()
@@ -349,5 +349,5 @@ def log_audit_event(event_type, event_category, description, success=True, metad
         success=success,
         ip_address=request.remote_addr,
         user_agent=request.headers.get('User-Agent'),
-        metadata=metadata
+        event_metadata=event_metadata
     )

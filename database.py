@@ -61,6 +61,23 @@ def init_database(app):
             # Create tables
             db.create_all()
             
+            # Handle column migrations
+            try:
+                # Check if audit_logs table exists and has the old 'metadata' column
+                result = db.session.execute("""
+                    SELECT column_name 
+                    FROM information_schema.columns 
+                    WHERE table_name = 'audit_logs' 
+                    AND column_name = 'metadata'
+                """)
+                if result.fetchone():
+                    print("🔄 Migrating audit_logs.metadata to event_metadata...")
+                    db.session.execute("ALTER TABLE audit_logs RENAME COLUMN metadata TO event_metadata")
+                    db.session.commit()
+                    print("✅ Column migration completed")
+            except Exception as e:
+                print(f"⚠️ Column migration skipped (table may not exist yet): {e}")
+            
             # No sessions table needed - using simple Flask sessions
             
             print("✅ Database tables created")
